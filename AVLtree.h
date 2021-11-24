@@ -24,8 +24,8 @@ class AVLTree{
         AVLTree(const &AVLTree); //Should we use user's copy functions?
         ~AVLTree(); //Should we use user's free functions?
 
-        AVL_RESULT& AVLExists(key)
-        AVL_RESULT& AVLAdd(const &KeyElem, const &Data);
+        AVL_RESULT& AVLFind(key)
+        AVL_RESULT& AVLInsert(const &KeyElem, const &Data);
         AVL_RESULT& AVLRemove(const &KeyElem);
         Data* AVLGet(const &KeyElem);
 
@@ -37,36 +37,3 @@ class AVLTree{
 
 }
 
-template <class Data, class KeyElem>
-class TNode{
-    AVLTree* owner_tree;
-    KeyElem key;
-    Data data;
-    TNode* right, left;
-    friend AVLTree;
-   /*  enum {
-         FIRST_BIGGER = -1,
-         EQUAL = 0,
-         SECOND_BIGGER = 1   
-        } CompareNodeData; */
-
-    public:
-        TNode(const &KeyElem, const &Data);
-        TNode(const &TNode);
-        ~TNode();
-
-
-        bool operator>(const &TNode other_node){
-            
-            if (other_node == nullptr || *this == other_node){
-                return false;
-            }
-            
-            return (this->key > other_node.key);
-        };
-
-        //dataCompare()
-
-        
-
-}
