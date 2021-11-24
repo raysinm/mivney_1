@@ -1,10 +1,11 @@
 
 #include "./course_files/library1.h"
 
+
 template <class Data, class KeyElem>
 class AVLTree{
     
-    std::smart_ptr<TNode> root; //Not sure about syntax, but every node has to be smart ptr(for easy destroying)
+    std::shared_ptr<TNode> root; //Not sure about syntax, but every node has to be smart ptr(for easy destroying)
 
     TNode* AVLSearchFather(TNode* node, bool* exists);  //Searches for the node given. if it exists- returns ptr to the node and true in "exists". 
                                                     //if it doesnt exist- returns it's father and false in "exists". 
