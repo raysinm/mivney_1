@@ -34,25 +34,103 @@ AVLTree::AVL_RESULT& AVLInsert(const &KeyElem key, const &Data data){
 
 }
 
+StatusType AVLInsert(const &KeyElem key, const &Data data){
+    
+    if(!key || this->AVLExist(key)){  //checks if key is already in this tree
+        return INVALID_INPUT;
+    }
+
+    TNode* insert_after_node;
+    auto not_used_node = AVLFind_rec(this->root, key, insert_after_node);
+    assert(insert_after_node != nullptr); //sanity check
+
+    insert_node = std::make_shared<TNode<KeyElem,Data>>(key, data);
+    if(key < insert_after_node->key){
+        insert_after_node->left_son = insert_node;
+    } 
+    else{
+        insert_after_node->right_son = insert_node;
+    }
+    
+    insert_node->father = insert_after_node;
+/*     insert_node->father->height = 1;    //will update even if it is already 1 (ok)
+    
+    this->AVLRefreshHeight(insert_node); */
+
+    this->AVLBalance(insert_node);    //SUPER important
+
+}
+
+void AVLBalance(TNode* start){
+    
+    auto current_node = start
+    while(current_node){
+        int prev_height = current_node->height;
+        this->AVLNodeRefreshHeight(current_node);
+        this->AVLNodeRefreshBF(current_node);
+        
+        if(current_node->height == prev_height){
+            break;
+        }
+        if(current_node->BF == 2 && current_node->left_son->BF >= 0){
+            this->AVLRotate_LL(current_node);
+        }
+        else if(current_node->BF == 2 && current_node->left_son->BF == -1){
+            this->AVLRotate_LR(current_node);
+        }
+        else if(current_node->BF == -2 && current_node->right_son->BF == -1){
+            this->AVLRotate_RR(current_node);
+        }
+        else if(current_node->BF == -2 && current_node->right_son->BF >=0){
+            this->AVLRotate_RL(current_node);
+        }
+
+        current_node = current_node -> father;
+    }
+
+}
+
+/* void AVLBalance_rec(TNode* start)
+ */
+void AVLNodeRefreshHeight(TNode* node){
+    
+    if(!node->right_son && !node->left_son){
+        node->height = 0;
+    }
+    else if(!node->right_son){
+        node->height = node->left_son->height + 1;
+    }
+    else if(!node->left_son{
+        node->height = node->right_son->height +1;
+    }
+    else{
+        node->height = max(node->left_son->height, node->right_son->height) + 1;
+    }
+}
+
+void AVLNodeRefreshBF(TNode* node){
+    if(!node->right_son && !node->left_son){
+        node->BF = 0;
+    }
+    else if(!node->right_son){
+        node->BF = node->left_son->height;
+    }
+    else if(!node->left_son{
+        node->height = 0 - node->right_son->height;
+    }
+    else{
+        node->BF = node->left_son->height - node->right_son->height;
+    }
+}
+
+
 template<class KeyElem, class Data>
 void AVLScanInOrder(AVLTree& tree){
 
     AVLScanInOrder_rec(tree.root);
 }
 
-//IGNORE
-//SUPER Generic inorder scan (can add other stuff to it)
-void AVLScanInOrder_rec(TNode* node){
-    if (node.height() == 0){
-        //do something with leaf
-        return;
-    }      //height(v) = max[h(Lv),h(Rv)] +1
-    
-    AVLScanInOrder_rec(node.left);
-    AVLScanInOrder_rec(node.right);
 
-    // do something();
-}
 
 bool brotherExists(TNode* current_node){    //add ptr for error messages
     if(!current_node){
@@ -70,33 +148,43 @@ bool brotherExists(TNode* current_node){    //add ptr for error messages
     
 }
 
+//******************_FIND, EXIST_********************//
 
-// tree.AVlFind() = true/false
+bool AVLExist(const &KeyElem key_to_find){
+    return (AVLFind(key_to_find != nullptr))
+}
 
-bool AVLFind(const &KeyElem key_to_find){
+TNode* AVLFind(const &KeyElem key_to_find){
     return AVLFind_rec(this->root, key_to_find);
 }
-bool AVLFind_rec(const TNode* current_node, const &KeyElem key_to_find){
+TNode* AVLFind_rec(const TNode* current_node, const &KeyElem key_to_find, TNode* father_to_ret){
 
         if(!current_node){
-            return false;
+            return nullptr;
         }
 
         if(current_node->key == key_to_find){
-            return true;
+            return &current_node;
         }
 
         if(key_to_find < current_node->key){
+            if(current_node.left_son  == nullptr){  //Knowledge for AVLInsert
+                father_to_ret = current_node;       
+            }
             return (AVLFind_rec(current_node.left_son, key_to_find));
         }
         else{
+            if(current_node.right_son  == nullptr){  //Knowledge for AVLInsert
+                father_to_ret = current_node;       
+            }
             return(AVLFind_rec(current_node.right_son, key_to_find));
         }
-
 }
 
-bool 
-void AVLRotate_LL_execute(TNode* node_uneven){      //give names to ptrs for clarity
+
+//******************_ROTATIONS_********************//
+
+void AVLRotate_LL(TNode* node_uneven){      //give names to ptrs for clarity
 
     auto temp_left_right_son = node_uneven->left_son->right_son;
 
@@ -113,4 +201,36 @@ void AVLRotate_LL_execute(TNode* node_uneven){      //give names to ptrs for cla
     node_uneven->left_son->right_son = node_eneven;
     node_eneven->left_son = temp_left_right_son;
 
+}
+
+void AVLRotate_RR(TNode* node_uneven){
+
+    auto temp_right_left_son = node_eneven->right_son->left_son;
+    auto right_son = node_eneven->right_son;
+    auto right_left_son = node_uneven->right_son->left_son;
+    
+    right_son->father = node_eneven->father;
+    
+    right_son->left_son = node_eneven;
+    node_eneven->right_son = temp_right_left_son;
+
+    if(right_son->key > right_son->father->key){
+        right_son->father->right_son = right_son;
+    }
+    else{
+        right_son->father->left_son = right_son;
+    }
+
+    node_eneven->father = right_son;
+
+}
+
+void AVLRotate_LR(TNode* node_uneven){
+    AVLRotate_RR(node_eneven->left_son);
+    AVLRotate_LL(node_uneven);
+}
+
+void AVLRotate_RL(TNode* node_uneven){
+    AVLRotate_LL(node_uneven->right_son);
+    AVLRotate_RR(node_uneven);
 }

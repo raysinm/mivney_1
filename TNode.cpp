@@ -9,13 +9,14 @@ TNode::TNode(const &KeyElem key, const &Data data):
 
 template<class KeyElem, class Data>
 TNode::void refreshBF(){
-    int bf_l = 0, bf_r= 0;
+    int h_l = 0, h_r= 0;
     if(this->left_son){
-        bf_l = this->left_son.BF;
+        h_l = this->left_son.h;
     }
     if(this->right_son){
-        bf_r = this->right_son.BF;
+        h_r = this->right_son.h;
     }
 
-    this->BF = bf_l - bf_r;
+    this->BF = h_l - h_r;
 }
+
