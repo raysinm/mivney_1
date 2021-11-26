@@ -57,8 +57,9 @@ StatusType AVLInsert(const &KeyElem key, const &Data data){
     
     this->AVLRefreshHeight(insert_node); */
 
-    this->AVLBalance(insert_node);    //SUPER important
+    this->AVLBalance(insert_node->father);    //SUPER important
 
+    return SUCCESS;
 }
 
 void AVLBalance(TNode* start){
