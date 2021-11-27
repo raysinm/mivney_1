@@ -282,61 +282,58 @@ namespace AVL{
 
     //******************_AVLRemove_********************//
 
+    //did not delete node, smart ptr delete itself
+    //func returnes
+    //shared ptr recieved in funcs
     template <class KeyElem, class Data>
     StatusType& AVLRemove(const KeyElem&){
-    auto nodeToRemove = AVLFind(KeyElem);
-    if((nodeToRemove->right_son == nullptr) && (nodeToRemove->left_son == nullptr))
-    {
-        if(nodeToRemove->father->right_son->key == nodeToRemove->key)
-        {
-            nodeToRemove->father->right_son = nullptr; //do we need to?
-            //delete the node
-        }
-        else{
-            nodeToRemove->father->left_son = nullptr; //do we need to?
-            //delete the node
-        }
+        auto nodeToRemove = AVLFind(KeyElem);
+        AVLRemoveRec(nodeToRemove);
     }
-    else if((nodeToRemove->right_son == nullptr) || (nodeToRemove->left_son == nullptr)){
-        if(nodeToRemove->right_son == nullptr){
-            if(nodeToRemove->father->right_son->key == nodeToRemove->key)
-                {
-                    nodeToRemove->father->right_son = nodeToRemove->left_son;
-                    //delete the node
-                }
-                else{
-                    nodeToRemove->father->left_son = nodeToRemove->left_son;
-                    //delete the node
-                }
-        }
-        else{
-            if(nodeToRemove->father->right_son->key == nodeToRemove->key)
-                {
-                    nodeToRemove->father->right_son = nodeToRemove->right_son;
-                    //delete the node
-                }
-                else{
-                    nodeToRemove->father->left_son = nodeToRemove->right_son;
-                    //delete the node
-                }
-        }
-    }
-    else{
-        auto nodeToReplace = nodeToRemove->left_son;
-        while (nodeToReplace->right_son != nullptr)
+
+    void AVLRemoveRec(std::shared_ptr<TNode<KeyElem,Data>>& nodeToRemove){
+        if((nodeToRemove->right_son == nullptr) && (nodeToRemove->left_son == nullptr))
         {
-            nodeToReplace = nodeToReplace->right_son;
+            changeInFather(KeyElem,nodeToRemove->father,nullptr);
         }
-            if(nodeToRemove->father->right_son->key == nodeToRemove->key)
-            {
-                nodeToRemove->father->right_son = nodeToReplace;
+        else if((nodeToRemove->right_son == nullptr) || (nodeToRemove->left_son == nullptr)){
+            if(nodeToRemove->right_son == nullptr){
+                changeInFather(KeyElem,nodeToRemove->father,nodeToRemove->left_son);
             }
             else{
-                nodeToRemove->father->left_son = nodeToReplace;
+                changeInFather(KeyElem,nodeToRemove->father,nodeToRemove->right_son);
             }
-            nodeToReplace->right_son = nodeToReplace;
-        
+        }
+        else{
+            auto nodeToReplace = nodeToRemove->left_son;
+            auto nodeToRemoveFather = nodeToRemove->father;
+            auto nodeToRemoveRight = nodeToRemove->right_son;
+            auto nodeToRemoveLeft = nodeToRemove->left_son;
+            while (nodeToReplace->right_son != nullptr)
+            {
+                nodeToReplace = nodeToReplace->right_son;
+            }
+            changeInFather(KeyElem,nodeToReplace->father,nodeToRemove);
+            nodeToRemove->left_son = nodeToReplace->Left_son;
+            nodeToRemove->right_son = nullptr;
+            changeInFather(KeyElem,nodeToRemoveFather,nodeToReplace);
+            nodeToReplace->right_son = nodeToRemoveRight;
+            nodeToReplace->left_son = nodeToRemoveLeft;
+            AVLRemoveRec(nodeToRemove);
+        }
     }
+
+    void changeInFather(const KeyElem&, std::shared_ptr<TNode<KeyElem,Data>>& father, std::shared_ptr<TNode<KeyElem,Data>>& newSon){
+        if(father == nullptr)
+        {
+            root = newSon; //this.root?
+        }
+        else if(father->right_son->key == KeyElem){
+            father->right_son = newSon;
+        }                  
+        else{
+            father->left_son = newSon;
+        }
     }
 
 }
