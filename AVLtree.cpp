@@ -235,3 +235,62 @@ void AVLRotate_RL(TNode* node_uneven){
     AVLRotate_LL(node_uneven->right_son);
     AVLRotate_RR(node_uneven);
 }
+
+//******************_AVLRemove_********************//
+
+AVLTree::AVL_RESULT& AVLRemove(const &KeyElem){
+   auto nodeToRemove = AVLFind(KeyElem);
+   if((nodeToRemove->right_son == nullptr) && (nodeToRemove->left_son == nullptr))
+   {
+       if(nodeToRemove->father->right_son->key == nodeToRemove->key)
+       {
+           nodeToRemove->father->right_son = nullptr; //do we need to?
+           //delete the node
+       }
+       else{
+           nodeToRemove->father->left_son = nullptr; //do we need to?
+           //delete the node
+       }
+   }
+   else if((nodeToRemove->right_son == nullptr) || (nodeToRemove->left_son == nullptr)){
+       if(nodeToRemove->right_son == nullptr){
+           if(nodeToRemove->father->right_son->key == nodeToRemove->key)
+            {
+                nodeToRemove->father->right_son = nodeToRemove->left_son;
+                //delete the node
+            }
+            else{
+                nodeToRemove->father->left_son = nodeToRemove->left_son;
+                //delete the node
+            }
+       }
+       else{
+           if(nodeToRemove->father->right_son->key == nodeToRemove->key)
+            {
+                nodeToRemove->father->right_son = nodeToRemove->right_son;
+                //delete the node
+            }
+            else{
+                nodeToRemove->father->left_son = nodeToRemove->right_son;
+                //delete the node
+            }
+       }
+   }
+   else{
+       auto nodeToReplace = nodeToRemove->left_son;
+       while (nodeToReplace->right_son != nullptr)
+       {
+           nodeToReplace = nodeToReplace->right_son;
+       }
+        if(nodeToRemove->father->right_son->key == nodeToRemove->key)
+        {
+            nodeToRemove->father->right_son = nodeToReplace;
+        }
+        else{
+            nodeToRemove->father->left_son = nodeToReplace;
+        }
+        nodeToReplace->right_son = 
+       
+   }
+
+}
