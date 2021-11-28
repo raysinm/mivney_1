@@ -1,4 +1,4 @@
-#include "AVLtree.h"
+/* #include "AVLtree.h"
 #include "./course_files/library1.h"
 
 template<class KeyElem, class Data>
@@ -20,3 +20,26 @@ TNode::void refreshBF(){
     this->BF = h_l - h_r;
 }
 
+
+
+//דוגמה
+class DS{
+
+    struct Key1{
+        int id;
+    };
+
+    struct Key2{
+        int player_id;
+        int level;
+    };
+
+    struct SomeData{
+
+        int group_id;
+    };
+
+    AVL::AVLTree<Key1, SomeData> players;
+    AVL::AVLTree<Key2, SomeData> group_players; //just examples
+}
+ */
