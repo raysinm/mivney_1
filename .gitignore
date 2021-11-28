@@ -30,3 +30,15 @@
 *.exe
 *.out
 *.app
+
+# Vscode Files
+*.json
+
+#Other Files
+*.todo
+*.Identifier
+
+# Other Directories
+build/
+.vscode/
+

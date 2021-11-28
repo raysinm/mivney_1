@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.0.0)
 set(CMAKE_CXX_STANDARD 11)
 
 # Set <PROJNAME> to be your project name. We set CXX (C++) here as the target language.
-project(<Mivney_1> VERSION 0.1.0 LANGUAGES CXX)
+project(Mivney_1 VERSION 0.1.0 LANGUAGES CXX)
 
 # If you want to see "under the hood" of CMake, uncomment this:
 # set(CMAKE_VERBOSE_MAKEFILE ON)
@@ -18,6 +18,6 @@ set(CMAKE_CPP_FLAGS ${MIVNEY_FLAGS_DEBUG})
 
 
 # Add the names of your source files here
-set(CPP_FILES "./small_main.cpp" "./AVLtree.h" "./TNode.h" "course_files/library.h")
+set(CPP_FILES "./small_main.cpp" "./AVLtree.h" "course_files/library1.h")
 
-add_executable(smallAvlTest ${CPP_FILES})
+add_executable(small_AVL_test ${CPP_FILES})

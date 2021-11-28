@@ -43,6 +43,11 @@
         "sstream": "cpp",
         "stdexcept": "cpp",
         "streambuf": "cpp",
-        "typeinfo": "cpp"
-    }
+        "typeinfo": "cpp",
+        
+    },
+    "cmake.sourceDirectory": "${workspaceFolder}",
+    "cmake.cmakePath": "/usr/bin/cmake",
+    "cmake.configureOnOpen": true
+    
 }
