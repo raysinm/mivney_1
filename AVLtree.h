@@ -340,6 +340,7 @@ namespace AVL{
             changeNodes(node_to_remove, node_to_replace);
             AVLRemove_rec(node_to_remove);
         }
+        
         auto node_to_remove_father = node_to_remove->father;
         if(node_to_remove< node_to_remove_father){
             node_to_remove_father->left_son = nullptr;

@@ -1,6 +1,0 @@
-
-
-1. make the nodes smart_ptrs (with correct syntax)
-2. AVL insert func
-3. AVL remove func
-4. AVL ROTATIONS
