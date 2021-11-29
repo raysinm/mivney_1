@@ -36,7 +36,8 @@ namespace AVL{
                 public:
                     TNode(const KeyElem& key, const Data& data):
                         key(key), data(data),
-                        father(nullptr), left_son(nullptr), right_son(nullptr){};
+                        father(nullptr), left_son(nullptr), right_son(nullptr),
+                        height(0), BF(0){};
 
                     bool operator<(const TNode& other_node){  
                         if (other_node == nullptr || *this == other_node){
@@ -65,7 +66,7 @@ namespace AVL{
             void AVLDestroy_rec(TNode*);
             void AVLBalance(TNode*);
             bool AVLExist(const KeyElem&);
-            TNode* AVLFind_rec(TNode* current_node, const KeyElem& key_to_find, TNode* father_to_ret);
+            TNode* AVLFind_rec(TNode* current_node, const KeyElem& key_to_find, TNode** father_to_ret);
             void AVLRemove_rec(TNode*);
             void changeInFather(const KeyElem& key, TNode* father, TNode* new_son);
             void AVLNodeRefreshHeight(TNode* node);
@@ -101,11 +102,17 @@ namespace AVL{
             return AVL_INVALID_INPUT;
         }
 
-        TNode* insert_after_node;
-        auto not_used_node = AVLFind_rec(root, key, insert_after_node);
-        assert(insert_after_node != nullptr); //sanity check
-
         TNode* insert_node = new TNode(key, data);
+
+        if(!this->root){
+            this->root = insert_node;
+            return AVL_SUCCESS;
+        }
+
+        TNode* insert_after_node = nullptr;
+        auto not_used_output = AVLFind_rec(root, key, &insert_after_node);
+        //assert(insert_after_node != nullptr); //sanity check
+
         if(key < insert_after_node->key){
             insert_after_node->left_son = insert_node;
         } 
@@ -143,7 +150,8 @@ namespace AVL{
             else if(current_node->BF == -2 && current_node->right_son->BF >=0){
                 this->AVLRotate_RL(current_node);
             }
-
+            AVLNodeRefreshHeight(current_node);
+            AVLNodeRefreshBF(current_node);
             current_node = current_node -> father;
         }
 
@@ -174,10 +182,10 @@ namespace AVL{
             node->BF = 0;
         }
         else if(!node->right_son){
-            node->BF = node->left_son->height;
+            node->BF = node->left_son->height - (-1);
         }
         else if(!node->left_son){
-            node->height = 0 - node->right_son->height;
+            node->BF = -1 - node->right_son->height;
         }
         else{
             node->BF = node->left_son->height - node->right_son->height;
@@ -195,12 +203,12 @@ namespace AVL{
     template <class KeyElem, class Data>
     typename AVLTree<KeyElem,Data>::TNode* AVLTree<KeyElem,Data>::AVLFind(const KeyElem& key_to_find){
         TNode* dummy_ptr;
-        return AVLFind_rec(this->root, key_to_find, dummy_ptr);
+        return AVLFind_rec(this->root, key_to_find, &dummy_ptr);
     }
 
     template <class KeyElem, class Data>
     typename AVLTree<KeyElem,Data>::TNode* AVLTree<KeyElem,Data>::AVLFind_rec(AVLTree<KeyElem,Data>::TNode* current_node,
-                                     const KeyElem& key_to_find, AVLTree<KeyElem,Data>::TNode* father_to_ret){
+                                     const KeyElem& key_to_find, AVLTree<KeyElem,Data>::TNode** father_to_ret){
 
         if(!current_node){
             return nullptr;
@@ -212,13 +220,13 @@ namespace AVL{
 
         if(key_to_find < current_node->key){
             if(current_node->left_son  == nullptr){  //Knowledge for AVLInsert
-                father_to_ret = current_node;       
+                *father_to_ret = current_node;       
             }
             return (AVLFind_rec(current_node->left_son, key_to_find, father_to_ret));
         }
         else{
             if(current_node->right_son  == nullptr){  //Knowledge for AVLInsert
-                father_to_ret = current_node;       
+                *father_to_ret = current_node;       
             }
             return(AVLFind_rec(current_node->right_son, key_to_find, father_to_ret));
         }
@@ -231,20 +239,23 @@ namespace AVL{
     void AVLTree<KeyElem,Data>:: AVLRotate_LL(TNode* node_uneven){      //give names to ptrs for clarity
 
         auto temp_left_right_son = node_uneven->left_son->right_son;
-
-        node_uneven->left_son->father = node_uneven->father;
-        if(node_uneven->left_son->key > node_uneven->father->key){
-            node_uneven->left_son->father->right_son = node_uneven->left_son;
-        }
-        else{
-            node_uneven->left_son->father->left_son = node_uneven->left_son;
-        }
+        auto left_son = node_uneven->left_son;
         
-        node_uneven->father = node_uneven->left_son;
-        
-        node_uneven->left_son->right_son = node_uneven;
+        left_son->father = node_uneven->father;
+        node_uneven->father = left_son;
+        left_son->right_son = node_uneven;
         node_uneven->left_son = temp_left_right_son;
 
+        if(this->root == node_uneven){
+            this->root = left_son;
+            return;
+        }
+
+       if(left_son->key < left_son->father->key){
+           left_son->father->left_son = left_son;
+       }else{
+           left_son->father->right_son = left_son;
+       }
     }
 
     template <class KeyElem, class Data>
@@ -252,12 +263,17 @@ namespace AVL{
 
         auto temp_right_left_son = node_uneven->right_son->left_son;
         auto right_son = node_uneven->right_son;
-        auto right_left_son = node_uneven->right_son->left_son;
         
         right_son->father = node_uneven->father;
         
         right_son->left_son = node_uneven;
         node_uneven->right_son = temp_right_left_son;
+        node_uneven->father = right_son;
+
+        if(this->root == node_uneven){
+            this->root = right_son;
+            return;
+        }
 
         if(right_son->key > right_son->father->key){
             right_son->father->right_son = right_son;
@@ -265,10 +281,8 @@ namespace AVL{
         else{
             right_son->father->left_son = right_son;
         }
-
-        node_uneven->father = right_son;
-
     }
+
     template <class KeyElem, class Data>
     void AVLTree<KeyElem,Data>:: AVLRotate_LR(TNode* node_uneven){
         AVLRotate_RR(node_uneven->left_son);
@@ -283,9 +297,9 @@ namespace AVL{
 
     //******************_AVLRemove_********************//
 
-    //did not delete node, smart ptr delete itself
+      
+    
     //func returnes
-    //shared ptr recieved in funcs
     template <class KeyElem, class Data>
     AVL_RESULT AVLTree<KeyElem,Data>:: AVLRemove(const KeyElem& key){
         if(!key || !AVLExist(key)){
@@ -293,6 +307,7 @@ namespace AVL{
         }
         auto node_to_remove = AVLFind(key);
         AVLRemove_rec(node_to_remove);
+        return AVL_SUCCESS;
     }
 
     template <class KeyElem, class Data>
@@ -338,13 +353,15 @@ namespace AVL{
         {
             this->root = new_son; //this.root?
         }
-        else if(father->right_son->key == key){
+        else if(father->key < key){
             father->right_son = new_son;
         }                  
         else{
             father->left_son = new_son;
         }
-    }
+        AVLBalance(new_son);
+    } 
+    
 
     template<class KeyElem, class Data>
     void AVLTree<KeyElem,Data>:: AVLDestroy_rec(TNode* node){
@@ -353,10 +370,20 @@ namespace AVL{
         }
         
         AVLDestroy_rec(node->left_son);
-        AVLDestroy_rec(node->left_son);
+        AVLDestroy_rec(node->right_son);
         delete[] node;
     }
 
+  /*   template<class KeyElem, class Data>
+    void AVLTree<KeyElem,Data>:: AVLPrint_rec(TNode* node){
+        if(!node){
+            return;
+        }
+        AVLPrint_rec(node->left_son);
+        AVLPrint_rec(node->right_son);
+        
+    }
+ */
 
 }
 
