@@ -80,3 +80,38 @@ bool AVLExist_rec(const TNode* current_node, const &KeyElem key_to_find){
             AVLBalance(node_to_remove_father);
         }
         */
+
+
+
+       //FROM OLD REMOVE:
+
+       /* auto orig_remove_left = node_to_remove->left_son,
+                 orig_remove_right = node_to_remove->right_son,
+                 orig_remove_father = node_to_remove->father,
+                 orig_replace_father = replacer->father;
+
+
+                if(father->key < key){
+                 father->right_son = new_son;
+                }                  
+                else{
+                    father->left_son = new_son;
+                }
+                new_son->father = father;
+                
+            }
+            if(node_to_replace->father == node_to_remove){ //if they replace each other
+                
+                node_to_replace->father = node_to_remove->father;
+                node_to_remove->father = node_to_replace; 
+            }
+            else{
+                changeInFather(key ,node_to_replace->father, node_to_remove);
+                changeInFather(key, temp_remove_father, node_to_replace);
+            }
+            node_to_remove->left_son = node_to_replace->left_son;
+            node_to_remove->right_son = node_to_replace->right_son;
+            node_to_replace->left_son = temp_remove_left;
+            node_to_replace->right_son = temp_remove_right;
+            
+ */

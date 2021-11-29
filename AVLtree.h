@@ -71,6 +71,7 @@ namespace AVL{
             void changeInFather(const KeyElem& key, TNode* father, TNode* new_son);
             void AVLNodeRefreshHeight(TNode* node);
             void AVLNodeRefreshBF(TNode* node);
+            void changeNodes(TNode* to_remove, TNode* replacer);
 
         public:
 
@@ -307,6 +308,10 @@ namespace AVL{
         }
         auto node_to_remove = AVLFind(key);
         AVLRemove_rec(node_to_remove);
+        auto node_to_remove_father = node_to_remove->father;
+        delete[] node_to_remove;
+        AVLBalance(node_to_remove_father);
+        
         return AVL_SUCCESS;
     }
 
@@ -326,28 +331,59 @@ namespace AVL{
             }
         }
         else{
-            auto node_to_replace = node_to_remove->left_son,
-                node_to_remove_father = node_to_remove->father,
-                node_to_remove_right = node_to_remove->right_son,
-                node_to_remove_left = node_to_remove->left_son;
+            auto node_to_replace = node_to_remove->left_son;
             
             while (node_to_replace->right_son != nullptr){
                 node_to_replace = node_to_replace->right_son;
             }
-
-            changeInFather(key ,node_to_replace->father, node_to_remove);
-            node_to_remove->left_son = node_to_replace->left_son;
-            node_to_remove->right_son = nullptr;
-
-            changeInFather(key,node_to_remove_father,node_to_replace);
-            node_to_replace->right_son = node_to_remove_right;
-            node_to_replace->left_son = node_to_remove_left;
-
+            
+            changeNodes(node_to_remove, node_to_replace);
             AVLRemove_rec(node_to_remove);
         }
+        auto node_to_remove_father = node_to_remove->father;
+        if(node_to_remove< node_to_remove_father){
+            node_to_remove_father->left_son = nullptr;
+        }
+        else{
+            node_to_remove->right_son = nullptr;
+        }
+        
     }
 
     template <class KeyElem, class Data>
+    void AVLTree<KeyElem,Data>::changeNodes(TNode* to_remove, TNode* replacer){
+    
+        auto orig_remove_left = to_remove->left_son,
+            orig_remove_right = to_remove->right_son,
+            orig_remove_father = to_remove->father,
+            orig_replace_father = replacer->father;
+        
+        if(to_remove == replacer->father){  //if they are neighbours and point to each other
+            to_remove->father = replacer;
+            replacer->left_son = to_remove;
+        }
+        else{
+            to_remove->father = replacer->father;
+            replacer->left_son = orig_remove_left;
+        }
+        replacer->father = orig_remove_father;
+
+        orig_replace_father->right_son = to_remove;
+        to_remove->left_son = replacer->left_son;
+
+        to_remove->right_son = replacer->right_son;
+        replacer->right_son = orig_remove_right;
+        
+        if(!replacer->father){
+            this->root = replacer;
+        }else if(replacer < replacer->father){
+            replacer->father->left_son = replacer;
+        }else{
+            replacer->father->right_son = replacer;
+        }
+    }
+
+     template <class KeyElem, class Data>
     void AVLTree<KeyElem,Data>:: changeInFather(const KeyElem& key, TNode* father, TNode* new_son){
         if(father == nullptr)
         {
@@ -359,9 +395,10 @@ namespace AVL{
         else{
             father->left_son = new_son;
         }
-        AVLBalance(new_son);
+        new_son->father = father;
+        
     } 
-    
+     
 
     template<class KeyElem, class Data>
     void AVLTree<KeyElem,Data>:: AVLDestroy_rec(TNode* node){
