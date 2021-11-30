@@ -102,6 +102,7 @@ namespace AVL{
         if(!key || this->AVLExist(key)){  //checks if key is already in this tree
             return AVL_INVALID_INPUT;
         }
+        //in case exists need to return FAILURE
 
         TNode* insert_node = new TNode(key, data);
 
@@ -306,11 +307,12 @@ namespace AVL{
         if(!key || !AVLExist(key)){
             return AVL_INVALID_INPUT;
         }
+        //in case exists need to return FAILURE
         auto node_to_remove = AVLFind(key);
         AVLRemove_rec(node_to_remove);
-        auto node_to_remove_father = node_to_remove->father;
+        //auto node_to_remove_father = node_to_remove->father;
         delete[] node_to_remove;
-        AVLBalance(node_to_remove_father);
+        //AVLBalance(node_to_remove_father);
         
         return AVL_SUCCESS;
     }
@@ -321,6 +323,7 @@ namespace AVL{
         if((node_to_remove->right_son == nullptr) && (node_to_remove->left_son == nullptr))
         {
             changeInFather(key, node_to_remove->father, nullptr);
+            AVLBalance(nodeToRemove->father);
         }
         else if((node_to_remove->right_son == nullptr) || (node_to_remove->left_son == nullptr)){
             if(node_to_remove->right_son == nullptr){
@@ -329,6 +332,7 @@ namespace AVL{
             else{
                 changeInFather(key, node_to_remove->father, node_to_remove->right_son);
             }
+            AVLBalance(nodeToRemove->father);
         }
         else{
             auto node_to_replace = node_to_remove->left_son;
@@ -340,7 +344,8 @@ namespace AVL{
             changeNodes(node_to_remove, node_to_replace);
             AVLRemove_rec(node_to_remove);
         }
-        
+        //?down
+        //need to balance here
         auto node_to_remove_father = node_to_remove->father;
         if(node_to_remove< node_to_remove_father){
             node_to_remove_father->left_son = nullptr;
@@ -384,11 +389,11 @@ namespace AVL{
         }
     }
 
-     template <class KeyElem, class Data>
+    template <class KeyElem, class Data>
     void AVLTree<KeyElem,Data>:: changeInFather(const KeyElem& key, TNode* father, TNode* new_son){
         if(father == nullptr)
         {
-            this->root = new_son; //this.root?
+            this->root = new_son;
         }
         else if(father->key < key){
             father->right_son = new_son;
@@ -396,7 +401,9 @@ namespace AVL{
         else{
             father->left_son = new_son;
         }
-        new_son->father = father;
+        if(new_son != nullptr){
+            new_son->father = father;
+        }
         
     } 
      
