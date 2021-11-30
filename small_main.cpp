@@ -12,5 +12,10 @@ int main(){
     test_t.AVLInsert(2,5);
 
     test_t.AVLRemove(4);
+    test_t.AVLInsert(1,5);
+    test_t.AVLRemove(7);
+    test_t.AVLInsert(0,5);
+    test_t.AVLRemove(6);
+
     return 0;
 }

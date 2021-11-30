@@ -48,13 +48,6 @@ namespace AVL{
                         return this->key == other_node.key;
                     }
                     
-                    /* bool brotherExists(){
-                        auto father_node = this->father;
-                        if(this->key < father_node.key) return (father_node.right_son != nullptr);
-                         //we have to make sure its not equal
-                        return (father_node.left_son != nullptr);
-                        }
-                    } */
                     bool isRightSon(){
                         if(!this->father) return false;
                         return(this->father->key < this->key);
@@ -335,9 +328,7 @@ namespace AVL{
                 }
                 else if(node->isRightSon()){
                     node->father->right_son = nullptr;
-                }
-                delete[] node;   
-                
+                }  
             }
             else if(!node->leftSonExists() || !node->rightSonExists()){  //Has only a right son
                 /* TNode* node_sun;;
@@ -357,11 +348,9 @@ namespace AVL{
                 else if(node->isRightSon()){
                     node->father->right_son = node_son;
                 }
-                delete[] node;
             }
             else{   //Has TWO sons
                 auto replacer = findReplacingNode(node);    //replacer is the biggest node that is smaller than our node
-                
                 
                 if(node == this->root){
                         this->root = replacer;
@@ -390,16 +379,25 @@ namespace AVL{
                 node->left_son = temp_replacer_left_son;
                 node->right_son = replacer->right_son;
                 replacer->right_son = temp_node_right_son;
-                
-                AVLRemove_rec(this->root, key);
+
+                if(node->leftSonExists() && node->rightSonExists()){ 
+                    AVLRemove_rec(this->root, key);
+                }
+                else{
+                    if(node->father == replacer){
+                        node->father->left_son = node->left_son;
+                    }else node->father->right_son = node->left_son;   //guranteed- has no right son!
+                }
                 temp_father = node->father;
             }
+            
+            delete[] node;
             AVLBalance(temp_father);
             return;
 
-        }else if(node->leftSonExists() && node->key < key){
+        }else if(node->leftSonExists() && key < node->key){
             AVLRemove_rec(node->left_son, key);
-        }else if(node->rightSonExists() && key < node->key){
+        }else if(node->rightSonExists() && node->key < key){
             AVLRemove_rec(node->right_son, key);
         }
         
