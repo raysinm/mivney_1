@@ -115,3 +115,65 @@ bool AVLExist_rec(const TNode* current_node, const &KeyElem key_to_find){
             node_to_replace->right_son = temp_remove_right;
             
  */
+
+
+
+/* 
+
+    
+    //func returnes
+    template <class KeyElem, class Data>
+    void AVLTree<KeyElem,Data>:: AVLRemove(const KeyElem& key){
+        if(!key || !AVLExist(key)){
+            return;
+        }
+        //in case exists need to return FAILURE
+        auto node_to_remove = AVLFind(key);
+        AVLRemove_rec(node_to_remove);
+        //auto node_to_remove_father = node_to_remove->father;
+        
+        delete[] node_to_remove;
+        //AVLBalance(node_to_remove_father);
+        
+        return;
+    }
+
+    template <class KeyElem, class Data>
+    void AVLTree<KeyElem,Data>:: AVLRemove_rec(TNode* node_to_remove){
+        auto key = node_to_remove->key;
+        if((node_to_remove->right_son == nullptr) && (node_to_remove->left_son == nullptr))
+        {
+            changeInFather(key, node_to_remove->father, nullptr);
+            AVLBalance(node_to_remove->father);
+        }
+        else if((node_to_remove->right_son == nullptr) || (node_to_remove->left_son == nullptr)){
+            if(node_to_remove->right_son == nullptr){
+                changeInFather(key, node_to_remove->father, node_to_remove->left_son);
+            }
+            else{
+                changeInFather(key, node_to_remove->father, node_to_remove->right_son);
+            }
+            AVLBalance(node_to_remove->father);
+        }
+        else{
+            auto node_to_replace = node_to_remove->left_son;
+            
+            while (node_to_replace->right_son != nullptr){
+                node_to_replace = node_to_replace->right_son;
+            }
+            
+            changeNodes(node_to_remove, node_to_replace);
+            AVLRemove_rec(node_to_remove);
+        }
+        //?down
+        //need to balance here
+        auto node_to_remove_father = node_to_remove->father;
+        if(node_to_remove< node_to_remove_father){
+            node_to_remove_father->left_son = nullptr;
+        }
+        else{
+            node_to_remove->right_son = nullptr;
+        }
+        
+    }
+ */
