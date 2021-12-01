@@ -177,3 +177,57 @@ bool AVLExist_rec(const TNode* current_node, const &KeyElem key_to_find){
         
     }
  */
+
+/* 
+
+    template <class KeyElem, class Data>
+    void AVLTree<KeyElem,Data>::changeNodes(TNode* to_remove, TNode* replacer){
+    
+        auto orig_remove_left = to_remove->left_son,
+            orig_remove_right = to_remove->right_son,
+            orig_remove_father = to_remove->father,
+            orig_replace_father = replacer->father;
+        
+        if(to_remove == replacer->father){  //if they are neighbours and point to each other
+            to_remove->father = replacer;
+            replacer->left_son = to_remove;
+        }
+        else{
+            to_remove->father = replacer->father;
+            replacer->left_son = orig_remove_left;
+        }
+        replacer->father = orig_remove_father;
+
+        orig_replace_father->right_son = to_remove;
+        to_remove->left_son = replacer->left_son;
+
+        to_remove->right_son = replacer->right_son;
+        replacer->right_son = orig_remove_right;
+        
+        if(!replacer->father){
+            this->root = replacer;
+        }else if(replacer < replacer->father){
+            replacer->father->left_son = replacer;
+        }else{
+            replacer->father->right_son = replacer;
+        }
+    }
+
+    template <class KeyElem, class Data>
+    void AVLTree<KeyElem,Data>:: changeInFather(const KeyElem& key, TNode* father, TNode* new_son){
+        if(father == nullptr)
+        {
+            this->root = new_son;
+        }
+        else if(father->key < key){
+            father->right_son = new_son;
+        }                  
+        else{
+            father->left_son = new_son;
+        }
+        if(new_son != nullptr){
+            new_son->father = father;
+        }
+        
+    } 
+ */

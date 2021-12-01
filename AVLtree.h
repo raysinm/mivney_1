@@ -6,18 +6,8 @@
 #include <iostream>
 #include <cassert>
 #include "./course_files/library1.h"
-//#include "TNode.h"
 
 namespace AVL{
-
-    /* typedef enum {
-        ,
-        _W_CHANGE,
-        ,
-            AVL_EMPTY,
-            AVL_OUT_OF_MEMORY,
-            AVL_OTHER_ERROR
-    }void; */
 
     template <class KeyElem, class Data>
     class AVLTree{
@@ -73,10 +63,8 @@ namespace AVL{
             bool AVLExist(const KeyElem&);
             TNode* AVLFind_rec(TNode* current_node, const KeyElem& key_to_find, TNode** father_to_ret);
             void AVLRemove_rec(TNode* node, const KeyElem& key);
-            void changeInFather(const KeyElem& key, TNode* father, TNode* new_son);
             void AVLNodeRefreshHeight(TNode* node);
             void AVLNodeRefreshBF(TNode* node);
-            void changeNodes(TNode* to_remove, TNode* replacer);
             TNode* findReplacingNode(TNode* node);
             void AVLPrintInOrder_rec(TNode* node);
 
@@ -339,12 +327,7 @@ namespace AVL{
                 }  
             }
             else if(!node->leftSonExists() || !node->rightSonExists()){  //Has only a right son or a left son
-                /* TNode* node_sun;;
-                if(node->leftSonExists()){
-                    node_son = node->left_son;
-                }else if(node->rightSonExists()){
-                    node_son = node->right_son;
-                } */
+            
                 TNode* node_son = node->leftSonExists() ? node->left_son : node->right_son;
                 
                 if(node == this->root){
@@ -423,58 +406,7 @@ namespace AVL{
         return replacer;
     }
 
-
-    template <class KeyElem, class Data>
-    void AVLTree<KeyElem,Data>::changeNodes(TNode* to_remove, TNode* replacer){
-    
-        auto orig_remove_left = to_remove->left_son,
-            orig_remove_right = to_remove->right_son,
-            orig_remove_father = to_remove->father,
-            orig_replace_father = replacer->father;
-        
-        if(to_remove == replacer->father){  //if they are neighbours and point to each other
-            to_remove->father = replacer;
-            replacer->left_son = to_remove;
-        }
-        else{
-            to_remove->father = replacer->father;
-            replacer->left_son = orig_remove_left;
-        }
-        replacer->father = orig_remove_father;
-
-        orig_replace_father->right_son = to_remove;
-        to_remove->left_son = replacer->left_son;
-
-        to_remove->right_son = replacer->right_son;
-        replacer->right_son = orig_remove_right;
-        
-        if(!replacer->father){
-            this->root = replacer;
-        }else if(replacer < replacer->father){
-            replacer->father->left_son = replacer;
-        }else{
-            replacer->father->right_son = replacer;
-        }
-    }
-
-    template <class KeyElem, class Data>
-    void AVLTree<KeyElem,Data>:: changeInFather(const KeyElem& key, TNode* father, TNode* new_son){
-        if(father == nullptr)
-        {
-            this->root = new_son;
-        }
-        else if(father->key < key){
-            father->right_son = new_son;
-        }                  
-        else{
-            father->left_son = new_son;
-        }
-        if(new_son != nullptr){
-            new_son->father = father;
-        }
-        
-    } 
-
+/*  */
     template<class KeyElem, class Data>
     void AVLTree<KeyElem,Data>:: AVLPrintInOrder(){
         AVLPrintInOrder_rec(this->root);
@@ -486,9 +418,9 @@ namespace AVL{
             return;
         }
 
-        AVLPrintInOrder_rec(node->right_son);
-        std::cout << node->key << ", " ;
         AVLPrintInOrder_rec(node->left_son);
+        std::cout << node->key << ", " ;
+        AVLPrintInOrder_rec(node->right_son);
         
     }
      
@@ -511,17 +443,6 @@ namespace AVL{
         delete[] node;
         return;
     }
-
-  /*   template<class KeyElem, class Data>
-    void AVLTree<KeyElem,Data>:: AVLPrint_rec(TNode* node){
-        if(!node){
-            return;
-        }
-        AVLPrint_rec(node->left_son);
-        AVLPrint_rec(node->right_son);
-        
-    }
- */
 
 }
 
