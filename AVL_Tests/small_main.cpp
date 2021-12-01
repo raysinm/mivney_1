@@ -1,5 +1,5 @@
-#include "course_files/library1.h"
-#include "./AVLtree.h"
+#include "../course_files/library1.h"
+#include "../AVLtree.h"
 
 int main(){
 

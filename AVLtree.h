@@ -1,7 +1,9 @@
 #ifndef _AVLTREE_H
 #define _AVLTREE_H
 
+
 #include <memory>
+#include <iostream>
 #include <cassert>
 #include "./course_files/library1.h"
 //#include "TNode.h"
@@ -76,6 +78,7 @@ namespace AVL{
             void AVLNodeRefreshBF(TNode* node);
             void changeNodes(TNode* to_remove, TNode* replacer);
             TNode* findReplacingNode(TNode* node);
+            void AVLPrintInOrder_rec(TNode* node);
 
         public:
 
@@ -88,7 +91,7 @@ namespace AVL{
             TNode* AVLFind(const KeyElem& key);
             void AVLInsert(const KeyElem&, const Data&);
             void AVLRemove(const KeyElem&);
-            
+            void AVLPrintInOrder();
             //Data& AVLGet(const KeyElem&);
 
             void AVLRotate_LL(TNode*);
@@ -103,7 +106,7 @@ namespace AVL{
     template <class KeyElem, class Data>
     void AVLTree<KeyElem,Data>:: AVLInsert(const KeyElem& key, const Data& data){
         
-        if(!key || this->AVLExist(key)){  //checks if key is already in this tree
+        if(key < 0 || this->AVLExist(key)){  //checks if key is already in this tree
             return;
         }
         //in case exists need to return FAILURE
@@ -160,7 +163,6 @@ namespace AVL{
             AVLNodeRefreshBF(current_node);
             current_node = current_node -> father;
         }
-
     }
 
     /* void AVLBalance_rec(std::shared_ptr<TNode*<KeyElem, Data> start)
@@ -348,6 +350,7 @@ namespace AVL{
                 else if(node->isRightSon()){
                     node->father->right_son = node_son;
                 }
+                node_son->father = node->father;
             }
             else{   //Has TWO sons
                 auto replacer = findReplacingNode(node);    //replacer is the biggest node that is smaller than our node
@@ -379,6 +382,8 @@ namespace AVL{
                 node->left_son = temp_replacer_left_son;
                 node->right_son = replacer->right_son;
                 replacer->right_son = temp_node_right_son;
+                replacer->right_son->father = replacer;
+                replacer->left_son->father = replacer;
 
                 if(node->leftSonExists() && node->rightSonExists()){ 
                     AVLRemove_rec(this->root, key);
@@ -463,6 +468,23 @@ namespace AVL{
         }
         
     } 
+
+    template<class KeyElem, class Data>
+    void AVLTree<KeyElem,Data>:: AVLPrintInOrder(){
+        AVLPrintInOrder_rec(this->root);
+    }
+
+    template<class KeyElem, class Data>
+    void AVLTree<KeyElem,Data>:: AVLPrintInOrder_rec(AVLTree<KeyElem,Data>::TNode* node){
+        if(!node){
+            return;
+        }
+
+        AVLPrintInOrder_rec(node->right_son);
+        std::cout << node->key << ", " ;
+        AVLPrintInOrder_rec(node->left_son);
+        
+    }
      
 
     template<class KeyElem, class Data>

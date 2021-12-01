@@ -1,5 +1,6 @@
 {
     "files.associations": {
+        "CMakeLists": "cpp",
         "array": "cpp",
         "atomic": "cpp",
         "bit": "cpp",
@@ -44,7 +45,9 @@
         "stdexcept": "cpp",
         "streambuf": "cpp",
         "typeinfo": "cpp",
-        
+        "chrono": "cpp",
+        "ctime": "cpp",
+        "ratio": "cpp"
     },
     "cmake.sourceDirectory": "${workspaceFolder}",
     "cmake.cmakePath": "/usr/bin/cmake",

@@ -1,7 +1,7 @@
 #ifndef _DS_H
 #define _DS_H
 
-#include "AVLtree.h"
+#include "./AVLtree.h"
 
 namespace DS{
 
@@ -13,25 +13,43 @@ class PlayersManager{
         virtual bool operator<(const GenKey& other){
             return this->id < other.id;
         }
+        virtual bool operator==(const GenKey& key){
+            return (this->id == other.id);
+        }
     };
+
     class PlayerKey : public GenKey{
         int level;
         public:
-        bool operator<(const PlayerKey& other){
-            return (this->level > other.level || this->id < other.id);
+        bool operator<(const PlayerKey& other){ 
+            if(this->level == other.level){
+                return this->id > other.id;
+            }
+            else{
+            return (this->level < other.level);
+            }
+        }
+        bool operator==(const PlayerKey& key){
+            return (this->level == other.level && this->id == other.id);
         }
     };
 
     class GroupKey : public GenKey{};
     
-    class PlayerData{};
+    class PlayerData{
+        AVL::AVLTree<PlayerKey,PlayerData>* owner_tree;
+
+        public:
+            PlayerData(AVL::AVLTree<PlayerKey,PlayerData>* owner): owner_tree(owner){};
+    };
 
     class GroupData{
-        AVL::AVLTree<PlayerKey,PlayerData> players;
+        AVL::AVLTree<PlayerKey,PlayerData> group_players;
         PlayerKey best;
     };
     
     AVL::AVLTree<GroupKey,GroupData> groups;
+    AVL::AVLTree<PlayerKey,PlayerData*> all_players;
     PlayerKey best_of_all;
     
     public:
@@ -54,6 +72,11 @@ PlayersManager::PlayersManager() : groups(), best_of_all(NULL){}
 template <class GroupKey, class GroupData> //do we need?
 StatusType AddPlayer(int PlayerID, int GroupID, int Level){
     auto player_group = groups.AVLFind(GroupID);
+
+    GroupKey new_group_key = new GroupKey(GroupId);
+    PlayerKey new_player_key = new PlayerKey(PlayerId, Level);
+    
+    groups.AVLFind(new_group_key);
     return player_group.players.AVLInsert(PlayerID, Level);
 }
 

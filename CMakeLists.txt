@@ -18,6 +18,9 @@ set(CMAKE_CPP_FLAGS ${MIVNEY_FLAGS_DEBUG})
 
 
 # Add the names of your source files here
-set(CPP_FILES "./small_main.cpp" "./AVLtree.h" "course_files/library1.h")
+set(CPP_FILES_A1 "AVL_Tests/small_main.cpp" "./AVLtree.h" "course_files/library1.h")
+set(CPP_FILES_A2 "AVL_Tests/tests1.cpp" "./AVLtree.h" "course_files/library1.h")
 
-add_executable(small_AVL_test ${CPP_FILES})
+
+add_executable(small_AVL_test ${CPP_FILES_A1})
+add_executable(tests1_AVL ${CPP_FILES_A2})
