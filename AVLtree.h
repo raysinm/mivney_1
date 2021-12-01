@@ -159,7 +159,11 @@ namespace AVL{
             else if(current_node->BF == -2 && current_node->right_son->BF >=0){
                 this->AVLRotate_RL(current_node);
             }
+            AVLNodeRefreshHeight(current_node->left_son);
+            AVLNodeRefreshHeight(current_node->right_son);
             AVLNodeRefreshHeight(current_node);
+            AVLNodeRefreshBF(current_node->left_son);
+            AVLNodeRefreshBF(current_node->right_son);
             AVLNodeRefreshBF(current_node);
             current_node = current_node -> father;
         }
@@ -169,7 +173,8 @@ namespace AVL{
     */
     template <class KeyElem, class Data>
     void AVLTree<KeyElem,Data>:: AVLNodeRefreshHeight(TNode* node){
-        
+        if(!node) return;
+
         if(!node->right_son && !node->left_son){
             node->height = 0;
         }
@@ -186,6 +191,7 @@ namespace AVL{
 
     template <class KeyElem, class Data>
     void AVLTree<KeyElem,Data>:: AVLNodeRefreshBF(TNode* node){
+        if(!node) return;
         if(!node->right_son && !node->left_son){
             node->BF = 0;
         }
@@ -332,7 +338,7 @@ namespace AVL{
                     node->father->right_son = nullptr;
                 }  
             }
-            else if(!node->leftSonExists() || !node->rightSonExists()){  //Has only a right son
+            else if(!node->leftSonExists() || !node->rightSonExists()){  //Has only a right son or a left son
                 /* TNode* node_sun;;
                 if(node->leftSonExists()){
                     node_son = node->left_son;
@@ -358,12 +364,12 @@ namespace AVL{
                 if(node == this->root){
                         this->root = replacer;
                     }
-                    else if(node->isLeftSon()){
-                        node->father->left_son = replacer;
-                    }
-                    else if(node->isRightSon()){
-                        node->father->right_son = replacer;
-                    }
+                else if(node->isLeftSon()){
+                    node->father->left_son = replacer;
+                }
+                else if(node->isRightSon()){
+                    node->father->right_son = replacer;
+                }
 
                 auto temp_node_left_son = node->left_son,
                     temp_node_right_son = node->right_son,

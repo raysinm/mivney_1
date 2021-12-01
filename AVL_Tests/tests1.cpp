@@ -65,12 +65,12 @@ int main() {
 	tree2.AVLInsert(7,0);
 	tree2.AVLInsert(6,0);
 	tree2.AVLInsert(5,0);
-	tree2.AVLInsert(12,0);
-	tree2.AVLInsert(10,0);
-	tree2.AVLInsert(9,0);
-	tree2.AVLInsert(9.5,0);
-	tree2.AVLInsert(11,0);
 	tree2.AVLInsert(13,0);
+	tree2.AVLInsert(11,0);
+	tree2.AVLInsert(9,0);
+	tree2.AVLInsert(10,0);
+	tree2.AVLInsert(12,0);
+	tree2.AVLInsert(14,0);
 	tree2.AVLPrintInOrder();
 	cout << endl;
 
@@ -91,15 +91,15 @@ int main() {
 	tree2.AVLPrintInOrder();
 	cout << endl;
 	// AVLRemove node with no children - with 1 rotation
-	tree2.AVLRemove(9.5);
+	tree2.AVLRemove(10);
 	tree2.AVLPrintInOrder();
 	cout << endl;
 	// AVLRemove node with no children - with 1 rotation
-	tree2.AVLRemove(13);
+	tree2.AVLRemove(14);
 	tree2.AVLPrintInOrder();
 	cout << endl;
 	// AVLRemove node with no children - no rotation
-	tree2.AVLRemove(10);
+	tree2.AVLRemove(11);
 	tree2.AVLPrintInOrder();
 	cout << endl;
 	// AVLRemove node with two children - no rotation
@@ -111,7 +111,7 @@ int main() {
 	tree2.AVLPrintInOrder();
 	cout << endl;
 	// AVLRemove node with no children - no rotation
-	tree2.AVLRemove(12);
+	tree2.AVLRemove(13);
 	tree2.AVLPrintInOrder();
 	cout << endl;
 	// AVLRemove node with one child - no rotation
@@ -123,12 +123,12 @@ int main() {
 	tree2.AVLPrintInOrder();
 	cout << endl;
 	// AVLRemove root with one child - no rotation
-	tree2.AVLRemove(11);
+	tree2.AVLRemove(12);
 	tree2.AVLPrintInOrder();
 	cout << endl;
 	// AVLRemove root with no children - no rotation
 	tree2.AVLRemove(1);
-	tree2.AVLInsert(12,0);
+	tree2.AVLInsert(13,0);
 	tree2.AVLPrintInOrder();
 	cout << endl;
 	tree2.AVLRemove(12);
