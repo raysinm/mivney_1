@@ -13,7 +13,7 @@ class PlayersManager{
         virtual bool operator<(const GenKey& other){
             return this->id < other.id;
         }
-        virtual bool operator==(const GenKey& key){
+        virtual bool operator==(const GenKey& other){
             return (this->id == other.id);
         }
     };
