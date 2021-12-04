@@ -22,8 +22,8 @@ namespace AVL{
                 int height; //?
 
                 TNode* father;
-                TNode* left_son;
-                TNode* right_son;
+                TNode* left_son; //smaller
+                TNode* right_son; //bigger
 
                 public:
                     TNode(const KeyElem& key, const Data& data):
@@ -57,6 +57,7 @@ namespace AVL{
             };
             
             TNode* root;
+            int tree_size;
 
             void AVLDestroy_rec(TNode*);
             void AVLBalance(TNode*);
@@ -70,17 +71,20 @@ namespace AVL{
 
         public:
 
-            AVLTree(): root(nullptr){};
+            AVLTree(): root(nullptr), tree_size(0){};
             AVLTree(const AVLTree&); //Should we use user's copy functions?
             ~AVLTree(){
                 AVLDestroy_rec(root);
             }; //Should we use user's free functions?
 
             TNode* AVLFind(const KeyElem& key);
-            void AVLInsert(const KeyElem&, const Data&);
+            StatusType AVLInsert(const KeyElem&, const Data&);
             void AVLRemove(const KeyElem&);
             void AVLPrintInOrder();
             //Data& AVLGet(const KeyElem&);
+            StatusType AVLMerge(AVLTree& tree_to_merge);
+            void InorderRec(TNode* node, TNode* arr, int& arr_index, const int arr_size);
+            void MergeArr(TNode* arr1, const int arr1_size, TNode* arr2, const int arr2_size, TNode* merged_arr);
 
             void AVLRotate_LL(TNode*);
             void AVLRotate_RR(TNode*);
@@ -90,16 +94,16 @@ namespace AVL{
     };
 
 
-
+    //changed to return StatusType to return FAIL and ALLOCATION_ERROR
     template <class KeyElem, class Data>
-    void AVLTree<KeyElem,Data>:: AVLInsert(const KeyElem& key, const Data& data){
+    StatusType AVLTree<KeyElem,Data>:: AVLInsert(const KeyElem& key, const Data& data){
         
         if(key < 0 || this->AVLExist(key)){  //checks if key is already in this tree
-            return;
+            return FAILURE;
         }
-        //in case exists need to return FAILURE
 
         TNode* insert_node = new TNode(key, data);
+        if(!insert_node) return ALLOCATION_ERROR;
 
         if(!this->root){
             this->root = insert_node;
@@ -120,7 +124,8 @@ namespace AVL{
         insert_node->father = insert_after_node;
         AVLBalance(insert_node->father);    //SUPER important
 
-        return;
+        tree_size++;
+        return SUCCESS;
     }
 
     template <class KeyElem, class Data>
@@ -305,6 +310,7 @@ namespace AVL{
     template <class KeyElem, class Data>
     void AVLTree<KeyElem,Data>:: AVLRemove(const KeyElem& key){
         AVLRemove_rec(this->root, key);
+        tree_size--; //garentee removed??
     }
 
     template <class KeyElem, class Data>
@@ -442,6 +448,86 @@ namespace AVL{
         
         delete[] node;
         return;
+    }
+
+    //******************_AVLMerge_********************//
+
+    template<class KeyElem, class Data>
+    StatusType AVLTree<KeyElem,Data>:: AVLMerge(AVLTree& tree_to_merge){
+        TNode[tree_size] players_arr;
+        TNode[tree_to_merge->tree_size] players_to_merge_arr; //like this or pointers?
+        TNode[tree_to_merge->tree_size + tree_size] merged_arr;
+        if(!(players_arr && players_to_merge_arr && merged_arr)) return ALLOCATION_ERROR;
+        int index1 = 0;
+        int index2 = 0;
+        InorderRec(root, players_arr, index1, tree_size);
+        InorderRec(tree_to_merge->root, players_to_merge_arr, index2, tree_to_merge->tree_size);
+        MergeArr(players_arr, tree_size, players_to_merge_arr, tree_to_merge->tree_size, merged_arr);
+        //need to send merged_arr like this? (want it to be updated)
+    }
+
+    template<class KeyElem, class Data>
+    void AVLTree<KeyElem,Data>:: InorderRec(TNode* node, TNode* arr, int& arr_index, const int arr_size){
+        if(!node || arr_index == arr_size){
+            return;
+        }
+        InorderRec(node->left_son, arr, arr_index, arr_size);
+        arr[arr_index] = node;
+        arr_index++;
+        InorderRec(node->right_son, arr, arr_index, arr_size);
+    }
+
+    //recieves pointer to merged_arr so will update without having to return?
+    template<class KeyElem, class Data>
+    void AVLTree<KeyElem,Data>:: MergeArr(TNode* arr1, const int arr1_size, TNode* arr2, const int arr2_size, TNode* merged_arr){
+        int index = 0;
+        int index1 = 0;
+        int index2 = 0;
+        while((index1 < arr1_size) && (index2 < arr2_size)){
+            if(arr1[index1] < arr2[index2]){
+                merged_arr[index] = arr1[index1];
+                index1++;
+            }
+            else{
+                merged_arr[index] = arr2[index2];
+                index2++;
+            }
+            index++;
+            //did not include arr1[index1] == arr2[index2] because not possible
+        }
+        if(index1 < arr1_size){
+            while(index1 < arr1_size){
+                merged_arr[index] = arr1[index1];
+                index1++;
+                index++;
+            }
+        }
+        if(index2 < arr2_size){
+            while(index1 < arr2_size){
+                merged_arr[index] = arr2[index2];
+                index2++;
+                index++;
+            }
+        }
+    }
+
+
+    AVLTree<KeyElem,Data>::TNode* current_node,
+    AVLTree<KeyElem,Data>::TNode** father_to_ret
+
+    //how to connect all nodes fathers + sons not using insert
+    template<class KeyElem, class Data>
+    void AVLTree<KeyElem,Data>:: MergeToAVL(TNode* merged_arr, int arr_size){
+        root = merged_arr[arr_size/2];
+        MergeToAVLRec(root.)
+        MergeToAVLRec()
+    }
+
+    template<class KeyElem, class Data>
+    void AVLTree<KeyElem,Data>:: MergeToAVLRec(TNode* merged_arr, int arr_size){
+        merged_tree = merged_arr[arr_size/2];
+        MergeToAVLRec(m)
+        MergeToAVLRec()
     }
 
 }
