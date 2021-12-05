@@ -85,6 +85,10 @@ namespace PM{
     }
 
     StatusType PlayersManager::IncreaseLevel(int PlayerID, int LevelIncrease){  //O(logn) n- TOTAL number of players
+        if(!all_players.AVLExist(PlayerID)) return FAILURE;
+        auto player_data = all_players.AVLGet(PlayerID);
+        int old_level = player_data->level;
+        PlayerKey player_key(PlayerID, old_level);
         /*
         1) AVLFind in all_players
         2) use the ptr to the group in player's data to go to the group
@@ -130,14 +134,40 @@ namespace PM{
         */
     } 
     
+
+    //need AVL func that returns Data of Root
     StatusType PlayersManager::GetGroupsHighestLevel(int numOfGroups, int **Players){   //O(numOfGroups +logk) k-num of groups
+        if(numOfGroups < num_of_nonempty_groups) return FAILURE;
+        Players = (int**)malloc(numOfGroups*sizeof(PlayerId)); //not sure if its good
+        if(!Players) return ALLOCATION_ERROR;
+        int count = 0;
+        //InorderRec((root group), Players, numOfGroups, count);
+        
         /*
         use numOfGroups as counter to inorder scan function.
         EMPTY group- doesnt count!
         1) check if numOfgroups smaller than number of non-empty groups (should be in PlayersManager), return error
         2) Inorder function with node limit- access each group's best_player (if not empty)
         */
-    }   
+    }  
+
+   
+   //for this func I need AVL funcs that return to me data of left & right sons
+   //data might not be good enought to know where am I in tree
+    void PlayersManager:: InorderRec(GroupData *group, int **Players, int numOfGroups, int count){
+        if(count == 0 || group == nullptr) return;
+        /*
+        GroupData *leftGroup = (get group on the left);
+        InorderRec(leftGroup, Players, numOfGroups, count);
+
+        PlayerId bestPlayer = group.best_in_group;
+        Players[count] = bestPlayer;
+        count++;
+
+        GroupData *rightGroup = (get group on the right);
+        InorderRec(rightGroup, Players, numOfGroups, count);
+        */
+    } 
     
     
     void PlayersManager::Quit(){
