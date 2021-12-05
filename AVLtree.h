@@ -62,7 +62,6 @@ namespace AVL{
 
             void AVLDestroy_rec(TNode*);
             void AVLBalance(TNode*);
-            bool AVLExist(const KeyElem&);
             TNode* AVLFind_rec(TNode* current_node, const KeyElem& key_to_find, TNode** father_to_ret);
             void AVLRemove_rec(TNode* node, const KeyElem& key);
             void AVLNodeRefreshHeight(TNode* node);
@@ -73,21 +72,26 @@ namespace AVL{
             void MergeArray(AVLTree<KeyElem,Data>::TNode** arr1, const int arr1_size,
                                  AVLTree<KeyElem,Data>::TNode** arr2, const int arr2_size, AVLTree<KeyElem,Data>::TNode** merged_arr);
             TNode* ArrayToAVLTree(TNode** array, int start, int end, TNode* father);
+
         public:
 
             AVLTree(): root(nullptr), size(0){};
-            AVLTree(const AVLTree&); //Should we use user's copy functions?
+            AVLTree(const AVLTree&);
             ~AVLTree(){
                 AVLDestroy_rec(root);
-            }; //Should we use user's free functions?
-
+            };
+            bool AVLExist(const KeyElem&);
             TNode* AVLFind(const KeyElem& key);
             StatusType AVLInsert(const KeyElem&, const Data&);
-            void AVLRemove(const KeyElem&);
+            StatusType AVLRemove(const KeyElem&);
             void AVLPrintInOrder();
             //Data& AVLGet(const KeyElem&);
             StatusType AVLMerge(AVLTree<KeyElem,Data>& other_tree);
-            
+            Data& AVLGet(KeyElem key);
+            int size(){
+                return size;
+            }
+            const KeyElem& AVLMax();
             
 
             void AVLRotate_LL(TNode*);
@@ -314,9 +318,10 @@ namespace AVL{
     //Recursive Return
 
     template <class KeyElem, class Data>
-    void AVLTree<KeyElem,Data>:: AVLRemove(const KeyElem& key){
+    StatusType AVLTree<KeyElem,Data>:: AVLRemove(const KeyElem& key){
         AVLRemove_rec(this->root, key);
         size--; //garentee removed??
+        return SUCCESS;
     }
 
     template <class KeyElem, class Data>
@@ -436,6 +441,10 @@ namespace AVL{
         
     }
      
+    template<class KeyElem, class Data>
+    Data& AVLTree<KeyElem,Data>:: AVLGet(KeyElem key){   //return data by reference or as a ptr?
+        return AVLFind(key)->data;
+    }
 
     template<class KeyElem, class Data>
     void AVLTree<KeyElem,Data>:: AVLDestroy_rec(TNode* node){
@@ -451,7 +460,6 @@ namespace AVL{
             AVLDestroy_rec(node->right_son);
             node->right_son = nullptr;
         }
-        
         delete[] node;
         return;
     }
@@ -476,6 +484,7 @@ namespace AVL{
         } */
         this->root = this->ArrayToAVLTree(merged_arr, 0, (this->size + other_tree.size - 1), nullptr);
         this->size += other_tree.size;
+        other_tree.root = nullptr;
         delete[] tree1_arr, other_tree_arr, merged_arr;
         return SUCCESS;
         }
@@ -551,26 +560,17 @@ namespace AVL{
         }
     }
 
-
-    /* AVLTree<KeyElem,Data>::TNode* current_node;
-    AVLTree<KeyElem,Data>::TNode** father_to_ret; */
-/* 
-    //how to connect all nodes fathers + sons not using insert
     template<class KeyElem, class Data>
-    void AVLTree<KeyElem,Data>:: MergeToAVL(TNode* merged_arr, int arr_size){
-        root = merged_arr[arr_size/2];
-        MergeToAVLRec(root.)
-        MergeToAVLRec()
-    } */
-
-   /*  template<class KeyElem, class Data>
-    void AVLTree<KeyElem,Data>:: MergeToAVLRec(TNode* merged_arr, int arr_size){
-        merged_tree = merged_arr[arr_size/2];
-        MergeToAVLRec(m)
-        MergeToAVLRec()
+    const KeyElem& AVLTree<KeyElem,Data>::AVLMax(){
+        if(!root){
+            return NULL;
+        }
+        auto current = this->root;
+        while(current->right_son){
+            current = current->right_son;
+        }
+        return current->key;
     }
- */
 }
-
 
 #endif

@@ -3,13 +3,17 @@
 
 #include "./AVLtree.h"
 
-namespace DS{
+namespace PM{
+
+typedef int PlayerId;
 
 class PlayersManager{
     class GenKey{
+        friend class PlayersManager;
         protected:
         int id;
         public:
+        explicit GenKey(const int& id): id(id){}
         virtual bool operator<(const GenKey& other){
             return this->id < other.id;
         }
@@ -21,6 +25,7 @@ class PlayersManager{
     class PlayerKey : public GenKey{
         int level;
         public:
+        PlayerKey(const int& id, const int& level): GenKey(id),level(level){}
         bool operator<(const PlayerKey& other){ 
             if(this->level == other.level){
                 return this->id > other.id;
@@ -29,31 +34,40 @@ class PlayersManager{
             return (this->level < other.level);
             }
         }
-        bool operator==(const PlayerKey& key){
+
+        bool operator==(const PlayerKey& other){
             return (this->level == other.level && this->id == other.id);
         }
     };
 
-    class GroupKey : public GenKey{};
+    class GroupKey : public GenKey{
+        public:
+        GroupKey(const int& group_id): GenKey(group_id){}
+    };
     
     class PlayerData{
-        AVL::AVLTree<PlayerKey,PlayerData>* owner_tree;
-
+        AVL::AVLTree<PlayerKey,PlayerData>* owner_group_tree;
+        int level;
         public:
-            PlayerData(AVL::AVLTree<PlayerKey,PlayerData>* owner): owner_tree(owner){};
+            PlayerData(AVL::AVLTree<PlayerKey,PlayerData>* owner, int level=-1): owner_group_tree(owner), level(level){};
     };
 
     class GroupData{
+        friend class PlayersManager;
         AVL::AVLTree<PlayerKey,PlayerData> group_players;
-        PlayerKey best;
+        PlayerId best_in_group;
+        public:
+            GroupData(): group_players(), best_in_group(-1){}
     };
     
     AVL::AVLTree<GroupKey,GroupData> groups;
-    AVL::AVLTree<PlayerKey,PlayerData*> all_players;
-    PlayerKey best_of_all;
+    AVL::AVLTree<PlayerId,PlayerData*> all_players;
+    AVL::AVLTree<PlayerKey,PlayerData*> all_players_sorted;
     
+    PlayerId best_of_all;   //check when removing or adding a player
+    int num_of_nonempty_groups;
     public:
-        PlayersManager();
+        PlayersManager(): groups(), best_of_all(-1), num_of_nonempty_groups(0){};   //check if needs anything for manual initiation
         //void Init();     //O(1)
         StatusType AddGroup(int groupId);  //O(logk) k- num of groups
         StatusType AddPlayer(int PlayerID, int GroupID, int Level); //O(logn + logk) n- num of players in group, k- num of groups
@@ -64,40 +78,11 @@ class PlayersManager{
         StatusType GetAllPlayersByLevel(int GroupID, int **Players, int *numOfPlayers); //O(n_groupId +logk) k-num of groups
         StatusType GetGroupsHighestLevel(int numOfGroups, int **Players);   //O(numOfGroups +logk) k-num of groups
         void Quit();    //O(n+k) n- num of players, k- num of groups
-};
+    };
 
-PlayersManager::PlayersManager() : groups(), best_of_all(NULL){}
 
-//take care of return vals in add&remove
-template <class GroupKey, class GroupData> //do we need?
-StatusType AddPlayer(int PlayerID, int GroupID, int Level){
-    auto player_group = groups.AVLFind(GroupID);
 
-    GroupKey new_group_key = new GroupKey(GroupId);
-    PlayerKey new_player_key = new PlayerKey(PlayerId, Level);
-    
-    groups.AVLFind(new_group_key);
-    return player_group.players.AVLInsert(PlayerID, Level);
-}
 
-template <class GroupKey, class GroupData>
-StatusType RemovePlayer(int PlayerID){
-    //need to figure how to find player
-}
-
-template <class GroupKey, class GroupData>
-StatusType ReplaceGroup(int GroupID, int ReplacementID){
-    auto group_to_remove = groups.AVLFind(GroupID);
-    auto group_to_merge = groups.AVLFind(ReplacementID);
-    if(group_to_remove == nullptr || group_to_merge == nullptr) return FAILURE;
-    //merge - dont have func yet: merge(group_to_remove.players, group_to_merge.players) and put into group_to_merge
-    return groups.AVLRemove(GroupID);
-}
-
-template <class GroupKey, class GroupData>
-StatusType IncreaseLevel(int PlayerID, int LevelIncrease){
-    //need to figure how to find player
-}
 
 
 }
