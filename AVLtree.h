@@ -68,10 +68,12 @@ namespace AVL{
             void AVLNodeRefreshBF(TNode* node);
             TNode* findReplacingNode(TNode* node);
             void AVLPrintInOrder_rec(TNode* node);
-            void InorderRec(TNode* node, TNode** arr, int& arr_index, const int arr_size);
+            void InOrderOutputTNodes_rec(TNode* node, TNode** arr, int& arr_index, const int arr_size);
             void MergeArray(AVLTree<KeyElem,Data>::TNode** arr1, const int arr1_size,
                                  AVLTree<KeyElem,Data>::TNode** arr2, const int arr2_size, AVLTree<KeyElem,Data>::TNode** merged_arr);
             TNode* ArrayToAVLTree(TNode** array, int start, int end, TNode* father);
+            void InOrderOutputDatas_rec(TNode* node, Data** arr, int& arr_index, const int arr_size);
+
 
         public:
 
@@ -92,6 +94,7 @@ namespace AVL{
                 return size;
             }
             const KeyElem& AVLMax();
+            void InOrderOutputDatas(Data** arr, const int arr_size);
             
 
             void AVLRotate_LL(TNode*);
@@ -99,6 +102,41 @@ namespace AVL{
             void AVLRotate_LR(TNode*);
             void AVLRotate_RL(TNode*);
             
+            /*
+            class GenFunctor{
+                public:
+                GenFunctor();
+                ~GenFunctor = virtual;
+            }
+            class PrintKey : public GenFunctor{
+                ElemKey& key;
+                public:
+                PrintKey();
+                PrintKey(const ElemKey& key): key(key){};
+                void operator()(ElemKey& key){
+                    std::cout << key << ", "
+                }
+            }
+            class InsertTNode : public GenFunctor{
+                TNode* node;
+                TNode** array;
+                int index;
+                public:
+                InsertTNode();
+                InsertTNode(const (const (TNode*)& node, (TNode**)& array, const int& index): node(node), array(array), index(index){};
+                void operator()(const (TNode*)& node, (TNode**)& array, const int& index){
+                    array[index] = node;
+                }
+            }
+            class InsertData : public GenFunctor{
+                TNode* node;
+                (Data&)* array;
+                int index;
+                public:
+                InsertData();
+                InsertData(const (TNode*)& node, ((Data&)*)& array, const int& index): node()
+            } */
+
     };
 
     
@@ -469,14 +507,17 @@ namespace AVL{
     template<class KeyElem, class Data>
     StatusType AVLTree<KeyElem,Data>::AVLMerge(AVLTree<KeyElem,Data>& other_tree){
         //allocating two arrays for merging
+        TNode** tree1_arr;
+        TNode** other_tree_arr;
+        TNode** merged_arr;
         try{
-        TNode** tree1_arr = new TNode*[this->size];
-        TNode** other_tree_arr = new TNode*[other_tree.size];
-        TNode** merged_arr = new TNode*[this->size + other_tree.size];
+        tree1_arr = new TNode*[this->size];
+        other_tree_arr = new TNode*[other_tree.size];
+        merged_arr = new TNode*[this->size + other_tree.size];
 
         int i1 = 0, i2 = 0;
-        InorderRec(this->root, tree1_arr, i1, this->size);
-        InorderRec(other_tree.root, other_tree_arr, i2, other_tree.size);
+        InOrderOutputTNodes_rec(this->root, tree1_arr, i1, this->size);
+        InOrderOutputTNodes_rec(other_tree.root, other_tree_arr, i2, other_tree.size);
         MergeArray(tree1_arr, this->size, other_tree_arr, other_tree.size, merged_arr);
         //need to send merged_arr like this? (want it to be updated)- yes
         /* for(int i=0;i<(this->size + other_tree.size);i++){
@@ -486,23 +527,49 @@ namespace AVL{
         this->size += other_tree.size;
         other_tree.root = nullptr;
         delete[] tree1_arr, other_tree_arr, merged_arr;
+        tree1_arr = nullptr;
+        other_tree_arr = nullptr;
+        merged_arr = nullptr;
         return SUCCESS;
         }
-        catch(...){
+        catch(std::bad_alloc e&){
+            delete[] tree1_arr, other_tree_arr, merged_arr;
             return ALLOCATION_ERROR;
         }
     }
 
-    
     template<class KeyElem, class Data>
-    void AVLTree<KeyElem,Data>:: InorderRec(TNode* node, TNode** arr, int& arr_index, const int arr_size){
+    void AVLTree<KeyElem,Data>:: InOrderOutputDatas(Data** arr, const int arr_size){
+        int& index = 0;
+        InOrderOutputDatas_rec(this->root, arr, index, arr_size);
+    }
+
+    template<class KeyElem, class Data>
+    void AVLTree<KeyElem,Data>:: InOrderOutputDatas_rec(TNode* node, Data** arr, int& arr_index, const int arr_size){
+        if(!node || arr_index == arr_size){    //if group is empty
+            return;
+        }
+        InOrderOutputDatas_rec(node->left_son, arr, arr_index, arr_size);
+        if(node->data.isOk()){
+            arr[arr_index] = &node->data;
+            arr_index++;
+        }
+        InOrderOutputDatas_rec(node->right_son, arr, arr_index, arr_size);
+        
+        
+    }
+
+
+
+    template<class KeyElem, class Data>
+    void AVLTree<KeyElem,Data>:: InOrderOutputTNodes_rec(TNode* node, TNode** arr, int& arr_index, const int arr_size){
         if(!node || arr_index == arr_size){
             return;
         }
-        InorderRec(node->left_son, arr, arr_index, arr_size);
+        InOrderOutputTNodes_rec(node->left_son, arr, arr_index, arr_size);
         arr[arr_index] = node;
         arr_index++;
-        InorderRec(node->right_son, arr, arr_index, arr_size);
+        InOrderOutputTNodes_rec(node->right_son, arr, arr_index, arr_size);
     }
 
     template<class KeyElem, class Data>

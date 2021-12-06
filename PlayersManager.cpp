@@ -55,12 +55,26 @@ namespace PM{
     }
 
     StatusType PlayersManager::RemovePlayer(int PlayerID){  //O(logn) n- num of players TOTAL   -should we keep another tree of players only?
-        
+        if(!all_players.AVLExist(PlayerID)) return FAILURE;
+        auto player_data = all_players.AVLGet(PlayerID);
+        auto player_group_data = player_data->owner_group_data;
+        auto player_group_tree = player_data->owner_group_data->group_players;
+        int level = player_data->level;
+        PlayerKey player_key(PlayerID, level);
+        all_players_sorted.AVLRemove(player_key);
+        player_group_tree.AVLRemove(player_key);
+        best_of_all = all_players_sorted.AVLMax();
+        player_group_data->best_in_group = player_group_tree.AVLMax();
+        if(player_group_tree.size() == 0){
+            num_of_nonempty_groups--;
+        }
+        all_players.AVLRemove(PlayerID);
+        return SUCCESS;
         /*
         1) find player in all_players
         2) create playerKey with level inside player's data
         3) AVLRemove in all_players_sorted
-        4) AVLRemove in owner_group_tree
+        4) AVLRemove in owner group tree saved in owner_group_data
         4.5) update best_player
         5)if group.size == 0 , decrease the number of non-empty groups in PlayersManager
         5) AVLRemove in all_players
@@ -84,21 +98,24 @@ namespace PM{
         return groups.AVLRemove(GroupID); */
     }
 
+    //DONE
     StatusType PlayersManager::IncreaseLevel(int PlayerID, int LevelIncrease){  //O(logn) n- TOTAL number of players
         if(!all_players.AVLExist(PlayerID)) return FAILURE;
         auto player_old_data = all_players.AVLGet(PlayerID);
-        auto player_group = player_old_data->owner_group_tree;
+        auto player_group_data = player_old_data->owner_group_data;
+        auto player_group_tree = player_old_data->owner_group_data->group_players;
         int old_level = player_old_data->level;
         PlayerKey player_old_key(PlayerID, old_level);
-        player_group->AVLRemove(player_old_key);
+        player_group_tree->AVLRemove(player_old_key);
         PlayerKey player_new_key(PlayerID, old_level + LevelIncrease);
-        PlayerData player_new_data(player_old_data->owner_group_tree, player_old_data->level += LevelIncrease);
+        PlayerData player_new_data(player_old_data->owner_group_data, player_old_data->level += LevelIncrease);
         player_new_data.level += LevelIncrease;
-        player_group->AVLInsert(player_new_key, player_new_data);
-        //best player update func
+        player_group_tree->AVLInsert(player_new_key, player_new_data);
+        player_group_data->best_in_group = player_group_tree.AVLMax();
         all_players_sorted.AVLRemove(player_old_key);
         all_players_sorted.AVLInsert(player_new_key, &player_new_data);
-        //update best_of_all
+        best_of_all = all_players_sorted.AVLMax();
+        return SUCCESS;
         
         /*
         1) AVLFind in all_players
@@ -115,6 +132,7 @@ namespace PM{
         */
     }
 
+    //DONE
     StatusType PlayersManager::GetHighestLevel(int GroupID, int *PlayerID){   //O(logk) k- num of groups. if GroupId<0 : O(1)
         if(GroupID < 0)
         {
@@ -165,9 +183,9 @@ namespace PM{
    
    //for this func I need AVL funcs that return to me data of left & right sons
    //data might not be good enought to know where am I in tree
-    void PlayersManager:: InorderRec(GroupData *group, int **Players, int numOfGroups, int count){
+  /*  void PlayersManager:: InOrderRec(GroupData *group, int **Players, int numOfGroups, int count){
         if(count == 0 || group == nullptr) return;
-        /*
+        
         GroupData *leftGroup = (get group on the left);
         InorderRec(leftGroup, Players, numOfGroups, count);
 
@@ -177,8 +195,8 @@ namespace PM{
 
         GroupData *rightGroup = (get group on the right);
         InorderRec(rightGroup, Players, numOfGroups, count);
-        */
-    } 
+        
+    }*/ 
     
     
     void PlayersManager::Quit(){

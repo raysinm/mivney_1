@@ -46,22 +46,28 @@ class PlayersManager{
     };
     
     class PlayerData{
-        AVL::AVLTree<PlayerKey,PlayerData>* owner_group_tree;
+        friend class PlayersManager;
+        //AVL::AVLTree<PlayerKey,PlayerData>* owner_group_tree;
+        PM::PlayersManager::GroupData* owner_group_data; //maybe remove PM::PlayersManager::
         int level;
         public:
-            PlayerData(AVL::AVLTree<PlayerKey,PlayerData>* owner, int level=-1): owner_group_tree(owner), level(level){};
+            PlayerData(PM::PlayersManager::GroupData*, int level=-1): owner_group_data(owner), level(level){};
     };
 
     class GroupData{
         friend class PlayersManager;
+        friend class AVLTree;
         AVL::AVLTree<PlayerKey,PlayerData> group_players;
         PlayerId best_in_group;
         public:
             GroupData(): group_players(), best_in_group(-1){}
+            bool isOk(){
+                return (group_players.size() != 0);
+            }
     };
     
     AVL::AVLTree<GroupKey,GroupData> groups;
-    AVL::AVLTree<PlayerId,PlayerData*> all_players;
+    AVL::AVLTree<PM::PlayerId,PlayerData*> all_players;
     AVL::AVLTree<PlayerKey,PlayerData*> all_players_sorted;
     
     PlayerId best_of_all;   //check when removing or adding a player
