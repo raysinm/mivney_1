@@ -45,4 +45,8 @@ StatusType GetGroupsHighestLevel(void *DS, int numOfGroups, int **Players){
     return ((PM::PlayersManager*)DS)->GetGroupsHighestLevel (numOfGroups, Players);
 }
 
-void Quit(void** DS);
+void Quit(void** DS)
+{
+    delete (PM::PlayersManager*)(*DS);
+    *DS = nullptr;
+}

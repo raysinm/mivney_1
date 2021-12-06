@@ -51,7 +51,7 @@ class PlayersManager{
         PM::PlayersManager::GroupData* owner_group_data; //maybe remove PM::PlayersManager::
         int level;
         public:
-            PlayerData(PM::PlayersManager::GroupData*, int level=-1): owner_group_data(owner), level(level){};
+            PlayerData(PM::PlayersManager::GroupData* owner, int level=-1): owner_group_data(owner), level(level){};
     };
 
     class GroupData{
@@ -59,21 +59,23 @@ class PlayersManager{
         friend class AVLTree;
         AVL::AVLTree<PlayerKey,PlayerData> group_players;
         PlayerId best_in_group;
+        GroupKey group_id;
         public:
-            GroupData(): group_players(), best_in_group(-1){}
+            GroupData(GroupKey id): group_players(), best_in_group(-1), group_id(id){}; //make sure we really send id
             bool isOk(){
                 return (group_players.size() != 0);
             }
     };
     
     AVL::AVLTree<GroupKey,GroupData> groups;
+    AVL::AVLTree<GroupKey,PlayerId> best_in_non_empty_groups;
     AVL::AVLTree<PM::PlayerId,PlayerData*> all_players;
     AVL::AVLTree<PlayerKey,PlayerData*> all_players_sorted;
     
     PlayerId best_of_all;   //check when removing or adding a player
     int num_of_nonempty_groups;
     public:
-        PlayersManager(): groups(), best_of_all(-1), num_of_nonempty_groups(0){};   //check if needs anything for manual initiation
+        PlayersManager(): groups(), best_in_non_empty_groups(), best_of_all(-1), num_of_nonempty_groups(0){};   //check if needs anything for manual initiation
         //void Init();     //O(1)
         StatusType AddGroup(int groupId);  //O(logk) k- num of groups
         StatusType AddPlayer(int PlayerID, int GroupID, int Level); //O(logn + logk) n- num of players in group, k- num of groups
@@ -83,7 +85,6 @@ class PlayersManager{
         StatusType GetHighestLevel(int GroupID, int *PlayerID);  //O(logk) k- num of groups. if GroupId<0 : O(1)
         StatusType GetAllPlayersByLevel(int GroupID, int **Players, int *numOfPlayers); //O(n_groupId +logk) k-num of groups
         StatusType GetGroupsHighestLevel(int numOfGroups, int **Players);   //O(numOfGroups +logk) k-num of groups
-        void Quit();    //O(n+k) n- num of players, k- num of groups
     };
 
 
