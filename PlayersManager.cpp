@@ -10,7 +10,7 @@ namespace PM{
         1) AVLInsert into groups tree 
         */
         GroupKey new_group_key(groupId);
-        GroupData new_group_data;
+        GroupData new_group_data(groupId);
         groups.AVLInsert(new_group_key, new_group_data);
         return SUCCESS;
     }
@@ -33,6 +33,7 @@ namespace PM{
 
         if(prev_group_size == 0){
             ++this->num_of_nonempty_groups;
+            best_in_non_empty_groups.AVLInsert(GroupID,PlayerID);
         }
         all_players.AVLInsert(PlayerID, &new_player_data);
         all_players_sorted.AVLInsert(new_player_key, &new_player_data);
@@ -73,6 +74,7 @@ namespace PM{
         player_group_data->best_in_group = player_group_tree.AVLMax();
         if(player_group_tree.size() == 0){
             num_of_nonempty_groups--;
+            best_in_non_empty_groups.AVLRemove(player_group_data->group_id);
         }
         all_players.AVLRemove(PlayerID);
         return SUCCESS;
@@ -99,6 +101,7 @@ namespace PM{
         {
             players.AVLMerge(players_to_move);//make sure used merge right and new tree is inserted back
             groups.AVLRemove(GroupID);
+            best_in_non_empty_groups.AVLRemove(GroupID);
             num_of_nonempty_groups--;
             //change old players data to point to new group tree using inorder or merge func?
             //maybe use inorder before merging to change old players to point to replacement_data
@@ -111,6 +114,7 @@ namespace PM{
                 replacement_data.group_players = group_data.group_players;
                 replacement_data.best_in_group = group_data.best_in_group;
                 groups.AVLRemove(GroupID);
+                best_in_non_empty_groups.AVLRemove(GroupID);
             }
             else{
                 groups.AVLRemove(GroupID);
@@ -146,6 +150,11 @@ namespace PM{
         player_new_data.level += LevelIncrease;
         player_group_tree->AVLInsert(player_new_key, player_new_data);
         player_group_data->best_in_group = player_group_tree.AVLMax();
+
+        best_in_non_empty_groups.AVLRemove(player_group_data->group_id);
+        best_in_non_empty_groups.AVLInsert(player_group_data->group_id,player_group_data->best_in_group);
+        //make func that only changes data instead of these two lines?
+        
         all_players_sorted.AVLRemove(player_old_key);
         all_players_sorted.AVLInsert(player_new_key, &player_new_data);
         best_of_all = all_players_sorted.AVLMax().id;
@@ -232,15 +241,5 @@ namespace PM{
         
     }*/ 
     
-    
-    void PlayersManager::Quit(){
-        //destroy everything (call destructors actively?)
-        /*in reference they had func in library.cpp (i added it too) 
-        and default destructor for PlayersManager
-        seems to make sense because we didnt use malloc so no need to free
-        but how does it add up with the request for O(n+k)
-        or does it still count if we did not free it manualy
-        */
-    }
 
 }
