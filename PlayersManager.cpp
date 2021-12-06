@@ -92,12 +92,12 @@ namespace PM{
         PlayerKey player_old_key(PlayerID, old_level);
         player_group->AVLRemove(player_old_key);
         PlayerKey player_new_key(PlayerID, old_level + LevelIncrease);
-        PlayerData player_new_data = *player_old_data;
+        PlayerData player_new_data(player_old_data->owner_group_tree, player_old_data->level += LevelIncrease);
         player_new_data.level += LevelIncrease;
         player_group->AVLInsert(player_new_key, player_new_data);
         //best player update func
         all_players_sorted.AVLRemove(player_old_key);
-        all_players_sorted.AVLInsert(player_new_key, player_new_data);
+        all_players_sorted.AVLInsert(player_new_key, &player_new_data);
         //update best_of_all
         
         /*
