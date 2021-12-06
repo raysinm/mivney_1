@@ -84,11 +84,11 @@ namespace AVL{
             };
             bool AVLExist(const KeyElem&);
             TNode* AVLFind(const KeyElem& key);
-            StatusType AVLInsert(const KeyElem&, const Data&);
-            StatusType AVLRemove(const KeyElem&);
+            void AVLInsert(const KeyElem&, const Data&);
+            void AVLRemove(const KeyElem&);
             void AVLPrintInOrder();
             //Data& AVLGet(const KeyElem&);
-            StatusType AVLMerge(AVLTree<KeyElem,Data>& other_tree);
+            void AVLMerge(AVLTree<KeyElem,Data>& other_tree);
             Data& AVLGet(KeyElem key);
             int size(){
                 return size;
@@ -102,6 +102,26 @@ namespace AVL{
             void AVLRotate_LR(TNode*);
             void AVLRotate_RL(TNode*);
             
+            class Iterator{
+                TNode* current_node;
+                public:
+                    Iterator();
+                    void begin(){
+                        current_node = AVLTree::getFirst()
+                        return this;
+                    }
+                    void end(){
+                        current_node = nullptr;
+                    }
+                    Data& operator*(){
+                        return current_node->data;
+                    }
+                    Iterator& operator++(int){
+                        return current_node.nextInOrder
+                    }
+                    friend bool operator==(const Iterator& it1, const Iterator& it2)
+                    
+            }
             /*
             class GenFunctor{
                 public:
@@ -139,43 +159,41 @@ namespace AVL{
 
     };
 
-    
-
-    //changed to return StatusType to return FAIL and ALLOCATION_ERROR
     template <class KeyElem, class Data>
-    StatusType AVLTree<KeyElem,Data>:: AVLInsert(const KeyElem& key, const Data& data){
-        
-        /* if(key < 0 || this->AVLExist(key)){  //checks if key is already in this tree
-            return FAILURE;
-        } */
+    bool AVLTree<KeyElem,Data>::operator==(const Iterator& t1, const Iterator& t2){
+        return t1.current_node == t2.current_node;
+    }
+    
+    template <class KeyElem, class Data>
+    void AVLTree<KeyElem,Data>:: AVLInsert(const KeyElem& key, const Data& data){
         try{
-        TNode* insert_node = new TNode(key, data);
-        if(!insert_node) return ALLOCATION_ERROR;
+            TNode* insert_node = new TNode(key, data);
+            if(!insert_node) return ALLOCATION_ERROR;
 
-        if(!this->root){
-            this->root = insert_node;
+            if(!this->root){
+                this->root = insert_node;
+                size++;
+                return SUCCESS;
+            }
+
+            TNode* insert_after_node = nullptr;
+            auto not_used_output = AVLFind_rec(root, key, &insert_after_node);
+            //assert(insert_after_node != nullptr); //sanity check
+
+            if(key < insert_after_node->key){
+                insert_after_node->left_son = insert_node;
+            } 
+            else{
+                insert_after_node->right_son = insert_node;
+            }
+            
+            insert_node->father = insert_after_node;
+            AVLBalance(insert_node->father);    //SUPER important
             size++;
+
             return SUCCESS;
-        }
-
-        TNode* insert_after_node = nullptr;
-        auto not_used_output = AVLFind_rec(root, key, &insert_after_node);
-        //assert(insert_after_node != nullptr); //sanity check
-
-        if(key < insert_after_node->key){
-            insert_after_node->left_son = insert_node;
-        } 
-        else{
-            insert_after_node->right_son = insert_node;
-        }
-        
-        insert_node->father = insert_after_node;
-        AVLBalance(insert_node->father);    //SUPER important
-        size++;
-
-        return SUCCESS;
         }catch(std::bad_alloc e&){
-            throw;
+            throw(e);
         }
     }
 
@@ -359,10 +377,9 @@ namespace AVL{
     //Recursive Return
 
     template <class KeyElem, class Data>
-    StatusType AVLTree<KeyElem,Data>:: AVLRemove(const KeyElem& key){
+    void AVLTree<KeyElem,Data>:: AVLRemove(const KeyElem& key){
         AVLRemove_rec(this->root, key);
         size--; //garentee removed??
-        return SUCCESS;
     }
 
     template <class KeyElem, class Data>
@@ -536,7 +553,7 @@ namespace AVL{
         }
         catch(std::bad_alloc e&){
             delete[] tree1_arr, other_tree_arr, merged_arr;
-            throw;
+            throw(e);
         }
     }
 
@@ -640,6 +657,8 @@ namespace AVL{
         }
         return current->key;
     }
+
+    AVL
 }
 
 #endif
