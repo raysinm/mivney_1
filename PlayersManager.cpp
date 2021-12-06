@@ -86,9 +86,20 @@ namespace PM{
 
     StatusType PlayersManager::IncreaseLevel(int PlayerID, int LevelIncrease){  //O(logn) n- TOTAL number of players
         if(!all_players.AVLExist(PlayerID)) return FAILURE;
-        auto player_data = all_players.AVLGet(PlayerID);
-        int old_level = player_data->level;
-        PlayerKey player_key(PlayerID, old_level);
+        auto player_old_data = all_players.AVLGet(PlayerID);
+        auto player_group = player_old_data->owner_group_tree;
+        int old_level = player_old_data->level;
+        PlayerKey player_old_key(PlayerID, old_level);
+        player_group->AVLRemove(player_old_key);
+        PlayerKey player_new_key(PlayerID, old_level + LevelIncrease);
+        PlayerData player_new_data = *player_old_data;
+        player_new_data.level += LevelIncrease;
+        player_group->AVLInsert(player_new_key, player_new_data);
+        //best player update func
+        all_players_sorted.AVLRemove(player_old_key);
+        all_players_sorted.AVLInsert(player_new_key, player_new_data);
+        //update best_of_all
+        
         /*
         1) AVLFind in all_players
         2) use the ptr to the group in player's data to go to the group
