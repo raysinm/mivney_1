@@ -49,9 +49,11 @@ class PlayersManager{
         friend class PlayersManager;
         //AVL::AVLTree<PlayerKey,PlayerData>* owner_group_tree;
         PM::PlayersManager::GroupData* owner_group_data; //maybe remove PM::PlayersManager::
+        PlayerId id;
         int level;
         public:
-            PlayerData(PM::PlayersManager::GroupData* owner, int level=-1): owner_group_data(owner), level(level){};
+            PlayerData(PM::PlayersManager::GroupData* owner, const PlayerId& id =-1, int level=-1): 
+                owner_group_data(owner), id(id), level(level){};
     };
 
     class GroupData{
@@ -68,7 +70,7 @@ class PlayersManager{
     };
     
     AVL::AVLTree<GroupKey,GroupData> groups;
-    AVL::AVLTree<GroupKey,PlayerId> best_in_non_empty_groups;
+    AVL::AVLTree<GroupKey,int> best_in_non_empty_groups;
     AVL::AVLTree<PM::PlayerId,PlayerData*> all_players;
     AVL::AVLTree<PlayerKey,PlayerData*> all_players_sorted;
     
@@ -85,6 +87,9 @@ class PlayersManager{
         StatusType GetHighestLevel(int GroupID, int *PlayerID);  //O(logk) k- num of groups. if GroupId<0 : O(1)
         StatusType GetAllPlayersByLevel(int GroupID, int **Players, int *numOfPlayers); //O(n_groupId +logk) k-num of groups
         StatusType GetGroupsHighestLevel(int numOfGroups, int **Players);   //O(numOfGroups +logk) k-num of groups
+
+        class Failure : public std::exception{};
+        class Skip : public std::exception{};
     };
 
 

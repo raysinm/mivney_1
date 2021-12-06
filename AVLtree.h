@@ -12,7 +12,7 @@ namespace AVL{
     
     template <class KeyElem, class Data>
     class AVLTree{
-        private:
+            private:
 
             class TNode{
 
@@ -36,11 +36,9 @@ namespace AVL{
                         if (other_node == nullptr || *this == other_node) return false;
                         return (this->key < other_node.key);
                     };
-
                     bool operator==(const TNode& other_node){
                         return this->key == other_node.key;
                     }
-                    
                     bool isRightSon(){
                         if(!this->father) return false;
                         return(this->father->key < this->key);
@@ -54,6 +52,27 @@ namespace AVL{
                     }
                     bool leftSonExists(){
                         return this->left_son;
+                    }
+                    TNode* nextInOrder(){
+                        TNode* next_node = &this;
+                        if(next_node->right_son){
+                            next_node = next_node->right_son;
+                            while(next_node->left_son){
+                                next_node = next_node->left_son;
+                            }
+                            return next_node;
+                        }
+                        while(1){
+                            if(next_node->father == nullptr){
+                                next_node = nullptr;
+                                return next_node;
+                            }
+                            if(next_node->isLeftSon){
+                                next_node = next_node->father;
+                                return next_node;
+                            }
+                            next_node = next_node->father;
+                        }
                     }
             };
             
@@ -73,9 +92,10 @@ namespace AVL{
                                  AVLTree<KeyElem,Data>::TNode** arr2, const int arr2_size, AVLTree<KeyElem,Data>::TNode** merged_arr);
             TNode* ArrayToAVLTree(TNode** array, int start, int end, TNode* father);
             void InOrderOutputDatas_rec(TNode* node, Data** arr, int& arr_index, const int arr_size);
+            TNode* AVLGetFirst();
 
 
-        public:
+            public:
 
             AVLTree(): root(nullptr), size(0){};
             AVLTree(const AVLTree&);
@@ -107,7 +127,7 @@ namespace AVL{
                 public:
                     Iterator();
                     void begin(){
-                        current_node = AVLTree::getFirst()
+                        current_node = AVLTree::AVLGetFirst()
                         return this;
                     }
                     void end(){
@@ -117,11 +137,14 @@ namespace AVL{
                         return current_node->data;
                     }
                     Iterator& operator++(int){
-                        return current_node.nextInOrder
+                        return current_node->nextInOrder();
                     }
-                    friend bool operator==(const Iterator& it1, const Iterator& it2)
-                    
-            }
+                    friend bool operator==(const Iterator& it1, const Iterator& it2){
+                        return it1.current_node = it2.current_node;
+                    }
+            };
+
+            Iterator iterator;
             /*
             class GenFunctor{
                 public:
@@ -160,10 +183,14 @@ namespace AVL{
     };
 
     template <class KeyElem, class Data>
-    bool AVLTree<KeyElem,Data>::operator==(const Iterator& t1, const Iterator& t2){
-        return t1.current_node == t2.current_node;
+    AVLTree<KeyElem,Data>::TNode* AVLTree<KeyElem,Data>:: AVLGetFirst(){
+
+        auto node = this->root;
+        while(node->left_son){
+            node = node->left_son;
+        }
+        return node;
     }
-    
     template <class KeyElem, class Data>
     void AVLTree<KeyElem,Data>:: AVLInsert(const KeyElem& key, const Data& data){
         try{
@@ -658,7 +685,6 @@ namespace AVL{
         return current->key;
     }
 
-    AVL
 }
 
 #endif

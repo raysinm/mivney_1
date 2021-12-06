@@ -1,23 +1,23 @@
 
-
+#include <exception>
 #include "./PlayersManager.h"
 
 namespace PM{
 
-    //DONE
     StatusType PlayersManager::AddGroup(int groupId){   //O(logk) k- num of groups
-        /*
-        1) AVLInsert into groups tree 
-        */
-        GroupKey new_group_key(groupId);
-        GroupData new_group_data(groupId);
-        groups.AVLInsert(new_group_key, new_group_data);
-        return SUCCESS;
+        try{
+            GroupKey new_group_key(groupId);
+            GroupData new_group_data(groupId);
+            groups.AVLInsert(new_group_key, new_group_data);
+            return SUCCESS;
+        }catch(...){
+            return ALLOCATION_ERROR;
+        }
     }
-
-    //DONE
+    
     StatusType PlayersManager::AddPlayer(int PlayerID, int GroupID, int Level){ //O(logn + logk) n- num of players in group, k- num of groups
-        
+        try{
+
         PlayerKey new_player_key(PlayerID, Level);
         if(!groups.AVLExist(GroupID)){
             return FAILURE;
@@ -27,8 +27,9 @@ namespace PM{
 
         PlayerData new_player_data(&group_data.group_players, Level);
         int prev_group_size = players.size();
-        auto result = players.AVLInsert(new_player_key, new_player_data);
-        if(result != SUCCESS) return result;
+
+        players.AVLInsert(new_player_key, new_player_data);
+
         group_data.best_in_group = players.AVLMax().id;
 
         if(prev_group_size == 0){
@@ -39,18 +40,9 @@ namespace PM{
         all_players_sorted.AVLInsert(new_player_key, &new_player_data);
         best_of_all = all_players_sorted.AVLMax().id;
         return SUCCESS;
-        
-        
-        /*
-        1) create PlayerKey with PlayerId and level
-        2) AVLGet to the group (find and return to us the data) + returning error if not found
-        3) AVLInsert into the group
-        3.5) update best_player
-        3.75) if group size was 0 and now >0 , increase number of non-empty groups in PlayersManager
-        4) AVLInsert into the all_players + all_players_sorted
-        5) update best_of_all with help of AVLFindBest() (to be written)
-        */
-        
+        }catch(...){
+            return ALLOCATION_ERROR;
+        }
         /* auto player_group = groups.AVLFind(GroupID);
 
         GroupKey new_group_key = new GroupKey(GroupId);
@@ -78,57 +70,42 @@ namespace PM{
         }
         all_players.AVLRemove(PlayerID);
         return SUCCESS;
-        /*
-        1) find player in all_players
-        2) create playerKey with level inside player's data
-        3) AVLRemove in all_players_sorted
-        4) AVLRemove in owner group tree saved in owner_group_data
-        4.5) update best_player
-        5)if group.size == 0 , decrease the number of non-empty groups in PlayersManager
-        5) AVLRemove in all_players
-        6) update best_of_all
-        7) in debugging- make sure that all data is actually deleted, not just pointers
-        */
     }
 
     StatusType PlayersManager::ReplaceGroup(int GroupID, int ReplacementID){    //O(n_group + n_replacement + logk) k-number of groups
-        if(!(groups.AVLExist(GroupID) && groups.AVLExist(ReplacementID))) return FAILURE;
-        auto group_data = groups.AVLGet(GroupID);
-        auto& players_to_move = group_data.group_players;
-        auto replacement_data = groups.AVLGet(ReplacementID);
-        auto& players = replacement_data.group_players;
-        if((players_to_move.size() > 0) && (players.size() > 0))
-        {
-            players.AVLMerge(players_to_move);//make sure used merge right and new tree is inserted back
-            groups.AVLRemove(GroupID);
-            best_in_non_empty_groups.AVLRemove(GroupID);
-            num_of_nonempty_groups--;
-            //change old players data to point to new group tree using inorder or merge func?
-            //maybe use inorder before merging to change old players to point to replacement_data
-            replacement_data.best_in_group = replacement_data.group_players.AVLMax().id;
-        }
-        else{
-            if(players_to_move.size() > 0){
-                //change old players data to point to new group tree using inorder or merge func?
-                //maybe use inorder before merging to change old players to point to replacement_data
-                replacement_data.group_players = group_data.group_players;
-                replacement_data.best_in_group = group_data.best_in_group;
+        try{
+            if(!(groups.AVLExist(GroupID) && groups.AVLExist(ReplacementID))) return FAILURE;
+            auto& group_data = groups.AVLGet(GroupID);
+            auto& players_to_move = group_data.group_players;
+            auto& replacement_data = groups.AVLGet(ReplacementID);
+            auto& players = replacement_data.group_players;
+            if(players_to_move.size() == 0){
                 groups.AVLRemove(GroupID);
-                best_in_non_empty_groups.AVLRemove(GroupID);
             }
             else{
+                auto to_move_iter = players_to_move.iterator;
+                to_move_iter.begin();
+                for(int i = 0; i < players_to_move.size(); i++){
+                    auto old_player_data = *to_move_iter;
+                    old_player_data.owner_group_data = &replacement_data;
+                    to_move_iter++;
+                }
+
+                if(replacement_data.best_in_group < group_data.best_in_group){
+                    replacement_data.best_in_group = group_data.best_in_group;
+                    auto old_best_data = best_in_non_empty_groups.AVLGet(ReplacementID);
+                    old_best_data = int(group_data.best_in_group);
+                }
+
+                players.AVLMerge(players_to_move);//make sure used merge right and new tree is inserted back
                 groups.AVLRemove(GroupID);
+                num_of_nonempty_groups--;
             }
+            return SUCCESS;
+        
+        }catch(...){
+            return ALLOCATION_ERROR;
         }
-        return SUCCESS;
-        /*
-        AVLGet on each of the groups (get their data)
-        if both of the groups are *non_empty* (size > 0), decrease number of non-empty groups in PlayersManager
-        merge the player trees in both groups
-        AVLRemove on old, merged group
-        change the old players data to point to new group tree
-        update best_in_group
-        */
        /*  auto group_to_remove = groups.AVLFind(GroupID);
         auto group_to_merge = groups.AVLFind(ReplacementID);
         if(group_to_remove == nullptr || group_to_merge == nullptr) return FAILURE;
@@ -138,41 +115,40 @@ namespace PM{
 
     //DONE
     StatusType PlayersManager::IncreaseLevel(int PlayerID, int LevelIncrease){  //O(logn) n- TOTAL number of players
-        if(!all_players.AVLExist(PlayerID)) return FAILURE;
-        auto player_old_data = all_players.AVLGet(PlayerID);
-        auto player_group_data = player_old_data->owner_group_data;
-        auto player_group_tree = player_old_data->owner_group_data->group_players;
-        int old_level = player_old_data->level;
-        PlayerKey player_old_key(PlayerID, old_level);
-        player_group_tree->AVLRemove(player_old_key);
-        PlayerKey player_new_key(PlayerID, old_level + LevelIncrease);
-        PlayerData player_new_data(player_old_data->owner_group_data, player_old_data->level += LevelIncrease);
-        player_new_data.level += LevelIncrease;
-        player_group_tree->AVLInsert(player_new_key, player_new_data);
-        player_group_data->best_in_group = player_group_tree.AVLMax();
+        
+        try{
+            if(!all_players.AVLExist(PlayerID)) return FAILURE;
 
-        best_in_non_empty_groups.AVLRemove(player_group_data->group_id);
-        best_in_non_empty_groups.AVLInsert(player_group_data->group_id,player_group_data->best_in_group);
-        //make func that only changes data instead of these two lines?
-        
-        all_players_sorted.AVLRemove(player_old_key);
-        all_players_sorted.AVLInsert(player_new_key, &player_new_data);
-        best_of_all = all_players_sorted.AVLMax().id;
-        return SUCCESS;
-        
-        /*
-        1) AVLFind in all_players
-        2) use the ptr to the group in player's data to go to the group
-        3) AVLFind in group tree
-        4) new_level = data->level + LevelIncrease
-        5) AVLRemove player (using old level)
-        6) create to new playerData and new PLayerKey with ptr to the group (can be in temp) and new_level
-        7)AVLInsert this new player in the group tree
-        7.5) update best_player
-        8)AVLRemove in all_players_sorted
-        9)AVLInsert new player in all_players_sorted
-        10)update best_of_all
-        */
+            auto& player_old_data = *(all_players.AVLGet(PlayerID));
+            GroupData& player_group_data = *(player_old_data.owner_group_data);
+            auto& player_group_tree = player_group_data.group_players;
+
+            int old_level = player_old_data.level;
+            int new_level = old_level + LevelIncrease;
+
+            PlayerKey player_old_key(PlayerID, old_level);
+            PlayerKey player_new_key(PlayerID, new_level);
+            PlayerData player_new_data(&player_group_data, new_level, PlayerID);
+            
+            player_group_tree.AVLRemove(player_old_key);
+            player_group_tree.AVLInsert(player_new_key, player_new_data);
+
+            auto old_best = player_group_data.best_in_group;
+            player_group_data.best_in_group = player_group_tree.AVLMax().id;
+
+            if(old_best != player_group_data.best_in_group){
+                auto& player_data = best_in_non_empty_groups.AVLGet(old_best);
+                player_data = player_new_data.id;
+            }
+
+            all_players_sorted.AVLRemove(player_old_key);
+            all_players_sorted.AVLInsert(player_new_key, &player_new_data);
+            best_of_all = all_players_sorted.AVLMax().id;
+
+            return SUCCESS;
+        }catch(...){
+            return ALLOCATION_ERROR;
+        }
     }
 
     //DONE
@@ -190,14 +166,69 @@ namespace PM{
             *PlayerID = groupData.best_in_group;
             return SUCCESS;
         }
-        /*
-        returns best_player in group (find the group)
-        or best_of_all if GroupId<0
-        */
     }
  
         
     StatusType PlayersManager::GetAllPlayersByLevel(int GroupID, int **Players, int *numOfPlayers){ //O(n_groupId +logk) k-num of groups
+        try{
+            if(GroupID >0){
+                if(!groups.AVLExist(GroupID)){
+                    throw Failure();
+                }
+
+                auto& group_data = groups.AVLGet(GroupID);
+                auto& players = group_data.group_players;
+
+                if(players.size() == 0){
+                    throw Skip();
+                }
+
+                *numOfPlayers = players.size();
+                int* players_arr = (int*) malloc (sizeof(int) * (*numOfPlayers));
+                Players = &players_arr;
+
+                auto players_iter = players.iterator;
+                players_iter.begin();
+
+                for(int i = 0; i < *numOfPlayers; i++){
+                    auto current_id = int((*players_iter).id);
+                    players_arr[i] = current_id;
+                    players_iter++;
+                }
+                return SUCCESS;
+
+            }else{
+                if(all_players.size() == 0){
+                    throw Skip();
+                }
+
+                *numOfPlayers = all_players.size();
+                int* players_arr = (int*) malloc (sizeof(int) * (*numOfPlayers));
+                Players = &players_arr;
+
+                auto all_players_iter = all_players.iterator;
+                all_players_iter.begin();
+
+                for(int i = 0; i < *numOfPlayers; i++){
+                    auto current_id = int((*all_players_iter)->id);
+                    players_arr[i] = current_id;
+                    all_players_iter++;
+                }
+                return SUCCESS;
+            }
+        }catch(Skip){
+            *numOfPlayers = 0;
+            Players = NULL;
+            return SUCCESS;
+        }catch(Failure){
+            *numOfPlayers = 0;
+            Players = NULL;
+            return FAILURE;
+        }catch(std::bad_alloc){
+            *numOfPlayers = 0;
+            Players = NULL;
+            return ALLOCATION_ERROR;
+        }
         /*
         if GroupId<0:
             InOrder scan (with node limit) and input in players array in *all_players_sorted*
@@ -207,14 +238,23 @@ namespace PM{
     } 
     
 
-    //need AVL func that returns Data of Root
     StatusType PlayersManager::GetGroupsHighestLevel(int numOfGroups, int **Players){   //O(numOfGroups +logk) k-num of groups
-        if(numOfGroups < num_of_nonempty_groups) return FAILURE;
-        Players = (int**)malloc(numOfGroups*sizeof(PlayerId)); //not sure if its good
-        if(!Players) return ALLOCATION_ERROR;
-        int count = 0;
-        //InorderRec((root group), Players, numOfGroups, count);
-        
+        try{
+            if(numOfGroups < num_of_nonempty_groups) return FAILURE;
+
+            //players should be allocated in library1.cpp
+            auto tree_iter = best_in_non_empty_groups.iterator;
+            tree_iter.begin();
+
+            for(int i; i < numOfGroups; i++){
+                Players[i] = &(*tree_iter);
+                tree_iter++;
+            }
+            return SUCCESS;
+
+        }catch(...){
+            return ALLOCATION_ERROR;
+        }
         /*
         use numOfGroups as counter to inorder scan function.
         EMPTY group- doesnt count!
@@ -224,22 +264,7 @@ namespace PM{
     }  
 
    
-   //for this func I need AVL funcs that return to me data of left & right sons
-   //data might not be good enought to know where am I in tree
-  /*  void PlayersManager:: InOrderRec(GroupData *group, int **Players, int numOfGroups, int count){
-        if(count == 0 || group == nullptr) return;
-        
-        GroupData *leftGroup = (get group on the left);
-        InorderRec(leftGroup, Players, numOfGroups, count);
 
-        PlayerId bestPlayer = group.best_in_group;
-        Players[count] = bestPlayer;
-        count++;
-
-        GroupData *rightGroup = (get group on the right);
-        InorderRec(rightGroup, Players, numOfGroups, count);
-        
-    }*/ 
     
 
 }
