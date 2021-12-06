@@ -145,10 +145,10 @@ namespace AVL{
     template <class KeyElem, class Data>
     StatusType AVLTree<KeyElem,Data>:: AVLInsert(const KeyElem& key, const Data& data){
         
-        if(key < 0 || this->AVLExist(key)){  //checks if key is already in this tree
+        /* if(key < 0 || this->AVLExist(key)){  //checks if key is already in this tree
             return FAILURE;
-        }
-
+        } */
+        try{
         TNode* insert_node = new TNode(key, data);
         if(!insert_node) return ALLOCATION_ERROR;
 
@@ -171,9 +171,12 @@ namespace AVL{
         
         insert_node->father = insert_after_node;
         AVLBalance(insert_node->father);    //SUPER important
-
         size++;
+
         return SUCCESS;
+        }catch(std::bad_alloc e&){
+            throw;
+        }
     }
 
     template <class KeyElem, class Data>
@@ -505,11 +508,11 @@ namespace AVL{
     //******************_AVLMerge_********************//
 
     template<class KeyElem, class Data>
-    StatusType AVLTree<KeyElem,Data>::AVLMerge(AVLTree<KeyElem,Data>& other_tree){
+    void AVLTree<KeyElem,Data>::AVLMerge(AVLTree<KeyElem,Data>& other_tree){
         //allocating two arrays for merging
         TNode** tree1_arr;
         TNode** other_tree_arr;
-        TNode** merged_arr;
+        TNode** merged_arr; 
         try{
         tree1_arr = new TNode*[this->size];
         other_tree_arr = new TNode*[other_tree.size];
@@ -530,11 +533,10 @@ namespace AVL{
         tree1_arr = nullptr;
         other_tree_arr = nullptr;
         merged_arr = nullptr;
-        return SUCCESS;
         }
         catch(std::bad_alloc e&){
             delete[] tree1_arr, other_tree_arr, merged_arr;
-            return ALLOCATION_ERROR;
+            throw;
         }
     }
 
