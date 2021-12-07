@@ -34,6 +34,7 @@ int main(){
     std::cout << std::endl;
 
     test_2.AVLMerge(test_3);
+    test_2.AVLRemove(5);
 
     test_2.AVLPrintInOrder();
     std::cout << std::endl;

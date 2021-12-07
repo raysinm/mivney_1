@@ -231,3 +231,21 @@ bool AVLExist_rec(const TNode* current_node, const &KeyElem key_to_find){
         
     } 
  */
+
+   //for this func I need AVL funcs that return to me data of left & right sons
+   //data might not be good enought to know where am I in tree
+  /*  void PlayersManager:: InOrderRec(GroupData *group, int **Players, int numOfGroups, int count){
+        if(count == 0 || group == nullptr) return;
+        
+        GroupData *leftGroup = (get group on the left);
+        InorderRec(leftGroup, Players, numOfGroups, count);
+
+        PlayerId bestPlayer = group.best_in_group;
+        Players[count] = bestPlayer;
+        count++;
+
+        GroupData *rightGroup = (get group on the right);
+        InorderRec(rightGroup, Players, numOfGroups, count);
+        
+    }
+    */
