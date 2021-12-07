@@ -50,7 +50,6 @@
         "ratio": "cpp"
     },
     "cmake.sourceDirectory": "${workspaceFolder}",
-    "cmake.cmakePath": "/usr/bin/cmake",
     "cmake.configureOnOpen": true
     
 }
