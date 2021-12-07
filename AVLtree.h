@@ -54,7 +54,7 @@ namespace AVL{
                         return this->left_son;
                     }
                     TNode* nextInOrder(){
-                        TNode* next_node = &this;
+                        TNode* next_node = this;
                         if(next_node->right_son){
                             next_node = next_node->right_son;
                             while(next_node->left_son){
@@ -67,7 +67,7 @@ namespace AVL{
                                 next_node = nullptr;
                                 return next_node;
                             }
-                            if(next_node->isLeftSon){
+                            if(next_node->isLeftSon()){
                                 next_node = next_node->father;
                                 return next_node;
                             }
@@ -81,6 +81,7 @@ namespace AVL{
 
             void AVLDestroy_rec(TNode*) const;
             void AVLBalance(TNode*);
+            TNode* AVLFind(const KeyElem& key) const;
             TNode* AVLFind_rec(TNode* current_node, const KeyElem& key_to_find, TNode** father_to_ret) const;
             void AVLRemove_rec(TNode* node, const KeyElem& key);
             void AVLNodeRefreshHeight(TNode* node) const;
@@ -98,11 +99,12 @@ namespace AVL{
             public:
 
             class Iterator{
+                AVLTree& tree;
                 TNode* current_node;
                 public:
-                    Iterator(): current_node(nullptr){};
+                    Iterator(AVLTree& t): tree(t), current_node(nullptr){};
                     void begin(){
-                        current_node = AVLTree::AVLGetFirst();
+                        current_node = tree.AVLGetFirst();
                     }
                     void end(){
                         current_node = nullptr;
@@ -126,7 +128,6 @@ namespace AVL{
                 AVLDestroy_rec(root);
             };
             bool AVLExist(const KeyElem&) const;
-            TNode* AVLFind(const KeyElem& key) const;
             void AVLInsert(const KeyElem&, const Data&);
             void AVLRemove(const KeyElem&);
             void AVLPrintInOrder() const;
@@ -148,7 +149,7 @@ namespace AVL{
     };
 
     template <class KeyElem, class Data>
-    typename AVLTree<KeyElem,Data>::TNode* AVLTree<KeyElem,Data>:: AVLGetFirst(){
+    typename AVLTree<KeyElem,Data>::TNode* AVLTree<KeyElem,Data>:: AVLGetFirst() const{
 
         auto node = this->root;
         while(node->left_son){
@@ -224,7 +225,7 @@ namespace AVL{
     /* void AVLBalance_rec(std::shared_ptr<TNode*<KeyElem, Data> start)
     */
     template <class KeyElem, class Data>
-    void AVLTree<KeyElem,Data>:: AVLNodeRefreshHeight(TNode* node){
+    void AVLTree<KeyElem,Data>:: AVLNodeRefreshHeight(TNode* node) const{
         if(!node) return;
 
         if(!node->right_son && !node->left_son){
@@ -242,7 +243,7 @@ namespace AVL{
     }
 
     template <class KeyElem, class Data>
-    void AVLTree<KeyElem,Data>:: AVLNodeRefreshBF(TNode* node){
+    void AVLTree<KeyElem,Data>:: AVLNodeRefreshBF(TNode* node) const{
         if(!node) return;
         if(!node->right_son && !node->left_son){
             node->BF = 0;
@@ -262,19 +263,19 @@ namespace AVL{
 
     //******************_FIND, EXIST_********************//
     template <class KeyElem, class Data>
-    bool AVLTree<KeyElem,Data>:: AVLExist(const KeyElem& key_to_find){
+    bool AVLTree<KeyElem,Data>:: AVLExist(const KeyElem& key_to_find) const{
         return (AVLFind(key_to_find) != nullptr);
     }
 
     template <class KeyElem, class Data>
-    typename AVLTree<KeyElem,Data>::TNode* AVLTree<KeyElem,Data>::AVLFind(const KeyElem& key_to_find){
+    typename AVLTree<KeyElem,Data>::TNode* AVLTree<KeyElem,Data>::AVLFind(const KeyElem& key_to_find) const{
         TNode* dummy_ptr;
         return AVLFind_rec(this->root, key_to_find, &dummy_ptr);
     }
 
     template <class KeyElem, class Data>
     typename AVLTree<KeyElem,Data>::TNode* AVLTree<KeyElem,Data>::AVLFind_rec(AVLTree<KeyElem,Data>::TNode* current_node,
-                                     const KeyElem& key_to_find, AVLTree<KeyElem,Data>::TNode** father_to_ret){
+                                     const KeyElem& key_to_find, AVLTree<KeyElem,Data>::TNode** father_to_ret) const{
 
         if(!current_node){
             return nullptr;
@@ -302,7 +303,7 @@ namespace AVL{
     //******************_ROTATIONS_********************//
 
     template <class KeyElem, class Data>
-    void AVLTree<KeyElem,Data>:: AVLRotate_LL(TNode* node_uneven){      //give names to ptrs for clarity
+    void AVLTree<KeyElem,Data>:: AVLRotate_LL(TNode* node_uneven) {      //give names to ptrs for clarity
 
         auto temp_left_right_son = node_uneven->left_son->right_son;
         auto left_son = node_uneven->left_son;
@@ -463,7 +464,7 @@ namespace AVL{
     }
 
     template <class KeyElem, class Data>
-    typename AVLTree<KeyElem,Data>::TNode* AVLTree<KeyElem,Data>::findReplacingNode(AVLTree<KeyElem,Data>::TNode* node){
+    typename AVLTree<KeyElem,Data>::TNode* AVLTree<KeyElem,Data>::findReplacingNode(AVLTree<KeyElem,Data>::TNode* node) const{
         auto replacer = node->left_son;
         while(replacer->right_son){
             replacer = replacer -> right_son;
@@ -473,12 +474,12 @@ namespace AVL{
 
 /*  */
     template<class KeyElem, class Data>
-    void AVLTree<KeyElem,Data>:: AVLPrintInOrder(){
+    void AVLTree<KeyElem,Data>:: AVLPrintInOrder() const{
         AVLPrintInOrder_rec(this->root);
     }
 
     template<class KeyElem, class Data>
-    void AVLTree<KeyElem,Data>:: AVLPrintInOrder_rec(AVLTree<KeyElem,Data>::TNode* node){
+    void AVLTree<KeyElem,Data>:: AVLPrintInOrder_rec(AVLTree<KeyElem,Data>::TNode* node) const{
         if(!node){
             return;
         }
@@ -490,12 +491,12 @@ namespace AVL{
     }
      
     template<class KeyElem, class Data>
-    Data& AVLTree<KeyElem,Data>:: AVLGet(KeyElem key){   //return data by reference or as a ptr?
+    Data& AVLTree<KeyElem,Data>:: AVLGet(KeyElem key) const{   //return data by reference or as a ptr?
         return AVLFind(key)->data;
     }
 
     template<class KeyElem, class Data>
-    void AVLTree<KeyElem,Data>:: AVLDestroy_rec(TNode* node){
+    void AVLTree<KeyElem,Data>:: AVLDestroy_rec(TNode* node) const{
         if(!node){
             return;
         }
@@ -647,7 +648,7 @@ namespace AVL{
     }
 
     template<class KeyElem, class Data>
-    const KeyElem& AVLTree<KeyElem,Data>::AVLMax(){
+    const KeyElem& AVLTree<KeyElem,Data>::AVLMax() const{
         if(!root){
             return NULL;
         }

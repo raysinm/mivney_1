@@ -20,7 +20,8 @@ set(CMAKE_CPP_FLAGS ${MIVNEY_FLAGS_DEBUG})
 # Add the names of your source files here
 set(CPP_FILES_A1 "AVL_Tests/small_main.cpp" "./AVLtree.h" "course_files/library1.h")
 set(CPP_FILES_A2 "AVL_Tests/tests1.cpp" "./AVLtree.h" "course_files/library1.h")
-
+set(CPP_FILES_B1 "course_files/main1.cpp" "./library1.cpp" "course_files/library1.h" "./PlayersManager.cpp" "./PlayersManager.h" "./AVLtree.h" )
 
 add_executable(small_AVL_test ${CPP_FILES_A1})
 add_executable(tests1_AVL ${CPP_FILES_A2})
+add_executable(main_pm ${CPP_FILES_B1})

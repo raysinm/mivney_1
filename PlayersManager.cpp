@@ -83,7 +83,7 @@ namespace PM{
                 groups.AVLRemove(GroupID);
             }
             else{
-                auto to_move_iter = players_to_move.iterator;
+                auto to_move_iter = players_to_move.iterator(players_to_move);
                 to_move_iter.begin();
                 for(int i = 0; i < players_to_move.size(); i++){
                     auto old_player_data = *to_move_iter;
@@ -187,7 +187,7 @@ namespace PM{
                 int* players_arr = (int*) malloc (sizeof(int) * (*numOfPlayers));
                 Players = &players_arr;
 
-                auto players_iter = players.iterator;
+                auto players_iter = players.iterator(players);
                 players_iter.begin();
 
                 for(int i = 0; i < *numOfPlayers; i++){
@@ -206,7 +206,7 @@ namespace PM{
                 int* players_arr = (int*) malloc (sizeof(int) * (*numOfPlayers));
                 Players = &players_arr;
 
-                auto all_players_iter = all_players.iterator;
+                auto all_players_iter(all_players.iterator(all_players)) = ;
                 all_players_iter.begin();
 
                 for(int i = 0; i < *numOfPlayers; i++){

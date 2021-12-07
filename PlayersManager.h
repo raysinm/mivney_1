@@ -44,17 +44,6 @@ class PlayersManager{
         public:
         GroupKey(const int& group_id): GenKey(group_id){}
     };
-    
-    class PlayerData{
-        friend class PlayersManager;
-        //AVL::AVLTree<PlayerKey,PlayerData>* owner_group_tree;
-        PM::PlayersManager::GroupData* owner_group_data; //maybe remove PM::PlayersManager::
-        PlayerId id;
-        int level;
-        public:
-            PlayerData(PM::PlayersManager::GroupData* owner, const PlayerId& id =-1, int level=-1): 
-                owner_group_data(owner), id(id), level(level){};
-    };
 
     class GroupData{
         friend class PlayersManager;
@@ -68,6 +57,19 @@ class PlayersManager{
                 return (group_players.size() != 0);
             }
     };
+    
+    class PlayerData{
+        friend class PlayersManager;
+        //AVL::AVLTree<PlayerKey,PlayerData>* owner_group_tree;
+        PlayersManager::GroupData* owner_group_data; //maybe remove PM::PlayersManager::
+        PlayerId id;
+        int level;
+        public:
+            PlayerData(PM::PlayersManager::GroupData* owner, const PlayerId& id =-1, int level=-1): 
+                owner_group_data(owner), id(id), level(level){};
+    };
+
+    
     
     AVL::AVLTree<GroupKey,GroupData> groups;
     AVL::AVLTree<GroupKey,int> best_in_non_empty_groups;
