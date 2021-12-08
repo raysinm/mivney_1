@@ -2,6 +2,8 @@
 #include <exception>
 #include "./PlayersManager.h"
 
+
+using namespace AVL;
 namespace PM{
 
     StatusType PlayersManager::AddGroup(int groupId){   //O(logk) k- num of groups
@@ -24,8 +26,9 @@ namespace PM{
         }
         auto group_data = groups.AVLGet(GroupID);
         auto& players = group_data.group_players;
+        int player_id = PlayerID;
 
-        PlayerData new_player_data(&group_data.group_players, Level);
+        PlayerData new_player_data(&group_data, player_id, Level);
         int prev_group_size = players.size();
 
         players.AVLInsert(new_player_key, new_player_data);
@@ -46,7 +49,7 @@ namespace PM{
         /* auto player_group = groups.AVLFind(GroupID);
 
         GroupKey new_group_key = new GroupKey(GroupId);
-        PlayerKey new_player_key = new PlayerKey(PlayerId, Level);
+        PlayerKey new_player_key = new PlayerKey(int, Level);
         
         groups.AVLFind(new_group_key);
         return player_group.players.AVLInsert(PlayerID, Level); */
@@ -55,18 +58,18 @@ namespace PM{
     //DONE
     StatusType PlayersManager::RemovePlayer(int PlayerID){  //O(logn) n- num of players TOTAL   -should we keep another tree of players only?
         if(!all_players.AVLExist(PlayerID)) return FAILURE;
-        auto player_data = all_players.AVLGet(PlayerID);
-        auto player_group_data = player_data->owner_group_data;
-        auto player_group_tree = player_data->owner_group_data->group_players;
-        int level = player_data->level;
+        auto& player_data = *(all_players.AVLGet(PlayerID));
+        auto& player_group_data = *(player_data.owner_group_data);
+        auto& player_group_tree = player_group_data.group_players;
+        int level = player_data.level;
         PlayerKey player_key(PlayerID, level);
         all_players_sorted.AVLRemove(player_key);
         player_group_tree.AVLRemove(player_key);
         best_of_all = all_players_sorted.AVLMax().id;
-        player_group_data->best_in_group = player_group_tree.AVLMax();
+        player_group_data.best_in_group = player_group_tree.AVLMax().id;
         if(player_group_tree.size() == 0){
             num_of_nonempty_groups--;
-            best_in_non_empty_groups.AVLRemove(player_group_data->group_id);
+            best_in_non_empty_groups.AVLRemove(GroupKey(player_group_data.group_id));
         }
         all_players.AVLRemove(PlayerID);
         return SUCCESS;
@@ -83,7 +86,7 @@ namespace PM{
                 groups.AVLRemove(GroupID);
             }
             else{
-                auto to_move_iter = players_to_move.iterator(players_to_move);
+                AVL::AVLTree<PlayerKey,PlayerData>::Iterator to_move_iter(players_to_move);
                 to_move_iter.begin();
                 for(int i = 0; i < players_to_move.size(); i++){
                     auto old_player_data = *to_move_iter;
@@ -187,7 +190,7 @@ namespace PM{
                 int* players_arr = (int*) malloc (sizeof(int) * (*numOfPlayers));
                 Players = &players_arr;
 
-                auto players_iter = players.iterator(players);
+                AVL::AVLTree<PlayerKey,PlayerData>::Iterator players_iter(players);
                 players_iter.begin();
 
                 for(int i = 0; i < *numOfPlayers; i++){
@@ -206,7 +209,7 @@ namespace PM{
                 int* players_arr = (int*) malloc (sizeof(int) * (*numOfPlayers));
                 Players = &players_arr;
 
-                auto all_players_iter(all_players.iterator(all_players)) = ;
+                AVL::AVLTree<int,PlayerData*>::Iterator all_players_iter(all_players);
                 all_players_iter.begin();
 
                 for(int i = 0; i < *numOfPlayers; i++){
