@@ -38,7 +38,13 @@
 #Other Files
 *.Identifier
 
+#cmake files
+*.cmake
+CMakeCache.txt
+Makefile
+
 # Other Directories
 build/
 .vscode/
+CMakeFiles/
 
