@@ -12,13 +12,16 @@
 /* Holds the "int main()" function and the parser of the shell's           */
 /* command line.                                                           */
 /***************************************************************************/
+#define _CRT_SECURE_NO_WARNINGS
 
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "library1.h"
 #include <iostream>
+#include "library1.h"
+#include "../PlayersManager.h"
+
 using namespace std;
 
 #ifdef __cplusplus

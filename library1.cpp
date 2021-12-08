@@ -1,5 +1,5 @@
 #include"course_files/library1.h" 
-#include"PlayersManager.h"
+#include "./PlayersManager.h"
 
 void* Init() { 
     PM::PlayersManager *DS = new PM::PlayersManager(); 
