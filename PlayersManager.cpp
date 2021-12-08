@@ -10,6 +10,7 @@ namespace PM{
         try{
             GroupKey new_group_key(groupId);
             GroupData new_group_data(groupId);
+            if(groups.AVLExist(new_group_key)) return INVALID_INPUT;
             groups.AVLInsert(new_group_key, new_group_data);
             return SUCCESS;
         }catch(...){
@@ -241,17 +242,19 @@ namespace PM{
     
 
     StatusType PlayersManager::GetGroupsHighestLevel(int numOfGroups, int **Players){   //O(numOfGroups +logk) k-num of groups
+        int* players_arr;
         try{
             if(numOfGroups < num_of_nonempty_groups) return FAILURE;
 
-            //players should be allocated in library1.cpp
+            players_arr = (int*) malloc(numOfGroups * sizeof(int));
             AVL::AVLTree<GroupKey,int>::Iterator tree_iter = best_in_non_empty_groups.iterator;
             tree_iter.begin();
 
-            for(int i; i < numOfGroups; i++){
-                Players[i] = &(*tree_iter);
+            for(int i = 0 ; i < numOfGroups; i++){
+                players_arr[i] = *tree_iter; 
                 tree_iter++;
             }
+            Players = &players_arr;
             return SUCCESS;
 
         }catch(...){
