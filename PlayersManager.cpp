@@ -24,7 +24,7 @@ namespace PM{
         if(!groups.AVLExist(GroupID)){
             return FAILURE;
         }
-        auto group_data = groups.AVLGet(GroupID);
+        auto& group_data = groups.AVLGet(GroupID);
         auto& players = group_data.group_players;
         int player_id = PlayerID;
 
@@ -55,7 +55,6 @@ namespace PM{
         return player_group.players.AVLInsert(PlayerID, Level); */
     }
 
-    //DONE
     StatusType PlayersManager::RemovePlayer(int PlayerID){  //O(logn) n- num of players TOTAL   -should we keep another tree of players only?
         if(!all_players.AVLExist(PlayerID)) return FAILURE;
         auto& player_data = *(all_players.AVLGet(PlayerID));
@@ -116,7 +115,7 @@ namespace PM{
         return groups.AVLRemove(GroupID); */
     }
 
-    //DONE
+    
     StatusType PlayersManager::IncreaseLevel(int PlayerID, int LevelIncrease){  //O(logn) n- TOTAL number of players
         
         try{
@@ -154,7 +153,7 @@ namespace PM{
         }
     }
 
-    //DONE
+    
     StatusType PlayersManager::GetHighestLevel(int GroupID, int *PlayerID){   //O(logk) k- num of groups. if GroupId<0 : O(1)
         if(GroupID < 0)
         {
@@ -165,7 +164,7 @@ namespace PM{
             if(!groups.AVLExist(GroupID)){
                 return FAILURE;
             }
-            GroupData groupData = groups.AVLGet(GroupID);
+            GroupData& groupData = groups.AVLGet(GroupID);
             *PlayerID = groupData.best_in_group;
             return SUCCESS;
         }
@@ -246,7 +245,7 @@ namespace PM{
             if(numOfGroups < num_of_nonempty_groups) return FAILURE;
 
             //players should be allocated in library1.cpp
-            auto tree_iter = best_in_non_empty_groups.iterator;
+            AVL::AVLTree<GroupKey,int>::Iterator tree_iter = best_in_non_empty_groups.iterator;
             tree_iter.begin();
 
             for(int i; i < numOfGroups; i++){
