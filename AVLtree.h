@@ -130,7 +130,7 @@ namespace AVL{
             Iterator iterator;
 
             AVLTree(): root(nullptr), tree_size(0), iterator(*this){};
-            AVLTree(const AVLTree&); //needed.
+            AVLTree(const AVLTree&) = delete; //needed.
             ~AVLTree(){
                 AVLDestroy_rec(root);
             };
