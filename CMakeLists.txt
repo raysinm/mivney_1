@@ -25,3 +25,10 @@ set(CPP_FILES_B1 "course_files/main1.cpp" "./library1.cpp" "course_files/library
 add_executable(small_AVL_test ${CPP_FILES_A1})
 add_executable(tests1_AVL ${CPP_FILES_A2})
 add_executable(main_pm ${CPP_FILES_B1})
+
+#  enable_testing()
+#  foreach(i RANGE 0 99)
+#      message(FATAL_ERROR $<TARGET_FILE:main_pm>$)
+#      add_test(NAME almog_${i} COMMAND bash -c "$<TARGET_FILE:main_pm> < ${PROJECT_SOURCE_DIR}/pm_tests/wet1_tests/input_{i}.txt | diff ${PROJECT_SOURCE_DIR}/pm_tests/wet1_tests/out_{i}.txt -")
+#  endforeach()
+

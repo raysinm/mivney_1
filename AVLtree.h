@@ -1,7 +1,7 @@
 #ifndef _AVLTREE_H
 #define _AVLTREE_H
 
-//stav shalom
+//stav shalom shalom
 #include <memory>
 #include <iostream>
 #include <cassert>
@@ -31,6 +31,8 @@ namespace AVL{
                         key(key), data(data),
                         father(nullptr), left_son(nullptr), right_son(nullptr),
                         height(0), BF(0){};
+
+                  //  TNode(const TNode&) = delete; //added to find use of copy constructor
 
                     bool operator<(const TNode& other_node){  
                         if (other_node == nullptr || *this == other_node) return false;
@@ -105,32 +107,73 @@ namespace AVL{
             public:
 
             class Iterator{
-                AVLTree& tree;
                 TNode* current_node;
                 public:
-                    Iterator(AVLTree& t): tree(t), current_node(nullptr){};
-                    void begin(){
-                        current_node = tree.AVLGetFirst();
-                    }
-                    void end(){
-                        current_node = nullptr;
-                    }
+                    Iterator(TNode* t): current_node(t){};
+                    // void begin(){
+                    //     current_node = tree.AVLGetFirst();
+                    // }
+                    // void end(){
+                    //     current_node = nullptr;
+                    // }
                     Data& operator*(){
                         return current_node->data;
                     }
-                    Iterator& operator++(int){
+                    Iterator& operator++(){
                         current_node = current_node->nextInOrder();
                         return *this;
                     }
                     friend bool operator==(const Iterator& it1, const Iterator& it2){
-                        return it1.current_node = it2.current_node;
+                        return it1.current_node == it2.current_node;
                     }
+                    friend bool operator!=(const Iterator& it1, const Iterator& it2){
+                        return !(it1 == it2);
+                    }
+
+            };
+            class ConstIterator{
+                TNode* current_node;
+                public:
+                    ConstIterator(TNode* t): current_node(t){};
+                    // void begin(){
+                    //     current_node = tree.AVLGetFirst();
+                    // }
+                    // void end(){
+                    //     current_node = nullptr;
+                    // }
+                    const Data& operator*(){
+                        return current_node->data;
+                    }
+                    Iterator& operator++(){
+                        current_node = current_node->nextInOrder();
+                        return *this;
+                    }
+                    friend bool operator==(const ConstIterator& it1, const ConstIterator& it2){
+                        return it1.current_node == it2.current_node;
+                    }
+                    friend bool operator!=(const ConstIterator& it1, const ConstIterator& it2){
+                        return !(it1 == it2);
+                    }
+
             };
             
-            Iterator iterator;
+            Iterator begin(){
+                return Iterator(AVLGetFirst());
+            }
+            Iterator end(){
+                return Iterator(nullptr);
+            }
 
-            AVLTree(): root(nullptr), tree_size(0), iterator(*this){};
-           // AVLTree(const AVLTree&) = delete; //needed.
+            ConstIterator begin() const{
+                return ConstIterator(AVLGetFirst());
+            }
+            ConstIterator end() const{
+                return ConstIterator(nullptr);
+            }
+
+
+            AVLTree(): root(nullptr), tree_size(0){};
+         //   AVLTree(const AVLTree&) = delete; //needed.
             ~AVLTree(){
                 AVLDestroy_rec(root);
             };
@@ -299,7 +342,7 @@ namespace AVL{
      */
     template<class KeyElem, class Data>
     KeyElem& AVLTree<KeyElem,Data>::AVLMax() const{
-        auto current = this->root;
+        auto* current = this->root; //added *
         while(current->right_son){
             current = current->right_son;
         }
@@ -456,8 +499,8 @@ namespace AVL{
     template <class KeyElem, class Data>
     void AVLTree<KeyElem,Data>:: AVLRotate_LL(TNode* node_uneven) {      //give names to ptrs for clarity
 
-        auto temp_left_right_son = node_uneven->left_son->right_son;
-        auto left_son = node_uneven->left_son;
+        auto temp_left_right_son = node_uneven->left_son->right_son; //added &
+        auto left_son = node_uneven->left_son; //added &
         
         left_son->father = node_uneven->father;
         node_uneven->father = left_son;
@@ -479,8 +522,8 @@ namespace AVL{
     template <class KeyElem, class Data>
     void AVLTree<KeyElem,Data>:: AVLRotate_RR(TNode* node_uneven){
 
-        auto temp_right_left_son = node_uneven->right_son->left_son;
-        auto right_son = node_uneven->right_son;
+        auto temp_right_left_son = node_uneven->right_son->left_son; //added &
+        auto right_son = node_uneven->right_son; //added &
         
         right_son->father = node_uneven->father;
         
@@ -524,7 +567,7 @@ namespace AVL{
         }
                                          //ADD METHODS TO TNODE!!!!!!!!!!
         if(node->key == key){
-            auto temp_father = node->father;
+            auto temp_father = node->father; //added &
             if(!node->leftSonExists() && !node->rightSonExists()){  //This is a leaf
                 if(node == this->root){
                     this->root = nullptr;
@@ -552,8 +595,9 @@ namespace AVL{
                 node_son->father = node->father;
             }
             else{   //Has TWO sons
-                auto replacer = findReplacingNode(node);    //replacer is the biggest node that is smaller than our node
-                
+                auto* replacer = findReplacingNode(node);    //replacer is the biggest node that is smaller than our node
+                //added *
+
                 if(node == this->root){
                         this->root = replacer;
                     }
@@ -564,9 +608,9 @@ namespace AVL{
                     node->father->right_son = replacer;
                 }
 
-                auto temp_node_left_son = node->left_son,
-                    temp_node_right_son = node->right_son,
-                    temp_replacer_left_son = replacer->left_son;
+                TNode* temp_node_left_son = node->left_son;
+                TNode* temp_node_right_son = node->right_son;
+                TNode* temp_replacer_left_son = replacer->left_son; //added &
                 
                 if(node == replacer->father){   // special case. They are direct relatives, and therfore point to eachother
             
@@ -595,7 +639,7 @@ namespace AVL{
                 temp_father = node->father;
             }
             
-            delete[] node;
+            delete node;
             AVLBalance(temp_father);
             return;
 
@@ -609,7 +653,7 @@ namespace AVL{
 
     template <class KeyElem, class Data>
     typename AVLTree<KeyElem,Data>::TNode* AVLTree<KeyElem,Data>::findReplacingNode(AVLTree<KeyElem,Data>::TNode* node) const{
-        auto replacer = node->left_son;
+        auto replacer = node->left_son; //added &
         while(replacer->right_son){
             replacer = replacer -> right_son;
         }
@@ -645,7 +689,7 @@ namespace AVL{
             AVLDestroy_rec(node->right_son);
             node->right_son = nullptr;
         }
-        delete[] node;
+        delete node;
         return;
     }
 
@@ -701,6 +745,8 @@ namespace AVL{
         current_root->father = father;
         current_root->left_son = ArrayToAVLTree(array, start, middle - 1, current_root);
         current_root->right_son = ArrayToAVLTree(array, middle + 1, end, current_root);
+        AVLNodeRefreshHeight(current_root);
+        AVLNodeRefreshBF(current_root);
         
         return current_root;
     }
@@ -753,8 +799,8 @@ namespace AVL{
      */
     template <class KeyElem, class Data>
     typename AVLTree<KeyElem,Data>::TNode* AVLTree<KeyElem,Data>:: AVLGetFirst() const{
-
-        auto node = this->root;
+        if(!this->root) return nullptr;
+        auto* node = this->root; //added *
         while(node->left_son){
             node = node->left_son;
         }

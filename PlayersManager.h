@@ -48,7 +48,7 @@ class PlayersManager{
 
     class GroupKey : public GenKey{
         public:
-        GroupKey(const int& group_id): GenKey(group_id){}
+        explicit GroupKey(const int& group_id): GenKey(group_id){}
     };
 
     class GroupData{
@@ -58,6 +58,7 @@ class PlayersManager{
         int group_id;
         public:
         explicit GroupData(const int& id): group_players(), best_in_group(-1), group_id(id){}; //make sure we really send id
+       // GroupData(const GroupData&) = delete;
     };
     
     class PlayerData{

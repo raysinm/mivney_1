@@ -10,7 +10,7 @@ namespace PM{
         try{
             GroupKey new_group_key(groupId);
             GroupData new_group_data(groupId);
-            if(groups.AVLExist(new_group_key)) return INVALID_INPUT;
+            if(groups.AVLExist(new_group_key)) return FAILURE;
             groups.AVLInsert(new_group_key, new_group_data);
             return SUCCESS;
         }catch(...){
@@ -20,28 +20,30 @@ namespace PM{
     
     StatusType PlayersManager::AddPlayer(int PlayerID, int GroupID, int Level){ //O(logn + logk) n- num of players in group, k- num of groups
         try{
-
-        PlayerKey new_player_key(PlayerID, Level);
-        if(!groups.AVLExist(GroupID)){
+        if(all_players.AVLExist(PlayerID)){
             return FAILURE;
         }
-        auto& group_data = groups.AVLGet(GroupID);
+        PlayerKey new_player_key(PlayerID, Level);
+        GroupKey new_group_key(GroupID);
+        if(!groups.AVLExist(new_group_key)){
+            return FAILURE;
+        }
+        auto& group_data = groups.AVLGet(new_group_key);
         auto& players = group_data.group_players;
         int player_id = PlayerID;
-
         PlayerData new_player_data(&group_data, player_id, Level);
         int prev_group_size = players.size();
 
         players.AVLInsert(new_player_key, new_player_data);
-
+        PlayerData* new_player = &players.AVLGet(new_player_key);
         group_data.best_in_group = players.AVLMax().id;
 
         if(prev_group_size == 0){
             ++this->num_of_nonempty_groups;
-            best_in_non_empty_groups.AVLInsert(GroupID,PlayerID);
+            best_in_non_empty_groups.AVLInsert(GroupKey(GroupID),PlayerID);
         }
-        all_players.AVLInsert(PlayerID, &new_player_data);
-        all_players_sorted.AVLInsert(new_player_key, &new_player_data);
+        all_players.AVLInsert(PlayerID, new_player);
+        all_players_sorted.AVLInsert(new_player_key, new_player);
         best_of_all = all_players_sorted.AVLMax().id;
         return SUCCESS;
         }catch(...){
@@ -65,8 +67,18 @@ namespace PM{
         PlayerKey player_key(PlayerID, level);
         all_players_sorted.AVLRemove(player_key);
         player_group_tree.AVLRemove(player_key);
-        best_of_all = all_players_sorted.AVLMax().id;
-        player_group_data.best_in_group = player_group_tree.AVLMax().id;
+        
+        if(all_players_sorted.size() != 0){
+            best_of_all = all_players_sorted.AVLMax().id;
+        }else{
+            best_of_all = -1;
+        }
+        if(player_group_tree.size() != 0){
+            player_group_data.best_in_group = player_group_tree.AVLMax().id;
+        }else{
+            player_group_data.best_in_group = -1;
+        }
+        
         if(player_group_tree.size() == 0){
             num_of_nonempty_groups--;
             best_in_non_empty_groups.AVLRemove(GroupKey(player_group_data.group_id));
@@ -77,31 +89,31 @@ namespace PM{
 
     StatusType PlayersManager::ReplaceGroup(int GroupID, int ReplacementID){    //O(n_group + n_replacement + logk) k-number of groups
         try{
-            if(!(groups.AVLExist(GroupID) && groups.AVLExist(ReplacementID))) return FAILURE;
-            auto& group_data = groups.AVLGet(GroupID);
+            if(!(groups.AVLExist(GroupKey(GroupID)) && groups.AVLExist(GroupKey(ReplacementID)))) return FAILURE;
+            auto& group_data = groups.AVLGet(GroupKey(GroupID));
             auto& players_to_move = group_data.group_players;
-            auto& replacement_data = groups.AVLGet(ReplacementID);
+            auto& replacement_data = groups.AVLGet(GroupKey(ReplacementID));
             auto& players = replacement_data.group_players;
             if(players_to_move.size() == 0){
-                groups.AVLRemove(GroupID);
+                groups.AVLRemove(GroupKey(GroupID));
             }
             else{
-                AVL::AVLTree<PlayerKey,PlayerData>::Iterator to_move_iter(players_to_move);
-                to_move_iter.begin();
-                for(int i = 0; i < players_to_move.size(); i++){
-                    auto old_player_data = *to_move_iter;
+                for(PlayerData& old_player_data : players_to_move){
                     old_player_data.owner_group_data = &replacement_data;
-                    to_move_iter++;
                 }
 
                 if(replacement_data.best_in_group < group_data.best_in_group){
                     replacement_data.best_in_group = group_data.best_in_group;
-                    auto old_best_data = best_in_non_empty_groups.AVLGet(ReplacementID);
-                    old_best_data = int(group_data.best_in_group);
+                    if(replacement_data.group_players.size() != 0){
+                        int& old_best_data = best_in_non_empty_groups.AVLGet(GroupKey(ReplacementID)); //added&
+                        old_best_data = group_data.best_in_group;
+                    }else{
+                        best_in_non_empty_groups.AVLInsert(GroupKey(ReplacementID), group_data.best_in_group);
+                    }
                 }
 
                 players.AVLMerge(players_to_move);//make sure used merge right and new tree is inserted back
-                groups.AVLRemove(GroupID);
+                groups.AVLRemove(GroupKey(GroupID));
                 num_of_nonempty_groups--;
             }
             return SUCCESS;
@@ -122,30 +134,32 @@ namespace PM{
         try{
             if(!all_players.AVLExist(PlayerID)) return FAILURE;
 
-            auto& player_old_data = *(all_players.AVLGet(PlayerID));
-            GroupData& player_group_data = *(player_old_data.owner_group_data);
+            PlayerData*& player_old_data = all_players.AVLGet(PlayerID);
+            GroupData& player_group_data = *(player_old_data->owner_group_data);
             auto& player_group_tree = player_group_data.group_players;
 
-            int old_level = player_old_data.level;
+            int old_level = player_old_data->level;
             int new_level = old_level + LevelIncrease;
 
             PlayerKey player_old_key(PlayerID, old_level);
             PlayerKey player_new_key(PlayerID, new_level);
-            PlayerData player_new_data(&player_group_data, new_level, PlayerID);
+            PlayerData player_new_data(&player_group_data, PlayerID, new_level);
             
             player_group_tree.AVLRemove(player_old_key);
             player_group_tree.AVLInsert(player_new_key, player_new_data);
+            PlayerData* new_player = &player_group_tree.AVLGet(player_new_key);
+            player_old_data = new_player;
 
-            auto old_best = player_group_data.best_in_group;
+            int old_best = player_group_data.best_in_group;
             player_group_data.best_in_group = player_group_tree.AVLMax().id;
 
             if(old_best != player_group_data.best_in_group){
-                auto& player_data = best_in_non_empty_groups.AVLGet(old_best);
+                auto& player_data = best_in_non_empty_groups.AVLGet(GroupKey(old_best));
                 player_data = player_new_data.id;
             }
 
             all_players_sorted.AVLRemove(player_old_key);
-            all_players_sorted.AVLInsert(player_new_key, &player_new_data);
+            all_players_sorted.AVLInsert(player_new_key, new_player);
             best_of_all = all_players_sorted.AVLMax().id;
 
             return SUCCESS;
@@ -162,10 +176,10 @@ namespace PM{
             return SUCCESS;
         }
         else{
-            if(!groups.AVLExist(GroupID)){
+            if(!groups.AVLExist(GroupKey(GroupID))){
                 return FAILURE;
             }
-            GroupData& groupData = groups.AVLGet(GroupID);
+            GroupData& groupData = groups.AVLGet(GroupKey(GroupID));
             *PlayerID = groupData.best_in_group;
             return SUCCESS;
         }
@@ -176,11 +190,12 @@ namespace PM{
         int* players_arr = *Players;
         try{
             if(GroupID >0){
-                if(!groups.AVLExist(GroupID)){
+                GroupKey new_group_key(GroupID);
+                if(!groups.AVLExist(new_group_key)){
                     throw Failure();
                 }
 
-                auto& group_data = groups.AVLGet(GroupID);
+                auto& group_data = groups.AVLGet(new_group_key);
                 auto& players = group_data.group_players;
 
                 if(players.size() == 0){
@@ -190,13 +205,10 @@ namespace PM{
                 *numOfPlayers = players.size();
                 players_arr = (int*) malloc (sizeof(int) * (*numOfPlayers));
 
-                AVL::AVLTree<PlayerKey,PlayerData>::Iterator players_iter(players);
-                players_iter.begin();
-
-                for(int i = 0; i < *numOfPlayers; i++){
-                    auto current_id = int((*players_iter).id);
-                    players_arr[i] = current_id;
-                    players_iter++;
+                int i = 0;
+                for(const PlayerData& current_id : players){
+                    players_arr[i] = current_id.id;
+                    i++;
                 }
                 return SUCCESS;
 
@@ -207,31 +219,26 @@ namespace PM{
 
                 *numOfPlayers = all_players.size();
                 int* players_arr = (int*) malloc (sizeof(int) * (*numOfPlayers));
-                Players = &players_arr;
+                *Players = players_arr;
 
-                AVL::AVLTree<int,PlayerData*>::Iterator all_players_iter(all_players);
-                all_players_iter.begin();
-
-                for(int i = 0; i < *numOfPlayers; i++){
-                    auto current_id = int((*all_players_iter)->id);
-                    players_arr[i] = current_id;
-                    all_players_iter++;
+                int i = 0;
+                for(const PlayerData* current_id : all_players){
+                    players_arr[i] = current_id->id;
+                    i++;
                 }
                 return SUCCESS;
             }
         }catch(Skip){
-            free(players_arr);
             *numOfPlayers = 0;
-            Players = NULL;
+            *Players = NULL;
             return SUCCESS;
         }catch(Failure){
-            free(players_arr);
             *numOfPlayers = 0;
-            Players = NULL;
+            *Players = NULL;
             return FAILURE;
         }catch(std::bad_alloc){
             *numOfPlayers = 0;
-            Players = NULL;
+            *Players = NULL;
             return ALLOCATION_ERROR;
         }
         /*
@@ -246,16 +253,19 @@ namespace PM{
     StatusType PlayersManager::GetGroupsHighestLevel(int numOfGroups, int **Players){   //O(numOfGroups +logk) k-num of groups
         int* players_arr = *Players;
         try{
-            if(numOfGroups < num_of_nonempty_groups) return FAILURE;
+            if(numOfGroups > num_of_nonempty_groups) return FAILURE;
 
             players_arr = (int*) malloc(numOfGroups * sizeof(int));
-            AVL::AVLTree<GroupKey,int>::Iterator tree_iter = best_in_non_empty_groups.iterator;
-            tree_iter.begin();
 
-            for(int i = 0 ; i < numOfGroups; i++){
-                int id = *tree_iter;
+            int i = 0;
+            for (int id : best_in_non_empty_groups)
+            {
+                if (i >= numOfGroups)
+                {
+                    break;
+                }
                 players_arr[i] = id; 
-                tree_iter++;
+                i++;
             }
             *Players = players_arr;
             return SUCCESS;
