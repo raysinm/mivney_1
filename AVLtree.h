@@ -242,12 +242,14 @@ namespace AVL{
         int i1 = 0, i2 = 0;
         InOrderOutputTNodes_rec(this->root, tree1_arr, i1, this->tree_size);
         InOrderOutputTNodes_rec(other_tree.root, other_tree_arr, i2, other_tree.tree_size);
+        this->root = nullptr;
+        other_tree.root = nullptr;
         MergeArray(tree1_arr, this->tree_size, other_tree_arr, other_tree.tree_size, merged_arr);
 
         this->root = this->ArrayToAVLTree(merged_arr, 0, (this->tree_size + other_tree.tree_size - 1), nullptr);
         this->tree_size += other_tree.tree_size;
-
-        other_tree.root = nullptr;
+        
+        //other_tree.root = nullptr;
         delete[] tree1_arr;
         delete[] other_tree_arr;
         delete[] merged_arr;
@@ -685,6 +687,7 @@ namespace AVL{
         } */
 
         InOrderOutputTNodes_rec(node->right_son, arr, arr_index, arr_size);
+        node = nullptr;
     }
 
     template<class KeyElem, class Data>

@@ -173,6 +173,7 @@ namespace PM{
  
         
     StatusType PlayersManager::GetAllPlayersByLevel(int GroupID, int **Players, int *numOfPlayers){ //O(n_groupId +logk) k-num of groups
+        int* players_arr = *Players;
         try{
             if(GroupID >0){
                 if(!groups.AVLExist(GroupID)){
@@ -187,8 +188,7 @@ namespace PM{
                 }
 
                 *numOfPlayers = players.size();
-                int* players_arr = (int*) malloc (sizeof(int) * (*numOfPlayers));
-                Players = &players_arr;
+                players_arr = (int*) malloc (sizeof(int) * (*numOfPlayers));
 
                 AVL::AVLTree<PlayerKey,PlayerData>::Iterator players_iter(players);
                 players_iter.begin();
@@ -220,10 +220,12 @@ namespace PM{
                 return SUCCESS;
             }
         }catch(Skip){
+            free(players_arr);
             *numOfPlayers = 0;
             Players = NULL;
             return SUCCESS;
         }catch(Failure){
+            free(players_arr);
             *numOfPlayers = 0;
             Players = NULL;
             return FAILURE;
@@ -242,7 +244,7 @@ namespace PM{
     
 
     StatusType PlayersManager::GetGroupsHighestLevel(int numOfGroups, int **Players){   //O(numOfGroups +logk) k-num of groups
-        int* players_arr;
+        int* players_arr = *Players;
         try{
             if(numOfGroups < num_of_nonempty_groups) return FAILURE;
 
@@ -251,10 +253,11 @@ namespace PM{
             tree_iter.begin();
 
             for(int i = 0 ; i < numOfGroups; i++){
-                players_arr[i] = *tree_iter; 
+                int id = *tree_iter;
+                players_arr[i] = id; 
                 tree_iter++;
             }
-            Players = &players_arr;
+            *Players = players_arr;
             return SUCCESS;
 
         }catch(...){
