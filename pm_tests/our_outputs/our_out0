@@ -101,12 +101,12 @@ IncreaseLevel: SUCCESS
 AddPlayer: SUCCESS
 ReplaceGroup: SUCCESS
 AddPlayer: FAILURE
-GetAllPlayersByLevel: FAILURE
+and there are no more players!
 AddPlayer: FAILURE
 AddGroup: SUCCESS
 AddPlayer: SUCCESS
 GroupIndex	||	Player
-1	||	1875928737
+1	||	1656716913
 and there are no more players!
 RemovePlayer: SUCCESS
 AddGroup: SUCCESS
@@ -115,23 +115,24 @@ IncreaseLevel: SUCCESS
 IncreaseLevel: FAILURE
 GetGroupsHighestLevel: FAILURE
 AddGroup: SUCCESS
-AddPlayer: FAILURE
+AddPlayer: SUCCESS
 RemovePlayer: SUCCESS
 RemovePlayer: FAILURE
-ReplaceGroup: FAILURE
+ReplaceGroup: SUCCESS
 RemovePlayer: SUCCESS
-RemovePlayer: FAILURE
-AddPlayer: FAILURE
-AddGroup: SUCCESS
 RemovePlayer: FAILURE
 AddPlayer: SUCCESS
 AddGroup: SUCCESS
-IncreaseLevel: FAILURE
+RemovePlayer: SUCCESS
+AddPlayer: SUCCESS
+AddGroup: SUCCESS
+IncreaseLevel: SUCCESS
 AddPlayer: SUCCESS
 RemovePlayer: SUCCESS
 Rank	||	Player
-1	||	1148610016
+1	||	1190831456
 2	||	1971074896
+3	||	1148610016
 and there are no more players!
 AddGroup: SUCCESS
 AddPlayer: SUCCESS
@@ -145,46 +146,88 @@ AddGroup: SUCCESS
 ReplaceGroup: SUCCESS
 AddGroup: SUCCESS
 ReplaceGroup: SUCCESS
-AddPlayer: FAILURE
+AddPlayer: SUCCESS
 and there are no more players!
 Rank	||	Player
-1	||	1148610016
-2	||	1971074896
-3	||	1973114310
+1	||	1973114310
+2	||	1190831456
+3	||	1971074896
+4	||	1148610016
+5	||	1352730082
 and there are no more players!
 AddPlayer: SUCCESS
 RemovePlayer: SUCCESS
-AddPlayer: FAILURE
+AddPlayer: SUCCESS
 IncreaseLevel: INVALID_INPUT
 IncreaseLevel: SUCCESS
 AddPlayer: SUCCESS
 AddGroup: SUCCESS
 Highest level player is: 1148610016
 Rank	||	Player
-1	||	969476851
-2	||	1148610016
+1	||	1148610016
+2	||	772986531
 3	||	1525827268
-4	||	1973114310
+4	||	969476851
+5	||	1352730082
+6	||	32767
+7	||	-575257648
 and there are no more players!
-IncreaseLevel: FAILURE
+IncreaseLevel: SUCCESS
 IncreaseLevel: FAILURE
 ReplaceGroup: SUCCESS
 AddPlayer: FAILURE
-RemovePlayer: SUCCESS
-ReplaceGroup: FAILURE
+RemovePlayer: FAILURE
+ReplaceGroup: SUCCESS
 AddGroup: SUCCESS
 AddPlayer: SUCCESS
-RemovePlayer: FAILURE
+RemovePlayer: SUCCESS
 AddPlayer: SUCCESS
 ReplaceGroup: SUCCESS
 AddGroup: SUCCESS
 Rank	||	Player
-1	||	518389395
-2	||	969476851
-3	||	1148610016
-4	||	1525827268
-5	||	1995597755
+1	||	1148610016
+2	||	1352730082
+3	||	772986531
+4	||	518389395
+5	||	-575257312
+6	||	32767
+7	||	-575256016
+8	||	32767
 and there are no more players!
 AddPlayer: FAILURE
 AddGroup: SUCCESS
 AddPlayer: SUCCESS
+IncreaseLevel: FAILURE
+IncreaseLevel: SUCCESS
+AddGroup: FAILURE
+AddPlayer: SUCCESS
+ReplaceGroup: FAILURE
+GetAllPlayersByLevel: FAILURE
+ReplaceGroup: INVALID_INPUT
+ReplaceGroup: SUCCESS
+RemovePlayer: SUCCESS
+Rank	||	Player
+1	||	1148610016
+2	||	772986531
+3	||	1352730082
+4	||	518389395
+5	||	1352730082
+6	||	518389395
+7	||	1352730082
+8	||	518389395
+9	||	1352730082
+and there are no more players!
+ReplaceGroup: SUCCESS
+AddPlayer: SUCCESS
+IncreaseLevel: SUCCESS
+RemovePlayer: FAILURE
+ReplaceGroup: SUCCESS
+ReplaceGroup: SUCCESS
+RemovePlayer: SUCCESS
+AddPlayer: SUCCESS
+IncreaseLevel: SUCCESS
+AddGroup: SUCCESS
+ReplaceGroup: FAILURE
+ReplaceGroup: FAILURE
+AddGroup: SUCCESS
+Rank	||	Player

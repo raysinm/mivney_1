@@ -35,18 +35,22 @@ class PlayersManager{
     class PlayerKey : public GenKey{
         int level;
         public:
-        PlayerKey(const int& id, const int& level): GenKey(id),level(level){}
+        PlayerKey(const int& id=-1, const int& level=-1): GenKey(id),level(level){}
         bool operator<(const PlayerKey& other) const{ 
             if(this->level == other.level){
-                return this->id > other.id;
+                return this->id < other.id;
             }
             else{
-            return (this->level < other.level);
+            return (this->level > other.level);
             }
         }
 
         bool operator==(const PlayerKey& other) const{
             return (this->level == other.level && this->id == other.id);
+        }
+        friend std::ostream& operator<<(std::ostream& os, const PlayerKey& key){
+            os << key.id;
+            return os;
         }
     };
 
@@ -58,10 +62,10 @@ class PlayersManager{
     class GroupData{
         friend class PlayersManager;
         AVL::AVLTree<PlayerKey,PlayerData> group_players;
-        int best_in_group;
+        PlayerKey best_in_group;
         int group_id;
         public:
-        explicit GroupData(const int& id): group_players(), best_in_group(-1), group_id(id){}; //make sure we really send id
+        explicit GroupData(const int& id): group_players(), best_in_group(-1,-1), group_id(id){}; //make sure we really send id
        // GroupData(const GroupData&) = delete;
     };
     
@@ -74,6 +78,10 @@ class PlayersManager{
         public:
             PlayerData(PM::PlayersManager::GroupData* owner, const int& id =-1, int level=-1): 
                 owner_group_data(owner), id(id), level(level){};
+            friend std::ostream& operator<<(std::ostream& os, const PlayerData& data){
+                os << data.id;
+            return os;
+        }
     };
 
     

@@ -189,6 +189,8 @@ namespace AVL{
             void InOrderOutputDatas(Data** arr, const int arr_size);
             void printTree();
             void printTree_rec(const std::string& prefix, const TNode* node, bool isLeft);
+            void printTreeData();
+            void printTreeData_rec(const std::string& prefix, const TNode* node, bool isLeft);
             
 
     };
@@ -234,7 +236,6 @@ namespace AVL{
             TNode* insert_after_node = nullptr;
             auto not_used_output = AVLFind_rec(root, key, &insert_after_node);
             //assert(insert_after_node != nullptr); //sanity check
-
             if(key < insert_after_node->key){
                 insert_after_node->left_son = insert_node;
             } 
@@ -344,8 +345,8 @@ namespace AVL{
     template<class KeyElem, class Data>
     KeyElem& AVLTree<KeyElem,Data>::AVLMax() const{
         auto* current = this->root; //added *
-        while(current->right_son){
-            current = current->right_son;
+        while(current->left_son){
+            current = current->left_son;
         }
         return current->key;
     }
@@ -397,9 +398,6 @@ namespace AVL{
             AVLNodeRefreshHeight(current_node);
             AVLNodeRefreshBF(current_node);
             
-            if(current_node->height == prev_height){
-                break;
-            }
             if(current_node->BF == 2 && current_node->left_son->BF >= 0){
                 this->AVLRotate_LL(current_node);
             }
@@ -418,6 +416,9 @@ namespace AVL{
             AVLNodeRefreshBF(current_node->left_son);
             AVLNodeRefreshBF(current_node->right_son);
             AVLNodeRefreshBF(current_node);
+            if(current_node->height == prev_height){
+                break;
+            }
             current_node = current_node -> father;
         }
     }
@@ -578,7 +579,11 @@ namespace AVL{
                 }
                 else if(node->isRightSon()){
                     node->father->right_son = nullptr;
-                }  
+                }
+                AVLBalance(temp_father);
+                delete node;
+                return;
+
             }
             else if(!node->leftSonExists() || !node->rightSonExists()){  //Has only a right son or a left son
             
@@ -594,9 +599,12 @@ namespace AVL{
                     node->father->right_son = node_son;
                 }
                 node_son->father = node->father;
+                AVLBalance(temp_father);
+                delete node;
+                return;
             }
-            else{   //Has TWO sons
-                auto* replacer = findReplacingNode(node);    //replacer is the biggest node that is smaller than our node
+            else if(node->leftSonExists() && node->rightSonExists()){   //Has TWO sons
+                auto replacer = findReplacingNode(node);    //replacer is the biggest node that is smaller than our node
                 //added *
 
                 if(node == this->root){
@@ -608,41 +616,67 @@ namespace AVL{
                 else if(node->isRightSon()){
                     node->father->right_son = replacer;
                 }
+                
 
                 TNode* temp_node_left_son = node->left_son;
                 TNode* temp_node_right_son = node->right_son;
                 TNode* temp_replacer_left_son = replacer->left_son; //added &
                 
                 if(node == replacer->father){   // special case. They are direct relatives, and therfore point to eachother
-            
+
+                    replacer->father = temp_father;
                     node->father = replacer;
                     replacer->left_son = node;
-                
+                    temp_father = node->father;
                 }else{
-                    node->father = replacer->father;
+                    auto temp_replacer_father = replacer->father;
+                    replacer->father = node->father;
+                    node->father = temp_replacer_father;
                     replacer->left_son = temp_node_left_son;
+                    
                 }
-                replacer->father = temp_father;
+                
                 node->left_son = temp_replacer_left_son;
                 node->right_son = replacer->right_son;
                 replacer->right_son = temp_node_right_son;
                 replacer->right_son->father = replacer;
                 replacer->left_son->father = replacer;
-
-                if(node->leftSonExists() && node->rightSonExists()){ 
-                    AVLRemove_rec(this->root, key);
-                }
-                else{
+                replacer->BF = node->BF;
+                replacer->height = node->height;
+                //this->printTree();
+                if(!node->leftSonExists() && !node->rightSonExists()){  //This is a leaf
+                    
                     if(node->father == replacer){
-                        node->father->left_son = node->left_son;
-                    }else node->father->right_son = node->left_son;   //guranteed- has no right son!
+                        node->father->left_son = nullptr; 
+                    }
+                    else{
+                        node->father->right_son = nullptr;
+                    }
+                    AVLBalance(temp_father);
+                    //this->printTree();
+                    delete node;
+                    return;
                 }
-                temp_father = node->father;
+
+                if(!node->leftSonExists() || !node->rightSonExists()){  //Has only a right son or a left son
+            
+                    TNode* node_son = node->leftSonExists() ? node->left_son : node->right_son;
+                    
+
+                    if(node->father == replacer){
+                        node->father->left_son = node_son;
+                    }
+                    else{
+                        node->father->right_son = node_son;
+                    }
+                    node_son->father = node->father;
+                }
+                AVLBalance(temp_father);
+                //this->printTree();
+                delete node;
+                return;
             }
             
-            delete node;
-            AVLBalance(temp_father);
-            return;
 
         }else if(node->leftSonExists() && key < node->key){
             AVLRemove_rec(node->left_son, key);
@@ -823,11 +857,34 @@ namespace AVL{
         std::cout << (isLeft ? "├──────" : "└──────" );
         //      << " player group : " <<(node->player_data->playing_group)
         //         print the value of the node  
-        std::cout << "group id:" << node->key  << std::endl;//" height is "<< node->height << std::endl;
+        std::cout << "id: " << node->key  << " (" << node->BF << ") " << std::endl;//" height is "<< node->height << std::endl;
 
         //         enter the next tree level - left and right branch
         printTree_rec( prefix + (isLeft ? "│       " : "        "), node->right_son, true);
         printTree_rec( prefix + (isLeft ? "│       " : "        "), node->left_son, false);
+        }
+    }
+
+    template <class KeyElem, class Data>
+    void AVLTree<KeyElem,Data>::printTreeData(){
+        std::cout << "\n" << std::endl;
+        this->printTreeData_rec("", this->root, false);
+        std::cout << "\n" << std::endl;
+    }
+
+    template <class KeyElem, class Data>
+    void AVLTree<KeyElem,Data>::printTreeData_rec(const std::string& prefix, const AVLTree<KeyElem,Data>::TNode* node, bool isLeft){
+    if( node != nullptr ){
+        std::cout << prefix;
+
+        std::cout << (isLeft ? "├──────" : "└──────" );
+        //      << " player group : " <<(node->player_data->playing_group)
+        //         print the value of the node  
+        std::cout << "group id: " << node->key << " (" << node->data  << ") " << std::endl;//" height is "<< node->height << std::endl;
+
+        //         enter the next tree level - left and right branch
+        printTreeData_rec( prefix + (isLeft ? "│       " : "        "), node->right_son, true);
+        printTreeData_rec( prefix + (isLeft ? "│       " : "        "), node->left_son, false);
         }
     }
 
