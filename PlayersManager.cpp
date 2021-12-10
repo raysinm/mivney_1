@@ -12,6 +12,7 @@ namespace PM{
             GroupData new_group_data(groupId);
             if(groups.AVLExist(new_group_key)) return FAILURE;
             groups.AVLInsert(new_group_key, new_group_data);
+            //groups.printTree();
             return SUCCESS;
         }catch(...){
             return ALLOCATION_ERROR;
@@ -94,6 +95,10 @@ namespace PM{
             auto& players_to_move = group_data.group_players;
             auto& replacement_data = groups.AVLGet(GroupKey(ReplacementID));
             auto& players = replacement_data.group_players;
+            
+            std::cout << "\nbefore merge" << std::endl;
+            groups.printTree();
+            
             if(players_to_move.size() == 0){
                 groups.AVLRemove(GroupKey(GroupID));
             }
@@ -111,21 +116,20 @@ namespace PM{
                         best_in_non_empty_groups.AVLInsert(GroupKey(ReplacementID), group_data.best_in_group);
                     }
                 }
-
+                
                 players.AVLMerge(players_to_move);//make sure used merge right and new tree is inserted back
                 groups.AVLRemove(GroupKey(GroupID));
                 num_of_nonempty_groups--;
             }
+
+            std::cout << "\nafter merge and remove" << std::endl;
+            groups.printTree();
+
             return SUCCESS;
         
         }catch(...){
             return ALLOCATION_ERROR;
         }
-       /*  auto group_to_remove = groups.AVLFind(GroupID);
-        auto group_to_merge = groups.AVLFind(ReplacementID);
-        if(group_to_remove == nullptr || group_to_merge == nullptr) return FAILURE;
-        //merge - dont have func yet: merge(group_to_remove.players, group_to_merge.players) and put into group_to_merge
-        return groups.AVLRemove(GroupID); */
     }
 
     

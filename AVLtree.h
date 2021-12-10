@@ -187,7 +187,8 @@ namespace AVL{
             KeyElem& AVLMax() const;
             void AVLPrintInOrder() const;
             void InOrderOutputDatas(Data** arr, const int arr_size);
-
+            void printTree();
+            void printTree_rec(const std::string& prefix, const TNode* node, bool isLeft);
             
 
     };
@@ -805,6 +806,29 @@ namespace AVL{
             node = node->left_son;
         }
         return node;
+    }
+
+    template <class KeyElem, class Data>
+    void AVLTree<KeyElem,Data>::printTree(){
+        std::cout << "\n" << std::endl;
+        this->printTree_rec("", this->root, false);
+        std::cout << "\n" << std::endl;
+    }
+
+    template <class KeyElem, class Data>
+    void AVLTree<KeyElem,Data>::printTree_rec(const std::string& prefix, const AVLTree<KeyElem,Data>::TNode* node, bool isLeft){
+    if( node != nullptr ){
+        std::cout << prefix;
+
+        std::cout << (isLeft ? "├──────" : "└──────" );
+        //      << " player group : " <<(node->player_data->playing_group)
+        //         print the value of the node  
+        std::cout << "group id:" << node->key  << std::endl;//" height is "<< node->height << std::endl;
+
+        //         enter the next tree level - left and right branch
+        printTree_rec( prefix + (isLeft ? "│       " : "        "), node->right_son, true);
+        printTree_rec( prefix + (isLeft ? "│       " : "        "), node->left_son, false);
+        }
     }
 
     

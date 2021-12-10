@@ -26,6 +26,10 @@ class PlayersManager{
         virtual bool operator==(const GenKey& other) const{
             return (this->id == other.id);
         }
+        friend std::ostream& operator<<(std::ostream& os, const GenKey& key){
+            os << key.id;
+            return os;
+        }
     };
 
     class PlayerKey : public GenKey{
