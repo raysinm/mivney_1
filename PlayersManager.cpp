@@ -45,7 +45,7 @@ namespace PM{
         
 
         if(prev_group_size == 0){
-            ++this->num_of_nonempty_groups;
+            //++this->num_of_nonempty_groups;
             best_in_non_empty_groups.AVLInsert(GroupKey(GroupID),PlayerID);
         }
         auto pre_best_in_group = group_data.best_in_group;
@@ -105,7 +105,7 @@ namespace PM{
         }else{
             player_group_data.best_in_group.id = -1;
             player_group_data.best_in_group.id = -1;
-            num_of_nonempty_groups--;
+            //num_of_nonempty_groups--;
             best_in_non_empty_groups.AVLRemove(GroupKey(player_group_data.group_id));
         }
 
@@ -159,7 +159,7 @@ namespace PM{
                 best_in_non_empty_groups.AVLRemove(GroupKey(GroupID));
                 /* groups.printTree();
                 std::cout << "REMOVED group " << GroupID << "\n" << std::endl; */
-                num_of_nonempty_groups--;
+                //num_of_nonempty_groups--;
             }
 
             /* std::cout << "\nafter merge and remove" << std::endl;
@@ -249,12 +249,11 @@ namespace PM{
                 /* std::cout << "\nGroup: " << GroupID << std::endl;
                 groups.printTree(); */
                 
-                
                 auto& group_data = groups.AVLGet(new_group_key);
                 auto& players = group_data.group_players;
 
-                /* std::cout << "Players Tree: \n" <<std::endl;
-                players.printTree(); */
+                std::cout << "\nPlayers Tree: " << std::endl;
+                players.printTree(); //somethings wrong
 
                 if(players.size() == 0){
                     throw Skip();
@@ -325,8 +324,11 @@ namespace PM{
     StatusType PlayersManager::GetGroupsHighestLevel(int numOfGroups, int **Players){   //O(numOfGroups +logk) k-num of groups
         int* players_arr = *Players;
         try{
-            if(numOfGroups > num_of_nonempty_groups) return FAILURE;
+            if(numOfGroups > best_in_non_empty_groups.size()) return FAILURE;
             
+            std::cout << "Players Tree: \n" <<std::endl;
+            best_in_non_empty_groups.printTreeData();
+
             players_arr = (int*) malloc(numOfGroups * sizeof(int));
 
             int i = 0;
