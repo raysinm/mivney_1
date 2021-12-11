@@ -2,6 +2,7 @@
 #include <exception>
 #include "./PlayersManager.h"
 
+//git check
 
 using namespace AVL;
 namespace PM{
