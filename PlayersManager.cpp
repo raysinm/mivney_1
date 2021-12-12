@@ -1,5 +1,6 @@
 
 #include <exception>
+#include <string.h>
 #include "./PlayersManager.h"
 
 //git check
@@ -34,6 +35,9 @@ namespace PM{
         if(!groups.AVLExist(new_group_key)){
             return FAILURE;
         }
+        std::cout << "\nbefore ADD-----" << std::endl;
+        all_players_sorted.printTree(); 
+
         GroupData& group_data = groups.AVLGet(new_group_key);
         auto& players = group_data.group_players;
         int player_id = PlayerID;
@@ -72,6 +76,8 @@ namespace PM{
         all_players.AVLInsert(PlayerID, new_player);
         all_players_sorted.AVLInsert(new_player_key, new_player);
         best_of_all = all_players_sorted.AVLMax().id;
+        std::cout << "\n----after ADD" << std::endl;
+        all_players_sorted.printTree(); 
         return SUCCESS;
         }catch(...){
             return ALLOCATION_ERROR;
@@ -82,6 +88,9 @@ namespace PM{
         
         if(!all_players.AVLExist(PlayerID)) return FAILURE;
         
+        std::cout << "\nbefore REMOVE-----" << std::endl;
+        all_players_sorted.printTree(); 
+
         auto& player_data = *(all_players.AVLGet(PlayerID));
         auto& player_group_data = *(player_data.owner_group_data);
         auto& player_group_tree = player_group_data.group_players;
@@ -115,9 +124,9 @@ namespace PM{
             /* int& player_in_non_empty = best_in_non_empty_groups.AVLGet(GroupKey(player_group_data.group_id));
             player_in_non_empty = player_group_data.best_in_group; */
         }
-        
-
         all_players.AVLRemove(PlayerID);
+        std::cout << "\nafter REMOVE-----" << std::endl;
+        all_players_sorted.printTree(); 
         return SUCCESS;
     }
 
@@ -176,6 +185,9 @@ namespace PM{
     StatusType PlayersManager::IncreaseLevel(int PlayerID, int LevelIncrease){  //O(logn) n- TOTAL number of players
         
         try{
+            std::cout << "\nbefore INCREASE-----" << std::endl;
+            all_players_sorted.printTree(); 
+
             if(!all_players.AVLExist(PlayerID)) return FAILURE;
 
             PlayerData*& player_old_data = all_players.AVLGet(PlayerID);
@@ -209,6 +221,9 @@ namespace PM{
             all_players_sorted.AVLInsert(player_new_key, new_player);
             best_of_all = all_players_sorted.AVLMax().id;
 
+            std::cout << "\nafter INCREASE-----" << std::endl;
+            all_players_sorted.printTree(); 
+
             return SUCCESS;
         }catch(...){
             return ALLOCATION_ERROR;
@@ -238,7 +253,7 @@ namespace PM{
  
         
     StatusType PlayersManager::GetAllPlayersByLevel(int GroupID, int **Players, int *numOfPlayers){ //O(n_groupId +logk) k-num of groups
-        int* players_arr = *Players;
+        int* players_arr;
         try{
             if(GroupID >0){
                 GroupKey new_group_key(GroupID);
@@ -252,13 +267,14 @@ namespace PM{
                 auto& group_data = groups.AVLGet(new_group_key);
                 auto& players = group_data.group_players;
 
-                std::cout << "\nPlayers Tree: " << std::endl;
-                players.printTree(); //somethings wrong
-
+ 
                 if(players.size() == 0){
                     throw Skip();
                 }
 
+                /* std::cout << "\nPlayers Tree: " << std::endl;
+                players.printTree(); //somethings wrong
+ */
                 *numOfPlayers = players.size();
                 players_arr = (int*) malloc (sizeof(int) * (*numOfPlayers));
 
@@ -266,7 +282,15 @@ namespace PM{
                 for(const PlayerData& current_id : players){
                     players_arr[i] = current_id.id;
                     i++;
+                    if(i >= *numOfPlayers) break;
                 }
+
+                /* for(int i = 0; i<*numOfPlayers; i++){
+                    std::cout << players_arr[
+                } */
+                *Players = players_arr;
+                //memcpy(*Players, players_arr, sizeof(int) * (*numOfPlayers));
+                //free(players_arr);
                 return SUCCESS;
 
             }else{
@@ -281,22 +305,23 @@ namespace PM{
                 std::cout << "\nBest Players Tree: " <<std::endl;
                 best_in_non_empty_groups.printTreeData();
                 std::cout << "\nGroups Tree: " <<std::endl;
-                groups.printTree();  */
+                groups.printTree(); */
 
                 *numOfPlayers = all_players.size();
                 int* players_arr = (int*) malloc (sizeof(int) * (*numOfPlayers));
-                *Players = players_arr;
-
                 
 
                 int i = 0;
                 for(const PlayerData* current_id : all_players_sorted){
                     players_arr[i] = current_id->id;
                     i++;
-                    if(i >= *numOfPlayers){
-                        break;
-                    }
+                    if(i >= *numOfPlayers) break;
                 }
+                
+                *Players = players_arr;
+                //memcpy(*Players, players_arr, sizeof(int) * (*numOfPlayers));
+                //free(players_arr);
+
                 return SUCCESS;
             }
         }catch(Skip){
@@ -326,9 +351,9 @@ namespace PM{
         try{
             if(numOfGroups > best_in_non_empty_groups.size()) return FAILURE;
             
-            std::cout << "Players Tree: \n" <<std::endl;
+            /* std::cout << "Players Tree: \n" <<std::endl;
             best_in_non_empty_groups.printTreeData();
-
+ */
             players_arr = (int*) malloc(numOfGroups * sizeof(int));
 
             int i = 0;

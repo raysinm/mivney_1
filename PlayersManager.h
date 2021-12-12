@@ -81,6 +81,7 @@ class PlayersManager{
             friend std::ostream& operator<<(std::ostream& os, const PlayerData& data){
                 os << data.id;
             return os;
+            
         }
     };
 
@@ -92,10 +93,10 @@ class PlayersManager{
     AVLTree<PlayerKey,PlayerData*> all_players_sorted;
     
     int best_of_all;   //check when removing or adding a player
-    int num_of_nonempty_groups;
+    //int num_of_nonempty_groups;
     public:
         PlayersManager(): groups(), best_in_non_empty_groups(), all_players(), all_players_sorted(),
-                                     best_of_all(-1), num_of_nonempty_groups(0){};   //check if needs anything for manual initiation
+                                     best_of_all(-1){};   //check if needs anything for manual initiation
         //void Init();     //O(1)
         StatusType AddGroup(int groupId);  //O(logk) k- num of groups
         StatusType AddPlayer(int PlayerID, int GroupID, int Level); //O(logn + logk) n- num of players in group, k- num of groups

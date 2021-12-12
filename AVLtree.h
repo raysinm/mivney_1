@@ -285,8 +285,22 @@ namespace AVL{
         merged_arr = new TNode*[this->tree_size + other_tree.tree_size];
 
         int i1 = 0, i2 = 0;
+        /* std::cout << "\nthis tree: " << std::endl;
+        this->printTree();
+        std::cout << "\nother tree: " << std::endl;
+        other_tree.printTree(); */
+
         InOrderOutputTNodes_rec(this->root, tree1_arr, i1, this->tree_size);
         InOrderOutputTNodes_rec(other_tree.root, other_tree_arr, i2, other_tree.tree_size);
+
+        /* for(int i=0; i< this->tree_size; i++){
+            std::cout << tree1_arr[i]->key <<", " << std::endl;
+        }
+        std::cout << "\n" << std::endl;
+        for(int i=0; i< other_tree.tree_size; i++){
+            std::cout << other_tree_arr[i]->key <<", " << std::endl;
+        } */
+
         this->root = nullptr;
         other_tree.root = nullptr;
         MergeArray(tree1_arr, this->tree_size, other_tree_arr, other_tree.tree_size, merged_arr);
