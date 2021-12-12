@@ -97,7 +97,7 @@ namespace AVL{
             void MergeArray(AVLTree<KeyElem,Data>::TNode** arr1, const int arr1_size,
                                  AVLTree<KeyElem,Data>::TNode** arr2, const int arr2_size, AVLTree<KeyElem,Data>::TNode** merged_arr);
             TNode* ArrayToAVLTree(TNode** array, int start, int end, TNode* father);
-            void InOrderOutputDatas_rec(TNode* node, Data** arr, int& arr_index, const int arr_size);
+            //void InOrderOutputDatas_rec(TNode* node, Data** arr, int& arr_index, const int arr_size);
             void InOrderOutputTNodes_rec(TNode* node, TNode** arr, int& arr_index, const int arr_size);
             TNode* AVLGetFirst() const;
             void AVLDestroy_rec(TNode*) const;
@@ -186,7 +186,7 @@ namespace AVL{
             int size() const;
             KeyElem& AVLMax() const;
             void AVLPrintInOrder() const;
-            void InOrderOutputDatas(Data** arr, const int arr_size);
+            //void InOrderOutputDatas(Data** arr, const int arr_size);
             void printTree();
             void printTree_rec(const std::string& prefix, const TNode* node, bool isLeft);
             void printTreeData();
@@ -385,11 +385,11 @@ namespace AVL{
      * @param arr - empty, allocated array from user
      * @param arr_size -input array size
      */
-    template<class KeyElem, class Data>
+    /* template<class KeyElem, class Data>
     void AVLTree<KeyElem,Data>:: InOrderOutputDatas(Data** arr, const int arr_size){
         int& index = 0;
         InOrderOutputDatas_rec(this->root, arr, index, arr_size);
-    }
+    } */
 
     
     //___________***___PRIVATE FUNCTIONS IMPLEMENTATION___***___________//
@@ -583,7 +583,7 @@ namespace AVL{
         }
                                          //ADD METHODS TO TNODE!!!!!!!!!!
         if(node->key == key){
-            auto temp_father = node->father; //added &
+            auto temp_father = node->father;
             if(!node->leftSonExists() && !node->rightSonExists()){  //This is a leaf
                 if(node == this->root){
                     this->root = nullptr;
@@ -619,7 +619,6 @@ namespace AVL{
             }
             else if(node->leftSonExists() && node->rightSonExists()){   //Has TWO sons
                 auto replacer = findReplacingNode(node);    //replacer is the biggest node that is smaller than our node
-                //added *
 
                 if(node == this->root){
                         this->root = replacer;
@@ -634,7 +633,7 @@ namespace AVL{
 
                 TNode* temp_node_left_son = node->left_son;
                 TNode* temp_node_right_son = node->right_son;
-                TNode* temp_replacer_left_son = replacer->left_son; //added &
+                TNode* temp_replacer_left_son = replacer->left_son;
                 
                 if(node == replacer->father){   // special case. They are direct relatives, and therfore point to eachother
 
@@ -651,7 +650,7 @@ namespace AVL{
                 }
                 
                 node->left_son = temp_replacer_left_son;
-                node->right_son = replacer->right_son;
+                node->right_son = replacer->right_son; 
                 replacer->right_son = temp_node_right_son;
                 replacer->right_son->father = replacer;
                 replacer->left_son->father = replacer;
@@ -661,7 +660,7 @@ namespace AVL{
                 if(!node->leftSonExists() && !node->rightSonExists()){  //This is a leaf
                     
                     if(node->father == replacer){
-                        node->father->left_son = nullptr; 
+                        node->father->left_son = nullptr;
                     }
                     else{
                         node->father->right_son = nullptr;
@@ -702,7 +701,7 @@ namespace AVL{
 
     template <class KeyElem, class Data>
     typename AVLTree<KeyElem,Data>::TNode* AVLTree<KeyElem,Data>::findReplacingNode(AVLTree<KeyElem,Data>::TNode* node) const{
-        auto replacer = node->left_son; //added &
+        auto replacer = node->left_son;
         while(replacer->right_son){
             replacer = replacer -> right_son;
         }
@@ -748,7 +747,7 @@ namespace AVL{
 
     
 
-    template<class KeyElem, class Data>
+    /* template<class KeyElem, class Data>
     void AVLTree<KeyElem,Data>:: InOrderOutputDatas_rec(TNode* node, Data** arr, int& arr_index, const int arr_size){
         if(!node || arr_index == arr_size){    //if group is empty
             return;
@@ -761,7 +760,7 @@ namespace AVL{
         InOrderOutputDatas_rec(node->right_son, arr, arr_index, arr_size);
         
         
-    }
+    } */
 
 
 

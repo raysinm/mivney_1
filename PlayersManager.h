@@ -33,6 +33,7 @@ class PlayersManager{
     };
 
     class PlayerKey : public GenKey{
+        friend class PlayersManager;
         int level;
         public:
         PlayerKey(const int& id=-1, const int& level=-1): GenKey(id),level(level){}
