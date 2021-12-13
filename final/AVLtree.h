@@ -209,7 +209,7 @@ namespace AVL{
 
     /**
      * @brief inserts a new node with input key and data to the tree. 
-            if it causees tree imbalance- it calls the balancing function.
+            if the action causes tree imbalance- it calls the balancing function.
      * 
      * @tparam KeyElem 
      * @tparam Data 
