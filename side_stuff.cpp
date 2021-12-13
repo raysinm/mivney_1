@@ -249,3 +249,46 @@ bool AVLExist_rec(const TNode* current_node, const &KeyElem key_to_find){
         
     }
     */
+
+
+   /**
+     * @brief recieves an empty array of pointers to generic Data type. fills the array with pointers to 
+    *           tree's elments datas in Inorder order.
+     * 
+     * @tparam KeyElem 
+     * @tparam Data 
+     * @param arr - empty, allocated array from user
+     * @param arr_size -input array size
+     */
+    /* template<class KeyElem, class Data>
+    void AVLTree<KeyElem,Data>:: InOrderOutputDatas(Data** arr, const int arr_size){
+        int& index = 0;
+        InOrderOutputDatas_rec(this->root, arr, index, arr_size);
+    } */
+
+
+    //void printFather(const KeyElem& key);
+
+/*         template <class KeyElem, class Data>
+    void AVLTree<KeyElem,Data>::printFather(const KeyElem& key){
+        TNode* node = AVLFind(key);
+        if (node->father){
+            std::cout << "\nfather of " << key << " is " << node->father->key << "\n" << std::endl;
+        }
+        else{
+            std::cout << "\nfather is nullptr\n" << std::endl;
+        }
+    }
+ */
+
+/*     template<class KeyElem, class Data>
+    void AVLTree<KeyElem,Data>:: AVLPrintInOrder_rec(AVLTree<KeyElem,Data>::TNode* node) const{
+        if(!node){
+            return;
+        }
+
+        AVLPrintInOrder_rec(node->left_son);
+        std::cout << node->key << ", " ;
+        AVLPrintInOrder_rec(node->right_son);
+        
+    } */
