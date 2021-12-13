@@ -3,7 +3,6 @@
 #include <string.h>
 #include "./PlayersManager.h"
 
-//git check
 
 using namespace AVL;
 namespace PM{
@@ -26,7 +25,7 @@ namespace PM{
     }
     
     StatusType PlayersManager::AddPlayer(int PlayerID, int GroupID, int Level){ //O(logn + logk) n- num of players in group, k- num of groups
-        try{
+        try{    
         if(all_players.AVLExist(PlayerID)){
             return FAILURE;
         }
@@ -37,7 +36,10 @@ namespace PM{
         }
         /* std::cout << "\nbefore ADD-----" << std::endl;
         all_players_sorted.printTree(); 
- */
+         */
+        /* std::cout << "\nbest_non_empty before AddPlayer:----------- " <<std::endl;
+        best_in_non_empty_groups.printTreeData(); */
+
         GroupData& group_data = groups.AVLGet(new_group_key);
         auto& players = group_data.group_players;
         int player_id = PlayerID;
@@ -51,10 +53,10 @@ namespace PM{
         if(prev_group_size == 0){
             //++this->num_of_nonempty_groups;
             best_in_non_empty_groups.AVLInsert(GroupKey(GroupID),PlayerID);
+            group_data.best_in_group = new_player_key;
         }
         else{ //added this else 12.12
             auto pre_best_in_group = group_data.best_in_group;
-
 
             group_data.best_in_group = players.AVLMax();
             /* std::cout << "\nprevious best in group: " << group_data.best_in_group << std::endl;
@@ -65,14 +67,16 @@ namespace PM{
             best_in_non_empty_groups.printTreeData(); */
 
             if(group_data.best_in_group < pre_best_in_group){
-                best_in_non_empty_groups.AVLRemove(GroupKey(GroupID));
-                best_in_non_empty_groups.AVLInsert(GroupKey(GroupID),PlayerID);
+                if(best_in_non_empty_groups.AVLExist(GroupKey(GroupID))){
+                    best_in_non_empty_groups.AVLRemove(GroupKey(GroupID));
+                    best_in_non_empty_groups.AVLInsert(GroupKey(GroupID),PlayerID);
+                }
                 /* auto player_data_temp = best_in_non_empty_groups.AVLGet(GroupKey(GroupID));
                 int* player_in_non_empty = &player_data_temp;
                *player_in_non_empty = group_data.best_in_group; */
             }
         }
-        /* std::cout << "\nBest Players Tree: " <<std::endl;
+        /* std::cout << "\n-----------best_non_empty after AddPlayer: " <<std::endl;
         best_in_non_empty_groups.printTreeData(); */
 
         all_players.AVLInsert(PlayerID, new_player);
@@ -92,10 +96,12 @@ namespace PM{
         
         /* std::cout << "\n [sorted] before REMOVE-----" << std::endl;
         all_players_sorted.printTree();  */
- 
+        /* std::cout << "\nbest_non_empty before RemovePlayer:----------- " <<std::endl;
+        best_in_non_empty_groups.printTreeData(); */
+
         auto& player_data = *(all_players.AVLGet(PlayerID));
-        auto& player_group_data = *(player_data.owner_group_data);
-        auto& player_group_tree = player_group_data.group_players;
+        auto*& player_group_data = player_data.owner_group_data;
+        auto& player_group_tree = player_group_data->group_players;
         int level = player_data.level;
         PlayerKey player_key(PlayerID, level);
 
@@ -108,21 +114,30 @@ namespace PM{
             best_of_all = -1;
         }
         
-        int GroupID = player_group_data.group_id;
-        auto prev_best_in_group = player_group_data.best_in_group;
+        int GroupID = player_group_data->group_id;
+        auto prev_best_in_group = player_group_data->best_in_group;
         if(player_group_tree.size() != 0){
-            player_group_data.best_in_group = player_group_tree.AVLMax();
+            player_group_data->best_in_group = player_group_tree.AVLMax();
             
-        }else{
-            player_group_data.best_in_group.id = -1;
-            player_group_data.best_in_group.level = -1;
+        }else if(player_group_tree.size() == 0){
+            player_group_data->best_in_group.id = -1;
+            player_group_data->best_in_group.level = -1;
             //num_of_nonempty_groups--;
-            best_in_non_empty_groups.AVLRemove(GroupKey(player_group_data.group_id));
+
+            /* std::cout << "\nbefore REMOVE IN NON EMPTY----------- " << std::endl;
+            best_in_non_empty_groups.printTree(); */
+
+            best_in_non_empty_groups.AVLRemove(GroupKey(player_group_data->group_id));
+
+            /* std::cout << "\n---------after REMOVE IN NON EMPTY" << std::endl;
+            best_in_non_empty_groups.printTree(); */
         }
 
-        if((player_group_tree.size() != 0) && !(prev_best_in_group == player_group_data.best_in_group)){
-            best_in_non_empty_groups.AVLRemove(GroupKey(GroupID));
-            best_in_non_empty_groups.AVLInsert(GroupKey(GroupID),player_group_data.best_in_group.id);
+        if((player_group_tree.size() != 0) && !(prev_best_in_group == player_group_data->best_in_group)){
+            if(best_in_non_empty_groups.AVLExist(GroupKey(GroupID))){
+                best_in_non_empty_groups.AVLRemove(GroupKey(GroupID));
+                best_in_non_empty_groups.AVLInsert(GroupKey(GroupID),player_group_data->best_in_group.id);
+            }                
             /* int& player_in_non_empty = best_in_non_empty_groups.AVLGet(GroupKey(player_group_data.group_id));
             player_in_non_empty = player_group_data.best_in_group; */
         }
@@ -132,13 +147,18 @@ namespace PM{
         std::cout << "\nall players:" << std::endl;
         all_players.printTree();  */
         all_players.AVLRemove(PlayerID);
+
+        /* std::cout << "\n-----------best_non_empty after RemovePlayer: " <<std::endl;
+        best_in_non_empty_groups.printTreeData(); */
         
         return SUCCESS;
     }
 
     StatusType PlayersManager::ReplaceGroup(int GroupID, int ReplacementID){    //O(n_group + n_replacement + logk) k-number of groups
         try{
+
             if(!(groups.AVLExist(GroupKey(GroupID)) && groups.AVLExist(GroupKey(ReplacementID)))) return FAILURE;
+
             auto& group_data = groups.AVLGet(GroupKey(GroupID));
             auto& players_to_move = group_data.group_players;
             auto& replacement_data = groups.AVLGet(GroupKey(ReplacementID));
@@ -146,6 +166,8 @@ namespace PM{
             
             /* std::cout << "\nbefore merge" << std::endl;
             groups.printTree(); */
+            /* std::cout << "\nbest_non_empty before ReplaceGroup:----------- " <<std::endl;
+            best_in_non_empty_groups.printTreeData(); */
             
             if(players_to_move.size() == 0){
                 groups.AVLRemove(GroupKey(GroupID));
@@ -160,18 +182,27 @@ namespace PM{
                 if( group_data.best_in_group < replacement_data.best_in_group){
                     replacement_data.best_in_group = group_data.best_in_group;
                     if(replacement_data.group_players.size() != 0){
-                        best_in_non_empty_groups.AVLRemove(GroupKey(ReplacementID));
-                        best_in_non_empty_groups.AVLInsert(GroupKey(ReplacementID),replacement_data.best_in_group.id);
+                        if(best_in_non_empty_groups.AVLExist(GroupKey(GroupID))){
+                            best_in_non_empty_groups.AVLRemove(GroupKey(ReplacementID));
+                            best_in_non_empty_groups.AVLInsert(GroupKey(ReplacementID),group_data.best_in_group.id);
+                        }
                         /* int* old_best_data = &best_in_non_empty_groups.AVLGet(GroupKey(ReplacementID)); //added&
                         *old_best_data = group_data.best_in_group; */
-                    }else{
+                    }else if(players_to_move.size() != 0 && replacement_data.group_players.size() == 0){
                         best_in_non_empty_groups.AVLInsert(GroupKey(ReplacementID), group_data.best_in_group.id);
                     }
                 }
                 
                 players.AVLMerge(players_to_move);//make sure used merge right and new tree is inserted back
                 groups.AVLRemove(GroupKey(GroupID));
+
+                /* std::cout << "\nbefore REMOVE IN NON EMPTY----------- " << std::endl;
+                best_in_non_empty_groups.printTree(); */
+
                 best_in_non_empty_groups.AVLRemove(GroupKey(GroupID));
+
+                /* std::cout << "\n---------after REMOVE IN NON EMPTY " << std::endl;
+                best_in_non_empty_groups.printTree(); */
                 /* groups.printTree();
                 std::cout << "REMOVED group " << GroupID << "\n" << std::endl; */
                 //num_of_nonempty_groups--;
@@ -179,7 +210,8 @@ namespace PM{
 
             /* std::cout << "\nafter merge and remove" << std::endl;
             groups.printTree(); */
-
+            /* std::cout << "\n-----------best_non_empty after ReplaceGroup: " <<std::endl;
+            best_in_non_empty_groups.printTreeData(); */
             return SUCCESS;
         
         }catch(...){
@@ -193,13 +225,17 @@ namespace PM{
         try{
             /* std::cout << "\nbefore INCREASE-----" << std::endl;
             all_players_sorted.printTree();  */
-
+            
+            
             if(!all_players.AVLExist(PlayerID)) return FAILURE;
+
+            /* std::cout << "\nbest_non_empty before IncreaseLevel:----------- " <<std::endl;
+            best_in_non_empty_groups.printTreeData(); */
 
             PlayerData*& player_old_data = all_players.AVLGet(PlayerID);
             GroupData& player_group_data = *(player_old_data->owner_group_data);
             auto& player_group_tree = player_group_data.group_players;
-            int GroupID =  player_old_data->id;
+            int GroupID =  player_group_data.group_id;
 
             int old_level = player_old_data->level;
             int new_level = old_level + LevelIncrease;
@@ -211,14 +247,18 @@ namespace PM{
             player_group_tree.AVLRemove(player_old_key);
             player_group_tree.AVLInsert(player_new_key, player_new_data);
             PlayerData* new_player = &player_group_tree.AVLGet(player_new_key);
+            auto old_best = player_group_data.best_in_group;
             player_old_data = new_player;
 
-            auto old_best = player_group_data.best_in_group;
+            
             player_group_data.best_in_group = player_group_tree.AVLMax();
-
+            /* std::cout << "\n---------best_in_non " << std::endl;
+            best_in_non_empty_groups.printTree(); */
             if(!(old_best == player_group_data.best_in_group)){
-                best_in_non_empty_groups.AVLRemove(GroupKey(GroupID));
-                best_in_non_empty_groups.AVLInsert(GroupKey(GroupID),PlayerID);
+                if(best_in_non_empty_groups.AVLExist(GroupKey(GroupID))){
+                    best_in_non_empty_groups.AVLRemove(GroupKey(GroupID));
+                    best_in_non_empty_groups.AVLInsert(GroupKey(GroupID),PlayerID);
+                }
                 /* int* player_data = &best_in_non_empty_groups.AVLGet(GroupKey(old_best));
                 *player_data = player_new_data.id; */
             }
@@ -229,7 +269,8 @@ namespace PM{
 
             /* std::cout << "\nafter INCREASE-----" << std::endl;
             all_players_sorted.printTree();  */
-
+            /* std::cout << "\n-----------best_non_empty after IncreaseLevel: " <<std::endl;
+            best_in_non_empty_groups.printTreeData(); */
             return SUCCESS;
         }catch(...){
             return ALLOCATION_ERROR;
@@ -358,19 +399,19 @@ namespace PM{
         try{
             if(numOfGroups > best_in_non_empty_groups.size()) return FAILURE;
             
-            /* std::cout << "Players Tree: \n" <<std::endl;
+            /* std::cout << "\ngroups:" <<std::endl;
+            groups.printTree(); */
+            
+            /* std::cout << "\nbest in no empty tree:" <<std::endl;
             best_in_non_empty_groups.printTreeData(); */
             players_arr = (int*) malloc(numOfGroups * sizeof(int));
 
             int i = 0;
             for (int id : best_in_non_empty_groups)
             {
-                if (i >= numOfGroups)
-                {
-                    break;
-                }
                 players_arr[i] = id; 
                 i++;
+                if (i >= numOfGroups) break;
             }
             *Players = players_arr;
             return SUCCESS;

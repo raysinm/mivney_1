@@ -42,16 +42,16 @@ int main(){
     
     AVL::AVLTree<int,int> test4;
     test4.AVLInsert(3,0);
-    test4.AVLInsert(2,0);
+    /* test4.AVLInsert(2,0);
     test4.AVLInsert(6,0);
     test4.AVLInsert(1,0);
     test4.AVLInsert(5,0);
     test4.AVLInsert(8,0);
     test4.AVLInsert(7,0);
     test4.AVLInsert(9,0);
-    test4.AVLInsert(4,0);
-    
-    
+    test4.AVLInsert(4,0); */
+    bool res = test4.AVLExist(3);
+    std::cout << "\n " << res << std::endl;
 
     /* for(int i = 1; i<=7 ; i++){
         test4.AVLInsert(i,0);
@@ -60,9 +60,9 @@ int main(){
         if(i>=3) test4.printFather(3);
     } */  
 
-    test4.printTree();
+    /* test4.printTree();
     test4.AVLRemove(2);
-    test4.printTree();
+    test4.printTree(); */
     //test4.printFather(3);
 
     
