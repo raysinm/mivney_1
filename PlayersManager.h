@@ -67,7 +67,7 @@ class PlayersManager{
         int group_id;
         public:
         explicit GroupData(const int& id): group_players(), best_in_group(-1,-1), group_id(id){}; //make sure we really send id
-       // GroupData(const GroupData&) = delete;
+        //GroupData(const GroupData&) = delete;
     };
     
     class PlayerData{
@@ -79,6 +79,13 @@ class PlayersManager{
         public:
             PlayerData(PM::PlayersManager::GroupData* owner, const int& id =-1, int level=-1): 
                 owner_group_data(owner), id(id), level(level){};
+
+            PlayerData(const PlayerData& other):id(other.id),level(other.level){
+                owner_group_data = other.owner_group_data;  //making sure it doesnt copy the entire tree, just ptr to it
+            }
+            ~PlayerData(){
+                owner_group_data = nullptr;
+            }
             friend std::ostream& operator<<(std::ostream& os, const PlayerData& data){
                 os << data.id;
             return os;

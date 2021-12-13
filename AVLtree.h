@@ -173,9 +173,10 @@ namespace AVL{
 
 
             AVLTree(): root(nullptr), tree_size(0){};
-         //   AVLTree(const AVLTree&) = delete; //needed.
+            //AVLTree(const AVLTree&) //needed.
             ~AVLTree(){
                 AVLDestroy_rec(root);
+                root = nullptr;
             };
 
             bool AVLExist(const KeyElem&) const;
@@ -751,11 +752,11 @@ namespace AVL{
         
         if(node->left_son){
             AVLDestroy_rec(node->left_son);
-            node->left_son = nullptr;
+            //node->left_son = nullptr;
         }
         if(node->right_son){
             AVLDestroy_rec(node->right_son);
-            node->right_son = nullptr;
+            //node->right_son = nullptr;
         }
         delete node;
         return;

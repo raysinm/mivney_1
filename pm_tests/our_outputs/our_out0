@@ -4,294 +4,58 @@ AddGroup: SUCCESS
 IncreaseLevel: FAILURE
 AddGroup: SUCCESS
 GetGroupsHighestLevel: FAILURE
-
-best_non_empty before AddPlayer:----------- 
-
-
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 314089087 (853156771) 
-
-
 AddPlayer: SUCCESS
 AddGroup: SUCCESS
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 314089087 (853156771) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 314089087 (61709335) 
-
-
 AddPlayer: SUCCESS
 AddGroup: FAILURE
 AddPlayer: INVALID_INPUT
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 314089087 (61709335) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 314089087 (61709335) 
-
-
 ReplaceGroup: SUCCESS
 AddGroup: SUCCESS
 AddGroup: INVALID_INPUT
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 314089087 (61709335) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-└──────group id: 314089087 (61709335) 
-
-
 RemovePlayer: SUCCESS
 AddGroup: SUCCESS
 AddPlayer: FAILURE
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 314089087 (61709335) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 314089087 (61709335) 
-
-
 ReplaceGroup: SUCCESS
 AddPlayer: INVALID_INPUT
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 314089087 (61709335) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-
-
 RemovePlayer: SUCCESS
 ReplaceGroup: FAILURE
 AddGroup: SUCCESS
 RemovePlayer: FAILURE
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-
-
 ReplaceGroup: SUCCESS
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-
-
 ReplaceGroup: SUCCESS
 GetGroupsHighestLevel: INVALID_INPUT
 RemovePlayer: FAILURE
 ReplaceGroup: INVALID_INPUT
-
-best_non_empty before AddPlayer:----------- 
-
-
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 782915532 (1826246295) 
-
-
 AddPlayer: SUCCESS
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 782915532 (1826246295) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-
-
 RemovePlayer: SUCCESS
 AddPlayer: FAILURE
 RemovePlayer: FAILURE
 AddPlayer: FAILURE
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-
-
 ReplaceGroup: SUCCESS
 and there are no more players!
 GetGroupsHighestLevel: FAILURE
 IncreaseLevel: FAILURE
-
-best_non_empty before AddPlayer:----------- 
-
-
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 782915532 (1824263004) 
-
-
 AddPlayer: SUCCESS
 AddGroup: SUCCESS
 AddGroup: SUCCESS
 Highest level player is: -1
 AddGroup: SUCCESS
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 782915532 (1824263004) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-
-
 RemovePlayer: SUCCESS
-
-best_non_empty before AddPlayer:----------- 
-
-
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 782915532 (12595529) 
-
-
 AddPlayer: SUCCESS
 AddGroup: FAILURE
 AddGroup: SUCCESS
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 782915532 (12595529) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 782915532 (12595529) 
-
-
 ReplaceGroup: SUCCESS
 GroupIndex	||	Player
 1	||	12595529
 and there are no more players!
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 782915532 (12595529) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-
-
 RemovePlayer: SUCCESS
 RemovePlayer: FAILURE
 AddPlayer: INVALID_INPUT
-
-best_non_empty before AddPlayer:----------- 
-
-
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 965157631 (1448885114) 
-
-
 AddPlayer: SUCCESS
 GroupIndex	||	Player
 1	||	1448885114
 and there are no more players!
 Highest level player is: 1448885114
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 965157631 (1448885114) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-
-
 RemovePlayer: SUCCESS
 GetGroupsHighestLevel: FAILURE
 Highest level player is: -1
@@ -301,460 +65,52 @@ GetGroupsHighestLevel: FAILURE
 and there are no more players!
 and there are no more players!
 IncreaseLevel: FAILURE
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-
-
 ReplaceGroup: SUCCESS
 GetGroupsHighestLevel: FAILURE
 AddPlayer: INVALID_INPUT
-
-best_non_empty before AddPlayer:----------- 
-
-
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 1518369983 (1656716913) 
-
-
 AddPlayer: SUCCESS
 AddGroup: SUCCESS
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 1518369983 (1656716913) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 1518369983 (1656716913) 
-        ├──────group id: 1834029395 (1305852299) 
-
-
 AddPlayer: SUCCESS
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 1518369983 (1656716913) 
-        ├──────group id: 1834029395 (1305852299) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 1518369983 (1656716913) 
-        ├──────group id: 1834029395 (1305852299) 
-        └──────group id: 1079904515 (972997892) 
-
-
 AddPlayer: SUCCESS
-
-best_non_empty before IncreaseLevel:----------- 
-
-
-└──────group id: 1518369983 (1656716913) 
-        ├──────group id: 1834029395 (1305852299) 
-        └──────group id: 1079904515 (972997892) 
-
-
-
------------best_non_empty after IncreaseLevel: 
-
-
-└──────group id: 1518369983 (1656716913) 
-        ├──────group id: 1834029395 (1305852299) 
-        └──────group id: 1079904515 (972997892) 
-
-
 IncreaseLevel: SUCCESS
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 1518369983 (1656716913) 
-        ├──────group id: 1834029395 (1305852299) 
-        └──────group id: 1079904515 (972997892) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 1518369983 (1656716913) 
-        ├──────group id: 1834029395 (1305852299) 
-        └──────group id: 1079904515 (972997892) 
-
-
 ReplaceGroup: SUCCESS
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 1518369983 (1656716913) 
-        ├──────group id: 1834029395 (1305852299) 
-        └──────group id: 1079904515 (972997892) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 1518369983 (1656716913) 
-        ├──────group id: 1834029395 (1305852299) 
-        └──────group id: 1079904515 (972997892) 
-                └──────group id: 782915532 (820140711) 
-
-
 AddPlayer: SUCCESS
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 1518369983 (1656716913) 
-        ├──────group id: 1834029395 (1305852299) 
-        └──────group id: 1079904515 (972997892) 
-                └──────group id: 782915532 (820140711) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 1518369983 (1656716913) 
-        ├──────group id: 1834029395 (1305852299) 
-        └──────group id: 782915532 (820140711) 
-
-
 ReplaceGroup: SUCCESS
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 1518369983 (1656716913) 
-        ├──────group id: 1834029395 (1305852299) 
-        └──────group id: 782915532 (820140711) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-└──────group id: 1518369983 (1656716913) 
-        ├──────group id: 1834029395 (1305852299) 
-        └──────group id: 782915532 (820140711) 
-
-
 RemovePlayer: SUCCESS
 AddGroup: SUCCESS
-
-best_non_empty before IncreaseLevel:----------- 
-
-
-└──────group id: 1518369983 (1656716913) 
-        ├──────group id: 1834029395 (1305852299) 
-        └──────group id: 782915532 (820140711) 
-
-
-
------------best_non_empty after IncreaseLevel: 
-
-
-└──────group id: 1518369983 (1656716913) 
-        ├──────group id: 1834029395 (1305852299) 
-        └──────group id: 782915532 (820140711) 
-
-
 IncreaseLevel: SUCCESS
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 1518369983 (1656716913) 
-        ├──────group id: 1834029395 (1305852299) 
-        └──────group id: 782915532 (820140711) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-└──────group id: 1518369983 (1656716913) 
-        ├──────group id: 1834029395 (1305852299) 
-
-
 RemovePlayer: SUCCESS
 IncreaseLevel: FAILURE
-
-best_non_empty before IncreaseLevel:----------- 
-
-
-└──────group id: 1518369983 (1656716913) 
-        ├──────group id: 1834029395 (1305852299) 
-
-
-
------------best_non_empty after IncreaseLevel: 
-
-
-└──────group id: 1518369983 (1656716913) 
-        ├──────group id: 1834029395 (1305852299) 
-
-
 IncreaseLevel: SUCCESS
 AddPlayer: INVALID_INPUT
-
-best_non_empty before IncreaseLevel:----------- 
-
-
-└──────group id: 1518369983 (1656716913) 
-        ├──────group id: 1834029395 (1305852299) 
-
-
-
------------best_non_empty after IncreaseLevel: 
-
-
-└──────group id: 1518369983 (1656716913) 
-        ├──────group id: 1834029395 (1305852299) 
-
-
 IncreaseLevel: SUCCESS
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 1518369983 (1656716913) 
-        ├──────group id: 1834029395 (1305852299) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-└──────group id: 1518369983 (1656716913) 
-
-
 RemovePlayer: SUCCESS
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 1518369983 (1656716913) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 1518369983 (1656716913) 
-
-
 AddPlayer: SUCCESS
 IncreaseLevel: FAILURE
 AddGroup: SUCCESS
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 1518369983 (1656716913) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 1518369983 (1656716913) 
-
-
 AddPlayer: SUCCESS
 AddGroup: SUCCESS
 ReplaceGroup: FAILURE
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 1518369983 (1656716913) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 1518369983 (1656716913) 
-
-
 ReplaceGroup: SUCCESS
 RemovePlayer: INVALID_INPUT
-
-best_non_empty before IncreaseLevel:----------- 
-
-
-└──────group id: 1518369983 (1656716913) 
-
-
-
------------best_non_empty after IncreaseLevel: 
-
-
-└──────group id: 1518369983 (1656716913) 
-
-
 IncreaseLevel: SUCCESS
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 1518369983 (1656716913) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 727522849 (1656716913) 
-
-
 ReplaceGroup: SUCCESS
 Highest level player is: 1656716913
 AddGroup: SUCCESS
-
-best_non_empty before IncreaseLevel:----------- 
-
-
-└──────group id: 727522849 (1656716913) 
-
-
-
------------best_non_empty after IncreaseLevel: 
-
-
-└──────group id: 727522849 (1656716913) 
-
-
 IncreaseLevel: SUCCESS
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 727522849 (1656716913) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 727522849 (1656716913) 
-        └──────group id: 632047742 (1875928737) 
-
-
 AddPlayer: SUCCESS
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 727522849 (1656716913) 
-        └──────group id: 632047742 (1875928737) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 632047742 (1656716913) 
-
-
 ReplaceGroup: SUCCESS
 AddPlayer: FAILURE
 and there are no more players!
 AddPlayer: FAILURE
 AddGroup: SUCCESS
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 632047742 (1656716913) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 632047742 (1656716913) 
-        ├──────group id: 782915532 (762651511) 
-
-
 AddPlayer: SUCCESS
 GroupIndex	||	Player
 1	||	1656716913
 and there are no more players!
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 632047742 (1656716913) 
-        ├──────group id: 782915532 (762651511) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-└──────group id: 632047742 (1656716913) 
-        ├──────group id: 782915532 (762651511) 
-
-
 RemovePlayer: SUCCESS
 AddGroup: SUCCESS
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 632047742 (1656716913) 
-        ├──────group id: 782915532 (762651511) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-└──────group id: 782915532 (762651511) 
-        └──────group id: 632047742 (769486648) 
-
-
 RemovePlayer: SUCCESS
-
-best_non_empty before IncreaseLevel:----------- 
-
-
-└──────group id: 782915532 (762651511) 
-        └──────group id: 632047742 (769486648) 
-
-
-
------------best_non_empty after IncreaseLevel: 
-
-
-└──────group id: 782915532 (762651511) 
-        └──────group id: 632047742 (769486648) 
-
-
 IncreaseLevel: SUCCESS
 IncreaseLevel: FAILURE
 GroupIndex	||	Player
@@ -762,188 +118,19 @@ GroupIndex	||	Player
 2	||	762651511
 and there are no more players!
 AddGroup: SUCCESS
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 782915532 (762651511) 
-        └──────group id: 632047742 (769486648) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 632047742 (769486648) 
-        ├──────group id: 782915532 (762651511) 
-        └──────group id: 474860535 (321630570) 
-
-
 AddPlayer: SUCCESS
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 632047742 (769486648) 
-        ├──────group id: 782915532 (762651511) 
-        └──────group id: 474860535 (321630570) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-└──────group id: 632047742 (1875928737) 
-        ├──────group id: 782915532 (762651511) 
-        └──────group id: 474860535 (321630570) 
-
-
 RemovePlayer: SUCCESS
 RemovePlayer: FAILURE
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 632047742 (1875928737) 
-        ├──────group id: 782915532 (762651511) 
-        └──────group id: 474860535 (321630570) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 632047742 (321630570) 
-        ├──────group id: 782915532 (762651511) 
-
-
 ReplaceGroup: SUCCESS
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 632047742 (321630570) 
-        ├──────group id: 782915532 (762651511) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-└──────group id: 632047742 (321630570) 
-
-
 RemovePlayer: SUCCESS
 RemovePlayer: FAILURE
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 632047742 (321630570) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 632047742 (321630570) 
-        └──────group id: 38266725 (1190831456) 
-
-
 AddPlayer: SUCCESS
 AddGroup: SUCCESS
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 632047742 (321630570) 
-        └──────group id: 38266725 (1190831456) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-└──────group id: 38266725 (1190831456) 
-        ├──────group id: 632047742 (1875928737) 
-
-
 RemovePlayer: SUCCESS
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 38266725 (1190831456) 
-        ├──────group id: 632047742 (1875928737) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 318130095 (1148610016) 
-        ├──────group id: 632047742 (1875928737) 
-        └──────group id: 38266725 (1190831456) 
-
-
 AddPlayer: SUCCESS
 AddGroup: SUCCESS
-
-best_non_empty before IncreaseLevel:----------- 
-
-
-└──────group id: 318130095 (1148610016) 
-        ├──────group id: 632047742 (1875928737) 
-        └──────group id: 38266725 (1190831456) 
-
-
-
------------best_non_empty after IncreaseLevel: 
-
-
-└──────group id: 318130095 (1148610016) 
-        ├──────group id: 632047742 (1875928737) 
-        └──────group id: 38266725 (1190831456) 
-
-
 IncreaseLevel: SUCCESS
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 318130095 (1148610016) 
-        ├──────group id: 632047742 (1875928737) 
-        └──────group id: 38266725 (1190831456) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 318130095 (1148610016) 
-        ├──────group id: 632047742 (1971074896) 
-        └──────group id: 38266725 (1190831456) 
-
-
 AddPlayer: SUCCESS
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 318130095 (1148610016) 
-        ├──────group id: 632047742 (1971074896) 
-        └──────group id: 38266725 (1190831456) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-└──────group id: 318130095 (1148610016) 
-        ├──────group id: 632047742 (1971074896) 
-        └──────group id: 38266725 (1190831456) 
-
-
 RemovePlayer: SUCCESS
 Rank	||	Player
 1	||	1190831456
@@ -951,176 +138,17 @@ Rank	||	Player
 3	||	1148610016
 and there are no more players!
 AddGroup: SUCCESS
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 318130095 (1148610016) 
-        ├──────group id: 632047742 (1971074896) 
-        └──────group id: 38266725 (1190831456) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 318130095 (1148610016) 
-        ├──────group id: 632047742 (1971074896) 
-        │       ├──────group id: 782915532 (1973114310) 
-        └──────group id: 38266725 (1190831456) 
-
-
 AddPlayer: SUCCESS
-
-best_non_empty before IncreaseLevel:----------- 
-
-
-└──────group id: 318130095 (1148610016) 
-        ├──────group id: 632047742 (1971074896) 
-        │       ├──────group id: 782915532 (1973114310) 
-        └──────group id: 38266725 (1190831456) 
-
-
-
------------best_non_empty after IncreaseLevel: 
-
-
-└──────group id: 318130095 (1148610016) 
-        ├──────group id: 632047742 (1971074896) 
-        │       ├──────group id: 782915532 (1973114310) 
-        └──────group id: 38266725 (1190831456) 
-
-
 IncreaseLevel: SUCCESS
-
-best_non_empty before IncreaseLevel:----------- 
-
-
-└──────group id: 318130095 (1148610016) 
-        ├──────group id: 632047742 (1971074896) 
-        │       ├──────group id: 782915532 (1973114310) 
-        └──────group id: 38266725 (1190831456) 
-
-
-
------------best_non_empty after IncreaseLevel: 
-
-
-└──────group id: 318130095 (1148610016) 
-        ├──────group id: 632047742 (1971074896) 
-        │       ├──────group id: 782915532 (1973114310) 
-        └──────group id: 38266725 (1190831456) 
-
-
 IncreaseLevel: SUCCESS
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 318130095 (1148610016) 
-        ├──────group id: 632047742 (1971074896) 
-        │       ├──────group id: 782915532 (1973114310) 
-        └──────group id: 38266725 (1190831456) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 318130095 (1148610016) 
-        ├──────group id: 632047742 (1971074896) 
-        │       ├──────group id: 782915532 (1973114310) 
-        └──────group id: 38266725 (1190831456) 
-
-
 ReplaceGroup: SUCCESS
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 318130095 (1148610016) 
-        ├──────group id: 632047742 (1971074896) 
-        │       ├──────group id: 782915532 (1973114310) 
-        └──────group id: 38266725 (1190831456) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 318130095 (1148610016) 
-        ├──────group id: 632047742 (1971074896) 
-        │       ├──────group id: 782915532 (1973114310) 
-        └──────group id: 38266725 (1190831456) 
-
-
 ReplaceGroup: SUCCESS
 AddPlayer: FAILURE
 AddGroup: FAILURE
 AddGroup: SUCCESS
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 318130095 (1148610016) 
-        ├──────group id: 632047742 (1971074896) 
-        │       ├──────group id: 782915532 (1973114310) 
-        └──────group id: 38266725 (1190831456) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 318130095 (1148610016) 
-        ├──────group id: 632047742 (1971074896) 
-        │       ├──────group id: 784287721 (1973114310) 
-        └──────group id: 38266725 (1190831456) 
-
-
 ReplaceGroup: SUCCESS
 AddGroup: SUCCESS
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 318130095 (1148610016) 
-        ├──────group id: 632047742 (1971074896) 
-        │       ├──────group id: 784287721 (1973114310) 
-        └──────group id: 38266725 (1190831456) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 318130095 (1148610016) 
-        ├──────group id: 632047742 (1971074896) 
-        │       ├──────group id: 784287721 (1973114310) 
-        └──────group id: 38266725 (1190831456) 
-
-
 ReplaceGroup: SUCCESS
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 318130095 (1148610016) 
-        ├──────group id: 632047742 (1971074896) 
-        │       ├──────group id: 784287721 (1973114310) 
-        └──────group id: 38266725 (1190831456) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 318130095 (1148610016) 
-        ├──────group id: 632047742 (1971074896) 
-        │       ├──────group id: 784287721 (1973114310) 
-        └──────group id: 38266725 (1190831456) 
-
-
 AddPlayer: SUCCESS
 and there are no more players!
 Rank	||	Player
@@ -1130,114 +158,11 @@ Rank	||	Player
 4	||	1148610016
 5	||	1352730082
 and there are no more players!
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 318130095 (1148610016) 
-        ├──────group id: 632047742 (1971074896) 
-        │       ├──────group id: 784287721 (1973114310) 
-        └──────group id: 38266725 (1190831456) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 318130095 (1148610016) 
-        ├──────group id: 784287721 (1973114310) 
-        │       ├──────group id: 1501859860 (1525827268) 
-        │       └──────group id: 632047742 (1971074896) 
-        └──────group id: 38266725 (1190831456) 
-
-
 AddPlayer: SUCCESS
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 318130095 (1148610016) 
-        ├──────group id: 784287721 (1973114310) 
-        │       ├──────group id: 1501859860 (1525827268) 
-        │       └──────group id: 632047742 (1971074896) 
-        └──────group id: 38266725 (1190831456) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-└──────group id: 318130095 (1148610016) 
-        ├──────group id: 784287721 (1973114310) 
-        │       ├──────group id: 1501859860 (1525827268) 
-        └──────group id: 38266725 (1190831456) 
-
-
 RemovePlayer: SUCCESS
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 318130095 (1148610016) 
-        ├──────group id: 784287721 (1973114310) 
-        │       ├──────group id: 1501859860 (1525827268) 
-        └──────group id: 38266725 (1190831456) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 318130095 (1148610016) 
-        ├──────group id: 784287721 (1973114310) 
-        │       ├──────group id: 1501859860 (1525827268) 
-        └──────group id: 38266725 (1190831456) 
-
-
 AddPlayer: SUCCESS
 IncreaseLevel: INVALID_INPUT
-
-best_non_empty before IncreaseLevel:----------- 
-
-
-└──────group id: 318130095 (1148610016) 
-        ├──────group id: 784287721 (1973114310) 
-        │       ├──────group id: 1501859860 (1525827268) 
-        └──────group id: 38266725 (1190831456) 
-
-
-
------------best_non_empty after IncreaseLevel: 
-
-
-└──────group id: 318130095 (1148610016) 
-        ├──────group id: 784287721 (1973114310) 
-        │       ├──────group id: 1501859860 (1525827268) 
-        └──────group id: 38266725 (1190831456) 
-
-
 IncreaseLevel: SUCCESS
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 318130095 (1148610016) 
-        ├──────group id: 784287721 (1973114310) 
-        │       ├──────group id: 1501859860 (1525827268) 
-        └──────group id: 38266725 (1190831456) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 318130095 (1148610016) 
-        ├──────group id: 1501859860 (1525827268) 
-        │       ├──────group id: 1784943279 (969476851) 
-        │       └──────group id: 784287721 (1973114310) 
-        └──────group id: 38266725 (1190831456) 
-
-
 AddPlayer: SUCCESS
 AddGroup: SUCCESS
 Highest level player is: 1148610016
@@ -1250,181 +175,16 @@ Rank	||	Player
 6	||	969476851
 7	||	1352730082
 and there are no more players!
-
-best_non_empty before IncreaseLevel:----------- 
-
-
-└──────group id: 318130095 (1148610016) 
-        ├──────group id: 1501859860 (1525827268) 
-        │       ├──────group id: 1784943279 (969476851) 
-        │       └──────group id: 784287721 (1973114310) 
-        └──────group id: 38266725 (1190831456) 
-
-
-
------------best_non_empty after IncreaseLevel: 
-
-
-└──────group id: 318130095 (1148610016) 
-        ├──────group id: 1501859860 (1525827268) 
-        │       ├──────group id: 1784943279 (969476851) 
-        │       └──────group id: 784287721 (1973114310) 
-        └──────group id: 38266725 (1190831456) 
-
-
 IncreaseLevel: SUCCESS
 IncreaseLevel: FAILURE
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 318130095 (1148610016) 
-        ├──────group id: 1501859860 (1525827268) 
-        │       ├──────group id: 1784943279 (969476851) 
-        │       └──────group id: 784287721 (1973114310) 
-        └──────group id: 38266725 (1190831456) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 318130095 (1148610016) 
-        ├──────group id: 1501859860 (1525827268) 
-        │       ├──────group id: 1784943279 (969476851) 
-        │       └──────group id: 784287721 (1973114310) 
-        └──────group id: 38266725 (1190831456) 
-
-
 ReplaceGroup: SUCCESS
 AddPlayer: FAILURE
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 318130095 (1148610016) 
-        ├──────group id: 1501859860 (1525827268) 
-        │       ├──────group id: 1784943279 (969476851) 
-        │       └──────group id: 784287721 (1973114310) 
-        └──────group id: 38266725 (1190831456) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-└──────group id: 318130095 (1148610016) 
-        ├──────group id: 1501859860 (1525827268) 
-        │       ├──────group id: 1784943279 (969476851) 
-        └──────group id: 38266725 (1190831456) 
-
-
 RemovePlayer: SUCCESS
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 318130095 (1148610016) 
-        ├──────group id: 1501859860 (1525827268) 
-        │       ├──────group id: 1784943279 (969476851) 
-        └──────group id: 38266725 (1190831456) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 318130095 (1148610016) 
-        ├──────group id: 1784943279 (969476851) 
-        └──────group id: 38266725 (1190831456) 
-
-
 ReplaceGroup: SUCCESS
 AddGroup: SUCCESS
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 318130095 (1148610016) 
-        ├──────group id: 1784943279 (969476851) 
-        └──────group id: 38266725 (1190831456) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 318130095 (1148610016) 
-        ├──────group id: 1784943279 (969476851) 
-        │       └──────group id: 784287721 (518389395) 
-        └──────group id: 38266725 (1190831456) 
-
-
 AddPlayer: SUCCESS
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 318130095 (1148610016) 
-        ├──────group id: 1784943279 (969476851) 
-        │       └──────group id: 784287721 (518389395) 
-        └──────group id: 38266725 (1190831456) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-└──────group id: 784287721 (518389395) 
-        ├──────group id: 1784943279 (969476851) 
-        └──────group id: 318130095 (1148610016) 
-                └──────group id: 38266725 (1352730082) 
-
-
 RemovePlayer: SUCCESS
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 784287721 (518389395) 
-        ├──────group id: 1784943279 (969476851) 
-        └──────group id: 318130095 (1148610016) 
-                └──────group id: 38266725 (1352730082) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 784287721 (518389395) 
-        ├──────group id: 1784943279 (969476851) 
-        │       ├──────group id: 2104048340 (1995597755) 
-        └──────group id: 318130095 (1148610016) 
-                └──────group id: 38266725 (1352730082) 
-
-
 AddPlayer: SUCCESS
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 784287721 (518389395) 
-        ├──────group id: 1784943279 (969476851) 
-        │       ├──────group id: 2104048340 (1995597755) 
-        └──────group id: 318130095 (1148610016) 
-                └──────group id: 38266725 (1352730082) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 784287721 (518389395) 
-        ├──────group id: 1784943279 (969476851) 
-        │       ├──────group id: 2104048340 (1148610016) 
-        └──────group id: 38266725 (1352730082) 
-
-
 ReplaceGroup: SUCCESS
 AddGroup: SUCCESS
 Rank	||	Player
@@ -1438,146 +198,15 @@ Rank	||	Player
 and there are no more players!
 AddPlayer: FAILURE
 AddGroup: SUCCESS
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 784287721 (518389395) 
-        ├──────group id: 1784943279 (969476851) 
-        │       ├──────group id: 2104048340 (1148610016) 
-        └──────group id: 38266725 (1352730082) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 784287721 (518389395) 
-        ├──────group id: 1784943279 (969476851) 
-        │       ├──────group id: 2104048340 (1148610016) 
-        │       └──────group id: 1381234439 (613894484) 
-        └──────group id: 38266725 (1352730082) 
-
-
 AddPlayer: SUCCESS
-
-best_non_empty before IncreaseLevel:----------- 
-
-
-└──────group id: 784287721 (518389395) 
-        ├──────group id: 1784943279 (969476851) 
-        │       ├──────group id: 2104048340 (1148610016) 
-        │       └──────group id: 1381234439 (613894484) 
-        └──────group id: 38266725 (1352730082) 
-
-
-
------------best_non_empty after IncreaseLevel: 
-
-
-└──────group id: 784287721 (518389395) 
-        ├──────group id: 1784943279 (969476851) 
-        │       ├──────group id: 2104048340 (1148610016) 
-        │       └──────group id: 1381234439 (613894484) 
-        └──────group id: 38266725 (1352730082) 
-
-
 IncreaseLevel: SUCCESS
-
-best_non_empty before IncreaseLevel:----------- 
-
-
-└──────group id: 784287721 (518389395) 
-        ├──────group id: 1784943279 (969476851) 
-        │       ├──────group id: 2104048340 (1148610016) 
-        │       └──────group id: 1381234439 (613894484) 
-        └──────group id: 38266725 (1352730082) 
-
-
-
------------best_non_empty after IncreaseLevel: 
-
-
-└──────group id: 784287721 (518389395) 
-        ├──────group id: 1784943279 (969476851) 
-        │       ├──────group id: 2104048340 (1148610016) 
-        │       └──────group id: 1381234439 (613894484) 
-        └──────group id: 38266725 (1352730082) 
-
-
 IncreaseLevel: SUCCESS
 AddGroup: FAILURE
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 784287721 (518389395) 
-        ├──────group id: 1784943279 (969476851) 
-        │       ├──────group id: 2104048340 (1148610016) 
-        │       └──────group id: 1381234439 (613894484) 
-        └──────group id: 38266725 (1352730082) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 784287721 (518389395) 
-        ├──────group id: 1784943279 (969476851) 
-        │       ├──────group id: 2104048340 (1148610016) 
-        │       └──────group id: 1381234439 (613894484) 
-        └──────group id: 38266725 (1352730082) 
-
-
 AddPlayer: SUCCESS
 ReplaceGroup: FAILURE
 GetAllPlayersByLevel: FAILURE
 ReplaceGroup: INVALID_INPUT
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 784287721 (518389395) 
-        ├──────group id: 1784943279 (969476851) 
-        │       ├──────group id: 2104048340 (1148610016) 
-        │       └──────group id: 1381234439 (613894484) 
-        └──────group id: 38266725 (1352730082) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 784287721 (518389395) 
-        ├──────group id: 1784943279 (969476851) 
-        │       ├──────group id: 2104048340 (1148610016) 
-        │       └──────group id: 1381234439 (613894484) 
-        └──────group id: 632047742 (772986531) 
-
-
 ReplaceGroup: SUCCESS
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 784287721 (518389395) 
-        ├──────group id: 1784943279 (969476851) 
-        │       ├──────group id: 2104048340 (1148610016) 
-        │       └──────group id: 1381234439 (613894484) 
-        └──────group id: 632047742 (772986531) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-└──────group id: 784287721 (518389395) 
-        ├──────group id: 1784943279 (969476851) 
-        │       ├──────group id: 2104048340 (1148610016) 
-        │       └──────group id: 1381234439 (613894484) 
-        └──────group id: 632047742 (772986531) 
-
-
 RemovePlayer: SUCCESS
 Rank	||	Player
 1	||	1148610016
@@ -1589,209 +218,17 @@ Rank	||	Player
 7	||	613894484
 8	||	1995597755
 and there are no more players!
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 784287721 (518389395) 
-        ├──────group id: 1784943279 (969476851) 
-        │       ├──────group id: 2104048340 (1148610016) 
-        │       └──────group id: 1381234439 (613894484) 
-        └──────group id: 632047742 (772986531) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 784287721 (518389395) 
-        ├──────group id: 1784943279 (969476851) 
-        │       ├──────group id: 2104048340 (1148610016) 
-        │       └──────group id: 1381234439 (613894484) 
-        └──────group id: 632047742 (772986531) 
-
-
 ReplaceGroup: SUCCESS
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 784287721 (518389395) 
-        ├──────group id: 1784943279 (969476851) 
-        │       ├──────group id: 2104048340 (1148610016) 
-        │       └──────group id: 1381234439 (613894484) 
-        └──────group id: 632047742 (772986531) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 1381234439 (613894484) 
-        ├──────group id: 1784943279 (969476851) 
-        │       ├──────group id: 2104048340 (1148610016) 
-        │       └──────group id: 1537274941 (1251181251) 
-        └──────group id: 784287721 (518389395) 
-                └──────group id: 632047742 (772986531) 
-
-
 AddPlayer: SUCCESS
-
-best_non_empty before IncreaseLevel:----------- 
-
-
-└──────group id: 1381234439 (613894484) 
-        ├──────group id: 1784943279 (969476851) 
-        │       ├──────group id: 2104048340 (1148610016) 
-        │       └──────group id: 1537274941 (1251181251) 
-        └──────group id: 784287721 (518389395) 
-                └──────group id: 632047742 (772986531) 
-
-
-
------------best_non_empty after IncreaseLevel: 
-
-
-└──────group id: 1381234439 (613894484) 
-        ├──────group id: 1784943279 (969476851) 
-        │       ├──────group id: 2104048340 (1148610016) 
-        │       └──────group id: 1537274941 (1251181251) 
-        └──────group id: 784287721 (518389395) 
-                └──────group id: 632047742 (772986531) 
-
-
 IncreaseLevel: SUCCESS
 RemovePlayer: FAILURE
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 1381234439 (613894484) 
-        ├──────group id: 1784943279 (969476851) 
-        │       ├──────group id: 2104048340 (1148610016) 
-        │       └──────group id: 1537274941 (1251181251) 
-        └──────group id: 784287721 (518389395) 
-                └──────group id: 632047742 (772986531) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 1381234439 (613894484) 
-        ├──────group id: 1784943279 (969476851) 
-        │       ├──────group id: 2104048340 (1148610016) 
-        │       └──────group id: 1537274941 (518389395) 
-        └──────group id: 632047742 (772986531) 
-
-
 ReplaceGroup: SUCCESS
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 1381234439 (613894484) 
-        ├──────group id: 1784943279 (969476851) 
-        │       ├──────group id: 2104048340 (1148610016) 
-        │       └──────group id: 1537274941 (518389395) 
-        └──────group id: 632047742 (772986531) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 1381234439 (613894484) 
-        ├──────group id: 1537274941 (518389395) 
-        │       ├──────group id: 2104048340 (1148610016) 
-        └──────group id: 632047742 (772986531) 
-
-
 ReplaceGroup: SUCCESS
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 1381234439 (613894484) 
-        ├──────group id: 1537274941 (518389395) 
-        │       ├──────group id: 2104048340 (1148610016) 
-        └──────group id: 632047742 (772986531) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-└──────group id: 1381234439 (613894484) 
-        ├──────group id: 1537274941 (518389395) 
-        │       ├──────group id: 2104048340 (1148610016) 
-        └──────group id: 632047742 (772986531) 
-
-
 RemovePlayer: SUCCESS
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 1381234439 (613894484) 
-        ├──────group id: 1537274941 (518389395) 
-        │       ├──────group id: 2104048340 (1148610016) 
-        └──────group id: 632047742 (772986531) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 1381234439 (613894484) 
-        ├──────group id: 1537274941 (518389395) 
-        │       ├──────group id: 2104048340 (1148610016) 
-        └──────group id: 632047742 (772986531) 
-
-
 AddPlayer: SUCCESS
-
-best_non_empty before IncreaseLevel:----------- 
-
-
-└──────group id: 1381234439 (613894484) 
-        ├──────group id: 1537274941 (518389395) 
-        │       ├──────group id: 2104048340 (1148610016) 
-        └──────group id: 632047742 (772986531) 
-
-
-
------------best_non_empty after IncreaseLevel: 
-
-
-└──────group id: 1381234439 (613894484) 
-        ├──────group id: 1537274941 (518389395) 
-        │       ├──────group id: 2104048340 (1148610016) 
-        └──────group id: 632047742 (772986531) 
-
-
 IncreaseLevel: SUCCESS
 AddGroup: SUCCESS
 ReplaceGroup: FAILURE
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 1381234439 (613894484) 
-        ├──────group id: 1537274941 (518389395) 
-        │       ├──────group id: 2104048340 (1148610016) 
-        └──────group id: 632047742 (772986531) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 1381234439 (613894484) 
-        ├──────group id: 1537274941 (1148610016) 
-        └──────group id: 632047742 (772986531) 
-
-
 ReplaceGroup: SUCCESS
 AddGroup: SUCCESS
 Rank	||	Player
@@ -1799,489 +236,55 @@ Rank	||	Player
 2	||	1352730082
 3	||	1525827268
 and there are no more players!
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 1381234439 (613894484) 
-        ├──────group id: 1537274941 (1148610016) 
-        └──────group id: 632047742 (772986531) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 1381234439 (613894484) 
-        ├──────group id: 1537274941 (1148610016) 
-        └──────group id: 632047742 (772986531) 
-
-
 ReplaceGroup: SUCCESS
-
-best_non_empty before IncreaseLevel:----------- 
-
-
-└──────group id: 1381234439 (613894484) 
-        ├──────group id: 1537274941 (1148610016) 
-        └──────group id: 632047742 (772986531) 
-
-
-
------------best_non_empty after IncreaseLevel: 
-
-
-└──────group id: 1381234439 (613894484) 
-        ├──────group id: 1537274941 (1148610016) 
-        └──────group id: 632047742 (772986531) 
-
-
 IncreaseLevel: SUCCESS
 ReplaceGroup: FAILURE
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 1381234439 (613894484) 
-        ├──────group id: 1537274941 (1148610016) 
-        └──────group id: 632047742 (772986531) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 1381234439 (613894484) 
-        ├──────group id: 1537274941 (1148610016) 
-        └──────group id: 632047742 (772986531) 
-
-
 AddPlayer: SUCCESS
 AddGroup: SUCCESS
 AddGroup: SUCCESS
 IncreaseLevel: INVALID_INPUT
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 1381234439 (613894484) 
-        ├──────group id: 1537274941 (1148610016) 
-        └──────group id: 632047742 (772986531) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 1381234439 (613894484) 
-        ├──────group id: 1537274941 (1148610016) 
-        └──────group id: 632047742 (772986531) 
-
-
 ReplaceGroup: SUCCESS
 AddGroup: SUCCESS
 and there are no more players!
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 1381234439 (613894484) 
-        ├──────group id: 1537274941 (1148610016) 
-        └──────group id: 632047742 (772986531) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 1381234439 (613894484) 
-        ├──────group id: 1537274941 (1148610016) 
-        └──────group id: 632047742 (772986531) 
-
-
 ReplaceGroup: SUCCESS
 Highest level player is: 613894484
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 1381234439 (613894484) 
-        ├──────group id: 1537274941 (1148610016) 
-        └──────group id: 632047742 (772986531) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 1537274941 (1148610016) 
-        ├──────group id: 1887184276 (613894484) 
-        └──────group id: 632047742 (772986531) 
-
-
 ReplaceGroup: SUCCESS
 AddGroup: SUCCESS
 GetGroupsHighestLevel: FAILURE
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 1537274941 (1148610016) 
-        ├──────group id: 1887184276 (613894484) 
-        └──────group id: 632047742 (772986531) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 1537274941 (1148610016) 
-        ├──────group id: 1887184276 (613894484) 
-        └──────group id: 632047742 (772986531) 
-                ├──────group id: 1069094922 (577784803) 
-
-
 AddPlayer: SUCCESS
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 1537274941 (1148610016) 
-        ├──────group id: 1887184276 (613894484) 
-        └──────group id: 632047742 (772986531) 
-                ├──────group id: 1069094922 (577784803) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 1537274941 (1148610016) 
-        ├──────group id: 1887184276 (613894484) 
-        └──────group id: 273575331 (772986531) 
-                ├──────group id: 1069094922 (577784803) 
-
-
 ReplaceGroup: SUCCESS
 GroupIndex	||	Player
 1	||	772986531
 2	||	577784803
 and there are no more players!
 AddPlayer: FAILURE
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 1537274941 (1148610016) 
-        ├──────group id: 1887184276 (613894484) 
-        └──────group id: 273575331 (772986531) 
-                ├──────group id: 1069094922 (577784803) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 1069094922 (1148610016) 
-        ├──────group id: 1887184276 (613894484) 
-        └──────group id: 273575331 (772986531) 
-
-
 ReplaceGroup: SUCCESS
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 1069094922 (1148610016) 
-        ├──────group id: 1887184276 (613894484) 
-        └──────group id: 273575331 (772986531) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 1069094922 (772986531) 
-        ├──────group id: 1887184276 (613894484) 
-
-
 ReplaceGroup: SUCCESS
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 1069094922 (772986531) 
-        ├──────group id: 1887184276 (613894484) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 1069094922 (772986531) 
-        ├──────group id: 1887184276 (613894484) 
-
-
 AddPlayer: SUCCESS
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 1069094922 (772986531) 
-        ├──────group id: 1887184276 (613894484) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 1069094922 (772986531) 
-        ├──────group id: 1887184276 (613894484) 
-
-
 AddPlayer: SUCCESS
-
-best_non_empty before IncreaseLevel:----------- 
-
-
-└──────group id: 1069094922 (772986531) 
-        ├──────group id: 1887184276 (613894484) 
-
-
-
------------best_non_empty after IncreaseLevel: 
-
-
-└──────group id: 1069094922 (772986531) 
-        ├──────group id: 1887184276 (613894484) 
-
-
 IncreaseLevel: SUCCESS
 GetHighestLevel: FAILURE
 AddGroup: SUCCESS
 AddGroup: SUCCESS
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 1069094922 (772986531) 
-        ├──────group id: 1887184276 (613894484) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-└──────group id: 1069094922 (772986531) 
-        ├──────group id: 1887184276 (613894484) 
-
-
 RemovePlayer: SUCCESS
 Highest level player is: 772986531
 Highest level player is: -1
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 1069094922 (772986531) 
-        ├──────group id: 1887184276 (613894484) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-└──────group id: 1069094922 (772986531) 
-        ├──────group id: 1887184276 (613894484) 
-
-
 RemovePlayer: SUCCESS
-
-best_non_empty before IncreaseLevel:----------- 
-
-
-└──────group id: 1069094922 (772986531) 
-        ├──────group id: 1887184276 (613894484) 
-
-
-
------------best_non_empty after IncreaseLevel: 
-
-
-└──────group id: 1069094922 (772986531) 
-        ├──────group id: 1887184276 (613894484) 
-
-
 IncreaseLevel: SUCCESS
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 1069094922 (772986531) 
-        ├──────group id: 1887184276 (613894484) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-└──────group id: 1069094922 (772986531) 
-        ├──────group id: 1887184276 (613894484) 
-
-
 RemovePlayer: SUCCESS
 and there are no more players!
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 1069094922 (772986531) 
-        ├──────group id: 1887184276 (613894484) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-└──────group id: 1069094922 (772986531) 
-        ├──────group id: 1887184276 (613894484) 
-
-
 RemovePlayer: SUCCESS
 and there are no more players!
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 1069094922 (772986531) 
-        ├──────group id: 1887184276 (613894484) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 1069094922 (772986531) 
-        ├──────group id: 1970076202 (613894484) 
-
-
 ReplaceGroup: SUCCESS
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 1069094922 (772986531) 
-        ├──────group id: 1970076202 (613894484) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 1069094922 (772986531) 
-        ├──────group id: 1970076202 (613894484) 
-
-
 ReplaceGroup: SUCCESS
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 1069094922 (772986531) 
-        ├──────group id: 1970076202 (613894484) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-└──────group id: 1069094922 (772986531) 
-        ├──────group id: 1970076202 (613894484) 
-
-
 RemovePlayer: SUCCESS
 AddPlayer: FAILURE
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 1069094922 (772986531) 
-        ├──────group id: 1970076202 (613894484) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 1970076202 (772986531) 
-
-
 ReplaceGroup: SUCCESS
 AddGroup: SUCCESS
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 1970076202 (772986531) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 1970076202 (772986531) 
-        └──────group id: 1835842839 (1433916509) 
-
-
 AddPlayer: SUCCESS
 IncreaseLevel: INVALID_INPUT
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 1970076202 (772986531) 
-        └──────group id: 1835842839 (1433916509) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-└──────group id: 1970076202 (772986531) 
-        └──────group id: 1835842839 (1433916509) 
-
-
 RemovePlayer: SUCCESS
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 1970076202 (772986531) 
-        └──────group id: 1835842839 (1433916509) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 1835842839 (772986531) 
-
-
 ReplaceGroup: SUCCESS
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 1835842839 (772986531) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-└──────group id: 1835842839 (772986531) 
-
-
 RemovePlayer: SUCCESS
 Highest level player is: 772986531
 ReplaceGroup: INVALID_INPUT
@@ -2289,50 +292,8 @@ RemovePlayer: FAILURE
 Highest level player is: 772986531
 ReplaceGroup: INVALID_INPUT
 ReplaceGroup: INVALID_INPUT
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 1835842839 (772986531) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 1835842839 (772986531) 
-
-
 AddPlayer: SUCCESS
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 1835842839 (772986531) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 1835842839 (772986531) 
-
-
 AddPlayer: SUCCESS
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 1835842839 (772986531) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-└──────group id: 1835842839 (772986531) 
-
-
 RemovePlayer: SUCCESS
 AddPlayer: INVALID_INPUT
 Highest level player is: 772986531
@@ -2342,146 +303,20 @@ GroupIndex	||	Player
 1	||	772986531
 and there are no more players!
 AddPlayer: FAILURE
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 1835842839 (772986531) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 1835842839 (772986531) 
-
-
 ReplaceGroup: SUCCESS
 AddPlayer: FAILURE
 AddGroup: SUCCESS
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 1835842839 (772986531) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 1835842839 (772986531) 
-
-
 ReplaceGroup: SUCCESS
 ReplaceGroup: INVALID_INPUT
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 1835842839 (772986531) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 1835842839 (772986531) 
-
-
 AddPlayer: SUCCESS
 Highest level player is: 772986531
-
-best_non_empty before IncreaseLevel:----------- 
-
-
-└──────group id: 1835842839 (772986531) 
-
-
-
------------best_non_empty after IncreaseLevel: 
-
-
-└──────group id: 1835842839 (772986531) 
-
-
 IncreaseLevel: SUCCESS
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 1835842839 (772986531) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 1835842839 (772986531) 
-
-
 AddPlayer: SUCCESS
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 1835842839 (772986531) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-└──────group id: 1835842839 (772986531) 
-
-
 RemovePlayer: SUCCESS
 ReplaceGroup: INVALID_INPUT
-
-best_non_empty before IncreaseLevel:----------- 
-
-
-└──────group id: 1835842839 (772986531) 
-
-
-
------------best_non_empty after IncreaseLevel: 
-
-
-└──────group id: 1835842839 (772986531) 
-
-
 IncreaseLevel: SUCCESS
-
-best_non_empty before IncreaseLevel:----------- 
-
-
-└──────group id: 1835842839 (772986531) 
-
-
-
------------best_non_empty after IncreaseLevel: 
-
-
-└──────group id: 1835842839 (772986531) 
-
-
 IncreaseLevel: SUCCESS
 GetGroupsHighestLevel: FAILURE
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 1835842839 (772986531) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-└──────group id: 1835842839 (772986531) 
-
-
 RemovePlayer: SUCCESS
 Rank	||	Player
 1	||	772986531
@@ -2494,87 +329,17 @@ Rank	||	Player
 8	||	1433916509
 and there are no more players!
 ReplaceGroup: INVALID_INPUT
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 1835842839 (772986531) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 1835842839 (772986531) 
-
-
 AddPlayer: SUCCESS
 ReplaceGroup: INVALID_INPUT
-
-best_non_empty before IncreaseLevel:----------- 
-
-
-└──────group id: 1835842839 (772986531) 
-
-
-
------------best_non_empty after IncreaseLevel: 
-
-
-└──────group id: 1835842839 (772986531) 
-
-
 IncreaseLevel: SUCCESS
 GetHighestLevel: FAILURE
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 1835842839 (772986531) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-└──────group id: 1835842839 (1270687664) 
-
-
 RemovePlayer: SUCCESS
-
-best_non_empty before IncreaseLevel:----------- 
-
-
-└──────group id: 1835842839 (1270687664) 
-
-
-
------------best_non_empty after IncreaseLevel: 
-
-
-└──────group id: 1835842839 (1270687664) 
-
-
 IncreaseLevel: SUCCESS
 AddGroup: SUCCESS
 GroupIndex	||	Player
 1	||	1270687664
 and there are no more players!
 AddPlayer: INVALID_INPUT
-
-best_non_empty before IncreaseLevel:----------- 
-
-
-└──────group id: 1835842839 (1270687664) 
-
-
-
------------best_non_empty after IncreaseLevel: 
-
-
-└──────group id: 1835842839 (1270687664) 
-
-
 IncreaseLevel: SUCCESS
 ReplaceGroup: FAILURE
 AddGroup: SUCCESS
@@ -2591,457 +356,51 @@ and there are no more players!
 AddGroup: FAILURE
 AddGroup: SUCCESS
 AddGroup: SUCCESS
-
-best_non_empty before IncreaseLevel:----------- 
-
-
-└──────group id: 1835842839 (1270687664) 
-
-
-
------------best_non_empty after IncreaseLevel: 
-
-
-└──────group id: 1835842839 (1270687664) 
-
-
 IncreaseLevel: SUCCESS
 AddGroup: SUCCESS
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 1835842839 (1270687664) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 1835842839 (1270687664) 
-        └──────group id: 246683433 (1492879127) 
-
-
 AddPlayer: SUCCESS
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 1835842839 (1270687664) 
-        └──────group id: 246683433 (1492879127) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 1835842839 (1270687664) 
-        └──────group id: 246683433 (1492879127) 
-
-
 ReplaceGroup: SUCCESS
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 1835842839 (1270687664) 
-        └──────group id: 246683433 (1492879127) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-└──────group id: 1835842839 (1270687664) 
-        └──────group id: 246683433 (1492879127) 
-
-
 RemovePlayer: SUCCESS
 GroupIndex	||	Player
 1	||	1492879127
 and there are no more players!
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 1835842839 (1270687664) 
-        └──────group id: 246683433 (1492879127) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 1835842839 (1270687664) 
-        └──────group id: 246683433 (1492879127) 
-
-
 ReplaceGroup: SUCCESS
 IncreaseLevel: FAILURE
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 1835842839 (1270687664) 
-        └──────group id: 246683433 (1492879127) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 1835842839 (1270687664) 
-        └──────group id: 246683433 (1492879127) 
-
-
 AddPlayer: SUCCESS
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 1835842839 (1270687664) 
-        └──────group id: 246683433 (1492879127) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 1835842839 (1270687664) 
-
-
 ReplaceGroup: SUCCESS
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 1835842839 (1270687664) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 1835842839 (1270687664) 
-
-
 ReplaceGroup: SUCCESS
 Highest level player is: 1270687664
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 1835842839 (1270687664) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 1835842839 (1270687664) 
-
-
 ReplaceGroup: SUCCESS
-
-best_non_empty before IncreaseLevel:----------- 
-
-
-└──────group id: 1835842839 (1270687664) 
-
-
-
------------best_non_empty after IncreaseLevel: 
-
-
-└──────group id: 1835842839 (1270687664) 
-
-
 IncreaseLevel: SUCCESS
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 1835842839 (1270687664) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 1835842839 (1270687664) 
-
-
 AddPlayer: SUCCESS
 ReplaceGroup: INVALID_INPUT
 AddGroup: SUCCESS
-
-best_non_empty before IncreaseLevel:----------- 
-
-
-└──────group id: 1835842839 (1270687664) 
-
-
-
------------best_non_empty after IncreaseLevel: 
-
-
-└──────group id: 1835842839 (1270687664) 
-
-
 IncreaseLevel: SUCCESS
 AddGroup: SUCCESS
-
-best_non_empty before IncreaseLevel:----------- 
-
-
-└──────group id: 1835842839 (1270687664) 
-
-
-
------------best_non_empty after IncreaseLevel: 
-
-
-└──────group id: 1835842839 (1270687664) 
-
-
 IncreaseLevel: SUCCESS
 AddPlayer: INVALID_INPUT
 AddGroup: SUCCESS
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 1835842839 (1270687664) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 1835842839 (1270687664) 
-
-
 ReplaceGroup: SUCCESS
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 1835842839 (1270687664) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-└──────group id: 1835842839 (1270687664) 
-
-
 RemovePlayer: SUCCESS
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 1835842839 (1270687664) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 1835842839 (1270687664) 
-        └──────group id: 1295367404 (1340630613) 
-
-
 AddPlayer: SUCCESS
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 1835842839 (1270687664) 
-        └──────group id: 1295367404 (1340630613) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 1835842839 (1270687664) 
-        └──────group id: 1295367404 (1477441405) 
-
-
 AddPlayer: SUCCESS
 Highest level player is: 1477441405
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 1835842839 (1270687664) 
-        └──────group id: 1295367404 (1477441405) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 1835842839 (1270687664) 
-        ├──────group id: 1926015938 (1477441405) 
-
-
 ReplaceGroup: SUCCESS
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 1835842839 (1270687664) 
-        ├──────group id: 1926015938 (1477441405) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 1835842839 (1270687664) 
-        ├──────group id: 1926015938 (1477441405) 
-
-
 AddPlayer: SUCCESS
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 1835842839 (1270687664) 
-        ├──────group id: 1926015938 (1477441405) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-└──────group id: 1835842839 (1270687664) 
-        ├──────group id: 1926015938 (1477441405) 
-
-
 RemovePlayer: SUCCESS
 AddGroup: SUCCESS
-
-best_non_empty before IncreaseLevel:----------- 
-
-
-└──────group id: 1835842839 (1270687664) 
-        ├──────group id: 1926015938 (1477441405) 
-
-
-
------------best_non_empty after IncreaseLevel: 
-
-
-└──────group id: 1835842839 (1270687664) 
-        ├──────group id: 1926015938 (1477441405) 
-
-
 IncreaseLevel: SUCCESS
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 1835842839 (1270687664) 
-        ├──────group id: 1926015938 (1477441405) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-└──────group id: 1835842839 (1270687664) 
-        ├──────group id: 1926015938 (1477441405) 
-
-
 RemovePlayer: SUCCESS
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 1835842839 (1270687664) 
-        ├──────group id: 1926015938 (1477441405) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 1835842839 (1270687664) 
-        ├──────group id: 1926015938 (1477441405) 
-
-
 ReplaceGroup: SUCCESS
 GetGroupsHighestLevel: FAILURE
 RemovePlayer: FAILURE
 AddGroup: INVALID_INPUT
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 1835842839 (1270687664) 
-        ├──────group id: 1926015938 (1477441405) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-└──────group id: 1835842839 (1270687664) 
-        ├──────group id: 1926015938 (1477441405) 
-
-
 RemovePlayer: SUCCESS
 GetAllPlayersByLevel: FAILURE
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 1835842839 (1270687664) 
-        ├──────group id: 1926015938 (1477441405) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 1835842839 (1270687664) 
-
-
 ReplaceGroup: SUCCESS
 AddGroup: FAILURE
 ReplaceGroup: INVALID_INPUT
-
-best_non_empty before IncreaseLevel:----------- 
-
-
-└──────group id: 1835842839 (1270687664) 
-
-
-
------------best_non_empty after IncreaseLevel: 
-
-
-└──────group id: 1835842839 (1270687664) 
-
-
 IncreaseLevel: SUCCESS
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 1835842839 (1270687664) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 1835842839 (1270687664) 
-
-
 AddPlayer: SUCCESS
 AddGroup: SUCCESS
 Rank	||	Player
@@ -3056,20 +415,6 @@ Rank	||	Player
 9	||	1477441405
 10	||	1340630613
 and there are no more players!
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 1835842839 (1270687664) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-└──────group id: 1835842839 (1270687664) 
-
-
 RemovePlayer: SUCCESS
 Rank	||	Player
 1	||	1270687664
@@ -3085,499 +430,57 @@ and there are no more players!
 GroupIndex	||	Player
 1	||	1270687664
 and there are no more players!
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 1835842839 (1270687664) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-└──────group id: 1835842839 (1148610016) 
-
-
 RemovePlayer: SUCCESS
 IncreaseLevel: FAILURE
 AddGroup: SUCCESS
 AddGroup: SUCCESS
 AddGroup: SUCCESS
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 1835842839 (1148610016) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 1835842839 (1148610016) 
-
-
 ReplaceGroup: SUCCESS
 GroupIndex	||	Player
 1	||	1148610016
 and there are no more players!
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 1835842839 (1148610016) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-└──────group id: 1835842839 (1148610016) 
-
-
 RemovePlayer: SUCCESS
-
-best_non_empty before IncreaseLevel:----------- 
-
-
-└──────group id: 1835842839 (1148610016) 
-
-
-
------------best_non_empty after IncreaseLevel: 
-
-
-└──────group id: 1835842839 (1148610016) 
-
-
 IncreaseLevel: SUCCESS
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 1835842839 (1148610016) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 1835842839 (1148610016) 
-        └──────group id: 113324512 (1244043177) 
-
-
 AddPlayer: SUCCESS
 AddGroup: SUCCESS
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 1835842839 (1148610016) 
-        └──────group id: 113324512 (1244043177) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 480970628 (2139631346) 
-        ├──────group id: 1835842839 (1148610016) 
-        └──────group id: 113324512 (1244043177) 
-
-
 AddPlayer: SUCCESS
-
-best_non_empty before IncreaseLevel:----------- 
-
-
-└──────group id: 480970628 (2139631346) 
-        ├──────group id: 1835842839 (1148610016) 
-        └──────group id: 113324512 (1244043177) 
-
-
-
------------best_non_empty after IncreaseLevel: 
-
-
-└──────group id: 480970628 (2139631346) 
-        ├──────group id: 1835842839 (1148610016) 
-        └──────group id: 113324512 (1244043177) 
-
-
 IncreaseLevel: SUCCESS
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 480970628 (2139631346) 
-        ├──────group id: 1835842839 (1148610016) 
-        └──────group id: 113324512 (1244043177) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-└──────group id: 480970628 (2139631346) 
-        ├──────group id: 1835842839 (1148610016) 
-        └──────group id: 113324512 (1244043177) 
-
-
 RemovePlayer: SUCCESS
 AddGroup: FAILURE
 Highest level player is: 1148610016
 Highest level player is: -1
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 480970628 (2139631346) 
-        ├──────group id: 1835842839 (1148610016) 
-        └──────group id: 113324512 (1244043177) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 480970628 (2139631346) 
-        ├──────group id: 1835842839 (1148610016) 
-        └──────group id: 113324512 (1244043177) 
-
-
 ReplaceGroup: SUCCESS
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 480970628 (2139631346) 
-        ├──────group id: 1835842839 (1148610016) 
-        └──────group id: 113324512 (1244043177) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 216779693 (1148610016) 
-        ├──────group id: 480970628 (2139631346) 
-        └──────group id: 113324512 (1244043177) 
-
-
 ReplaceGroup: SUCCESS
-
-best_non_empty before IncreaseLevel:----------- 
-
-
-└──────group id: 216779693 (1148610016) 
-        ├──────group id: 480970628 (2139631346) 
-        └──────group id: 113324512 (1244043177) 
-
-
-
------------best_non_empty after IncreaseLevel: 
-
-
-└──────group id: 216779693 (1148610016) 
-        ├──────group id: 480970628 (2139631346) 
-        └──────group id: 113324512 (1244043177) 
-
-
 IncreaseLevel: SUCCESS
 AddGroup: SUCCESS
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 216779693 (1148610016) 
-        ├──────group id: 480970628 (2139631346) 
-        └──────group id: 113324512 (1244043177) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-└──────group id: 216779693 (1148610016) 
-        ├──────group id: 480970628 (2139631346) 
-        └──────group id: 113324512 (1244043177) 
-
-
 RemovePlayer: SUCCESS
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 216779693 (1148610016) 
-        ├──────group id: 480970628 (2139631346) 
-        └──────group id: 113324512 (1244043177) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 216779693 (1148610016) 
-        ├──────group id: 480970628 (2139631346) 
-        │       ├──────group id: 1230668634 (443970742) 
-        └──────group id: 113324512 (1244043177) 
-
-
 AddPlayer: SUCCESS
-
-best_non_empty before IncreaseLevel:----------- 
-
-
-└──────group id: 216779693 (1148610016) 
-        ├──────group id: 480970628 (2139631346) 
-        │       ├──────group id: 1230668634 (443970742) 
-        └──────group id: 113324512 (1244043177) 
-
-
-
------------best_non_empty after IncreaseLevel: 
-
-
-└──────group id: 216779693 (1148610016) 
-        ├──────group id: 480970628 (2139631346) 
-        │       ├──────group id: 1230668634 (443970742) 
-        └──────group id: 113324512 (1244043177) 
-
-
 IncreaseLevel: SUCCESS
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 216779693 (1148610016) 
-        ├──────group id: 480970628 (2139631346) 
-        │       ├──────group id: 1230668634 (443970742) 
-        └──────group id: 113324512 (1244043177) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 480970628 (2139631346) 
-        ├──────group id: 1230668634 (1944555144) 
-        └──────group id: 113324512 (1244043177) 
-
-
 ReplaceGroup: SUCCESS
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 480970628 (2139631346) 
-        ├──────group id: 1230668634 (1944555144) 
-        └──────group id: 113324512 (1244043177) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 480970628 (1944555144) 
-        └──────group id: 113324512 (1244043177) 
-
-
 ReplaceGroup: SUCCESS
 GetAllPlayersByLevel: FAILURE
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 480970628 (1944555144) 
-        └──────group id: 113324512 (1244043177) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-└──────group id: 480970628 (1944555144) 
-        └──────group id: 113324512 (1244043177) 
-
-
 RemovePlayer: SUCCESS
 IncreaseLevel: INVALID_INPUT
 AddGroup: FAILURE
 AddGroup: SUCCESS
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 480970628 (1944555144) 
-        └──────group id: 113324512 (1244043177) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-└──────group id: 480970628 (1944555144) 
-
-
 RemovePlayer: SUCCESS
 AddPlayer: INVALID_INPUT
 AddGroup: SUCCESS
-
-best_non_empty before IncreaseLevel:----------- 
-
-
-└──────group id: 480970628 (1944555144) 
-
-
-
------------best_non_empty after IncreaseLevel: 
-
-
-└──────group id: 480970628 (1944555144) 
-
-
 IncreaseLevel: SUCCESS
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 480970628 (1944555144) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 1073812892 (1944555144) 
-
-
 ReplaceGroup: SUCCESS
-
-best_non_empty before IncreaseLevel:----------- 
-
-
-└──────group id: 1073812892 (1944555144) 
-
-
-
------------best_non_empty after IncreaseLevel: 
-
-
-└──────group id: 1073812892 (1944555144) 
-
-
 IncreaseLevel: SUCCESS
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 1073812892 (1944555144) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 406768378 (1944555144) 
-
-
 ReplaceGroup: SUCCESS
-
-best_non_empty before IncreaseLevel:----------- 
-
-
-└──────group id: 406768378 (1944555144) 
-
-
-
------------best_non_empty after IncreaseLevel: 
-
-
-└──────group id: 406768378 (1944555144) 
-
-
 IncreaseLevel: SUCCESS
 GroupIndex	||	Player
 1	||	1944555144
 and there are no more players!
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 406768378 (1944555144) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 406768378 (1944555144) 
-
-
 ReplaceGroup: SUCCESS
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 406768378 (1944555144) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 406768378 (1944555144) 
-
-
 AddPlayer: SUCCESS
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 406768378 (1944555144) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-└──────group id: 406768378 (1944555144) 
-
-
 RemovePlayer: SUCCESS
 Highest level player is: 1944555144
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 406768378 (1944555144) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 406768378 (1944555144) 
-
-
 AddPlayer: SUCCESS
 AddPlayer: INVALID_INPUT
 IncreaseLevel: INVALID_INPUT
-
-best_non_empty before IncreaseLevel:----------- 
-
-
-└──────group id: 406768378 (1944555144) 
-
-
-
------------best_non_empty after IncreaseLevel: 
-
-
-└──────group id: 406768378 (1944555144) 
-
-
 IncreaseLevel: SUCCESS
 AddPlayer: FAILURE
 AddPlayer: FAILURE
@@ -3590,66 +493,10 @@ Rank	||	Player
 6	||	1433388679
 7	||	2042584719
 and there are no more players!
-
-best_non_empty before IncreaseLevel:----------- 
-
-
-└──────group id: 406768378 (1944555144) 
-
-
-
------------best_non_empty after IncreaseLevel: 
-
-
-└──────group id: 406768378 (1944555144) 
-
-
 IncreaseLevel: SUCCESS
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 406768378 (1944555144) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-└──────group id: 406768378 (1944555144) 
-
-
 RemovePlayer: SUCCESS
 AddPlayer: INVALID_INPUT
-
-best_non_empty before IncreaseLevel:----------- 
-
-
-└──────group id: 406768378 (1944555144) 
-
-
-
------------best_non_empty after IncreaseLevel: 
-
-
-└──────group id: 406768378 (1944555144) 
-
-
 IncreaseLevel: SUCCESS
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 406768378 (1944555144) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-└──────group id: 406768378 (1944555144) 
-
-
 RemovePlayer: SUCCESS
 Rank	||	Player
 1	||	1340630613
@@ -3659,67 +506,11 @@ Rank	||	Player
 5	||	2139631346
 and there are no more players!
 ReplaceGroup: INVALID_INPUT
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 406768378 (1944555144) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 406768378 (1944555144) 
-
-
 AddPlayer: SUCCESS
 Highest level player is: 1340630613
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 406768378 (1944555144) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 406768378 (1944555144) 
-
-
 AddPlayer: SUCCESS
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 406768378 (1944555144) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-└──────group id: 406768378 (1944555144) 
-
-
 RemovePlayer: SUCCESS
 Highest level player is: 1340630613
-
-best_non_empty before IncreaseLevel:----------- 
-
-
-└──────group id: 406768378 (1944555144) 
-
-
-
------------best_non_empty after IncreaseLevel: 
-
-
-└──────group id: 406768378 (1944555144) 
-
-
 IncreaseLevel: SUCCESS
 Rank	||	Player
 1	||	1340630613
@@ -3730,116 +521,18 @@ Rank	||	Player
 6	||	1133301120
 and there are no more players!
 IncreaseLevel: INVALID_INPUT
-
-best_non_empty before IncreaseLevel:----------- 
-
-
-└──────group id: 406768378 (1944555144) 
-
-
-
------------best_non_empty after IncreaseLevel: 
-
-
-└──────group id: 406768378 (1944555144) 
-
-
 IncreaseLevel: SUCCESS
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 406768378 (1944555144) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-└──────group id: 406768378 (1944555144) 
-
-
 RemovePlayer: SUCCESS
-
-best_non_empty before AddPlayer:----------- 
-
-
-└──────group id: 406768378 (1944555144) 
-
-
-
------------best_non_empty after AddPlayer: 
-
-
-└──────group id: 406768378 (1944555144) 
-
-
 AddPlayer: SUCCESS
 AddGroup: SUCCESS
 Highest level player is: 1340630613
 AddGroup: FAILURE
 AddGroup: FAILURE
 RemovePlayer: FAILURE
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 406768378 (1944555144) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-└──────group id: 406768378 (1944555144) 
-
-
 RemovePlayer: SUCCESS
 RemovePlayer: INVALID_INPUT
-
-best_non_empty before RemovePlayer:----------- 
-
-
-└──────group id: 406768378 (1944555144) 
-
-
-
------------best_non_empty after RemovePlayer: 
-
-
-└──────group id: 406768378 (1944555144) 
-
-
 RemovePlayer: SUCCESS
-
-best_non_empty before ReplaceGroup:----------- 
-
-
-└──────group id: 406768378 (1944555144) 
-
-
-
------------best_non_empty after ReplaceGroup: 
-
-
-└──────group id: 406768378 (1944555144) 
-
-
 ReplaceGroup: SUCCESS
-
-best_non_empty before IncreaseLevel:----------- 
-
-
-└──────group id: 406768378 (1944555144) 
-
-
-
------------best_non_empty after IncreaseLevel: 
-
-
-└──────group id: 406768378 (1944555144) 
-
-
 IncreaseLevel: SUCCESS
 ReplaceGroup: INVALID_INPUT
 Quit done.

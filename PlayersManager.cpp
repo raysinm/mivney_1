@@ -99,45 +99,52 @@ namespace PM{
         /* std::cout << "\nbest_non_empty before RemovePlayer:----------- " <<std::endl;
         best_in_non_empty_groups.printTreeData(); */
 
-        auto& player_data = *(all_players.AVLGet(PlayerID));
-        auto*& player_group_data = player_data.owner_group_data;
+        PlayerData& player_data = *(all_players.AVLGet(PlayerID));
+        GroupData*& player_group_data = player_data.owner_group_data;
         auto& player_group_tree = player_group_data->group_players;
         int level = player_data.level;
         PlayerKey player_key(PlayerID, level);
 
-        all_players_sorted.AVLRemove(player_key);
-        player_group_tree.AVLRemove(player_key);
         
+        all_players_sorted.AVLRemove(player_key);
+
         if(all_players_sorted.size() != 0){
             best_of_all = all_players_sorted.AVLMax().id;
         }else{
             best_of_all = -1;
         }
         
-        int GroupID = player_group_data->group_id;
-        auto prev_best_in_group = player_group_data->best_in_group;
+        //GroupData& group_data_after_rem = *player_group_data;
+        PlayerData after_rem_player_data(player_data);
+        
+        player_group_tree.AVLRemove(player_key);
+        GroupData*& after_rem_group_data = after_rem_player_data.owner_group_data;
+        //PlayerKey new_best_in_group = player_group_tree.AVLMax();
+        //player_group_tree.AVLInsert(player_key,player_data);
+        
+        int GroupID = after_rem_group_data->group_id;
+        auto prev_best_in_group = after_rem_group_data->best_in_group;
         if(player_group_tree.size() != 0){
-            player_group_data->best_in_group = player_group_tree.AVLMax();
+            after_rem_group_data->best_in_group = player_group_tree.AVLMax();
             
         }else if(player_group_tree.size() == 0){
-            player_group_data->best_in_group.id = -1;
-            player_group_data->best_in_group.level = -1;
+            after_rem_group_data->best_in_group.id = -1;
+            after_rem_group_data->best_in_group.level = -1;
             //num_of_nonempty_groups--;
 
             /* std::cout << "\nbefore REMOVE IN NON EMPTY----------- " << std::endl;
             best_in_non_empty_groups.printTree(); */
 
-            best_in_non_empty_groups.AVLRemove(GroupKey(player_group_data->group_id));
+            best_in_non_empty_groups.AVLRemove(GroupKey(after_rem_group_data->group_id));
 
             /* std::cout << "\n---------after REMOVE IN NON EMPTY" << std::endl;
             best_in_non_empty_groups.printTree(); */
         }
 
-        if((player_group_tree.size() != 0) && !(prev_best_in_group == player_group_data->best_in_group)){
-            if(best_in_non_empty_groups.AVLExist(GroupKey(GroupID))){
-                best_in_non_empty_groups.AVLRemove(GroupKey(GroupID));
-                best_in_non_empty_groups.AVLInsert(GroupKey(GroupID),player_group_data->best_in_group.id);
-            }                
+        if((player_group_tree.size() != 0) && !(prev_best_in_group == after_rem_group_data->best_in_group)){
+            //if(best_in_non_empty_groups.AVLExist(GroupKey(GroupID))){
+            best_in_non_empty_groups.AVLRemove(GroupKey(GroupID));
+            best_in_non_empty_groups.AVLInsert(GroupKey(GroupID),after_rem_group_data->best_in_group.id);              
             /* int& player_in_non_empty = best_in_non_empty_groups.AVLGet(GroupKey(player_group_data.group_id));
             player_in_non_empty = player_group_data.best_in_group; */
         }
@@ -147,7 +154,8 @@ namespace PM{
         std::cout << "\nall players:" << std::endl;
         all_players.printTree();  */
         all_players.AVLRemove(PlayerID);
-
+        
+        
         /* std::cout << "\n-----------best_non_empty after RemovePlayer: " <<std::endl;
         best_in_non_empty_groups.printTreeData(); */
         
