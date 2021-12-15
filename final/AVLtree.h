@@ -97,13 +97,12 @@ namespace AVL{
             TNode* findReplacingNode(TNode* node) const;
             
             TNode* ArrayToAVLTree(TNode** array, int start, int end, TNode* father);
-            //void InOrderOutputDatas_rec(TNode* node, Data** arr, int& arr_index, const int arr_size);
             void InOrderOutputTNodes_rec(TNode* node, TNode** arr, int& arr_index, const int arr_size);
             void MergeArray(AVLTree<KeyElem,Data>::TNode** arr1, const int arr1_size,
                                 AVLTree<KeyElem,Data>::TNode** arr2, const int arr2_size,
                                 AVLTree<KeyElem,Data>::TNode** merged_arr);
             TNode* AVLGetFirst() const;
-                        void printTree_rec(const std::string& prefix, const TNode* node, bool isLeft);
+            void printTree_rec(const std::string& prefix, const TNode* node, bool isLeft);
             void printTreeData_rec(const std::string& prefix, const TNode* node, bool isLeft);
             void AVLDestroy_rec(TNode*) const;
 
@@ -182,8 +181,8 @@ namespace AVL{
             void AVLMerge(AVLTree<KeyElem,Data>& other_tree);
             Data& AVLGet(const KeyElem& key) const;
             int size() const;
-            KeyElem& AVLMax() const;
-            void AVLPrintInOrder() const;
+            KeyElem& AVLMin() const;
+
             void printTree();
             void printTreeData();
             
@@ -351,23 +350,12 @@ namespace AVL{
      * @return const KeyElem& 
      */
     template<class KeyElem, class Data>
-    KeyElem& AVLTree<KeyElem,Data>::AVLMax() const{
+    KeyElem& AVLTree<KeyElem,Data>::AVLMin() const{
         auto* current = this->root; //added *
         while(current->left_son){
             current = current->left_son;
         }
         return current->key;
-    }
-
-    /**
-     * @brief prints the keys of the tree elements in Inorder order. uses a private recurcisve function
-     * 
-     * @tparam KeyElem 
-     * @tparam Data 
-     */
-    template<class KeyElem, class Data>
-    void AVLTree<KeyElem,Data>:: AVLPrintInOrder() const{
-        AVLPrintInOrder_rec(this->root);
     }
 
     /**
@@ -720,7 +708,6 @@ namespace AVL{
                 AVLNodeRefreshHeight(node);
                 AVLNodeRefreshBF(node);
 
-                //this->printTree();
                 if(!node->leftSonExists() && !node->rightSonExists()){  //This is a leaf
                     
                     if(node->father == replacer){
@@ -730,7 +717,6 @@ namespace AVL{
                         node->father->right_son = nullptr;
                     }
                     AVLBalance(node->father);
-                    //this->printTree();
                     delete node;
                     return;
                 }
@@ -749,7 +735,6 @@ namespace AVL{
                     node_son->father = node->father;
                 }
                 AVLBalance(node->father);
-                //this->printTree();
                 delete node;
                 return;
             }
