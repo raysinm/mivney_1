@@ -48,20 +48,19 @@ namespace PM{
         else{ 
             auto pre_best_in_group = group_data.best_in_group;
 
-            group_data.best_in_group = players.AVLMax();
+            group_data.best_in_group = players.AVLMin();
 
 
             if(group_data.best_in_group < pre_best_in_group){
-                if(best_in_non_empty_groups.AVLExist(GroupKey(GroupID))){
-                    best_in_non_empty_groups.AVLRemove(GroupKey(GroupID));
-                    best_in_non_empty_groups.AVLInsert(GroupKey(GroupID),PlayerID);
-                }
+                best_in_non_empty_groups.AVLRemove(GroupKey(GroupID));
+                best_in_non_empty_groups.AVLInsert(GroupKey(GroupID),PlayerID);
+                
             }
         }
 
         all_players.AVLInsert(PlayerID, new_player);
         all_players_sorted.AVLInsert(new_player_key, new_player);
-        best_of_all = all_players_sorted.AVLMax().id;
+        best_of_all = all_players_sorted.AVLMin().id;
 
         return SUCCESS;
         }catch(...){
@@ -84,7 +83,7 @@ namespace PM{
         all_players_sorted.AVLRemove(player_key);
 
         if(all_players_sorted.size() != 0){
-            best_of_all = all_players_sorted.AVLMax().id;
+            best_of_all = all_players_sorted.AVLMin().id;
         }else{
             best_of_all = -1;
         }
@@ -94,7 +93,7 @@ namespace PM{
         int GroupID = after_rem_group_data->group_id;
         auto prev_best_in_group = after_rem_group_data->best_in_group;
         if(player_group_tree.size() != 0){
-            after_rem_group_data->best_in_group = player_group_tree.AVLMax();
+            after_rem_group_data->best_in_group = player_group_tree.AVLMin();
             
         }else if(player_group_tree.size() == 0){
             after_rem_group_data->best_in_group.id = -1;
@@ -136,11 +135,9 @@ namespace PM{
                 if( group_data.best_in_group < replacement_data.best_in_group){
                     replacement_data.best_in_group = group_data.best_in_group;
                     if(replacement_data.group_players.size() != 0){
-                        if(best_in_non_empty_groups.AVLExist(GroupKey(GroupID))){
-                            best_in_non_empty_groups.AVLRemove(GroupKey(ReplacementID));
-                            best_in_non_empty_groups.AVLInsert(GroupKey(ReplacementID),group_data.best_in_group.id);
-                        }
-
+                        best_in_non_empty_groups.AVLRemove(GroupKey(ReplacementID));
+                        best_in_non_empty_groups.AVLInsert(GroupKey(ReplacementID),group_data.best_in_group.id);
+        
                     }else if(players_to_move.size() != 0 && replacement_data.group_players.size() == 0){
                         best_in_non_empty_groups.AVLInsert(GroupKey(ReplacementID), group_data.best_in_group.id);
                     }
@@ -183,7 +180,7 @@ namespace PM{
             auto old_best = player_group_data.best_in_group;
             player_old_data = new_player;
 
-            player_group_data.best_in_group = player_group_tree.AVLMax();
+            player_group_data.best_in_group = player_group_tree.AVLMin();
 
             if(!(old_best == player_group_data.best_in_group)){
                 if(best_in_non_empty_groups.AVLExist(GroupKey(GroupID))){
@@ -194,7 +191,7 @@ namespace PM{
             
             all_players_sorted.AVLRemove(player_old_key);
             all_players_sorted.AVLInsert(player_new_key, new_player);
-            best_of_all = all_players_sorted.AVLMax().id;
+            best_of_all = all_players_sorted.AVLMin().id;
 
             return SUCCESS;
 
